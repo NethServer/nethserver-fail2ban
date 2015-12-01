@@ -1,0 +1,60 @@
+{
+my $httpd = $httpd{status} || 'disabled';
+return "#httpd not used on this server" unless ($httpd eq 'enabled');
+}
+
+[apache-auth]
+enabled  = {($fail2ban{ApacheAuth_status} || 'true');}
+port     = {$httpd{TCPPorts};}
+logpath  = %(apache_error_log)s
+maxretry = {($fail2ban{MaxRetry} || '3');}
+
+[apache-badbots]
+enabled  = {($fail2ban{ApacheBadbots_status} || 'true');}
+port     = {$httpd{TCPPorts};}
+logpath  = %(apache_access_log)s
+bantime  = {($fail2ban{ApacheBadbots_bantime} || '172800');}
+maxretry = {($fail2ban{ApacheBadbots_maxretry} || '1');}
+
+[apache-noscript]
+enabled  = {($fail2ban{ApacheNoscript_status} || 'true');}
+port     = {$httpd{TCPPorts};}
+logpath  = %(apache_error_log)s
+maxretry = {($fail2ban{ApacheNoscript_maxretry} || '6');}
+
+[apache-overflows]
+enabled  = {($fail2ban{ApacheOverflows_status} || 'true');}
+port     = {$httpd{TCPPorts};}
+logpath  = %(apache_error_log)s
+maxretry = {($fail2ban{ApacheOverflows_maxretry} || '2');}
+
+[apache-nohome]
+enabled  = {($fail2ban{ApacheNohome_status} || 'true');}
+port     = {$httpd{TCPPorts};}
+logpath  = %(apache_error_log)s
+maxretry = {($fail2ban{ApacheNohome_maxretry} || '2');}
+
+[apache-botsearch]
+enabled  = {($fail2ban{ApacheBotsearch_status} || 'true');}
+port     =  {$httpd{TCPPorts};}
+logpath  = %(apache_error_log)s
+maxretry = {($fail2ban{ApacheBotsearch_maxretry} || '2');}
+
+[apache-fakegooglebot]
+enabled  = {($fail2ban{ApacheFakegooglebot_status} || 'true');}
+port     = {$httpd{TCPPorts};}
+logpath  = %(apache_access_log)s
+maxretry = {($fail2ban{ApacheFakegooglebot_maxretry} || '1');}
+ignorecommand = %(ignorecommands_dir)s/apache-fakegooglebot <ip>
+
+[apache-modsecurity]
+enabled  = {($fail2ban{ApacheModsecurity_status} || 'true');}
+port     = {$httpd{TCPPorts};}
+logpath  = %(apache_error_log)s
+maxretry = {($fail2ban{ApacheModsecurity_maxretry} || '2');}
+
+[apache-shellshock]
+enabled  = {($fail2ban{ApacheShellshock_status} || 'true');}
+port     = {$httpd{TCPPorts};}
+logpath  = %(apache_error_log)s
+maxretry = {($fail2ban{ApacheShellshock_maxretry} || '1');}

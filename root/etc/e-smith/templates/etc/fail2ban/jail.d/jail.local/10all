@@ -1,0 +1,16 @@
+[DEFAULT]
+ignoreip = 127.0.0.1/8 $localAccess 
+bantime  = {($fail2ban{BanTime} || '600');}
+findtime  = {($fail2ban{FindTime} || '600');}
+maxretry = {($fail2ban{MaxRetry} || '3');}
+usedns = yes
+
+#ban action can iptables-allports or shorewall
+banaction = {($fail2ban{BanAction} || 'iptables-multiport');}
+
+sender = admin@{$DomainName}
+destemail = admin@{$DomainName}
+
+###action = %(action_)s if you don't want email
+action = {($fail2ban{Action} || '%(action_mw)s');}
+

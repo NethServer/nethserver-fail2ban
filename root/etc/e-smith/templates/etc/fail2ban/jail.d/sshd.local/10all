@@ -1,0 +1,9 @@
+[sshd]
+enabled  = {($fail2ban{Sshd_status} || 'true')}
+port    = {$sshd{TCPPort};}
+logpath = %(sshd_log)s
+
+[sshd-ddos]
+enabled  = {($fail2ban{SshdDdos_status} || 'true')}
+port     = {$sshd{TCPPort};}
+logpath  = %(sshd_log)s

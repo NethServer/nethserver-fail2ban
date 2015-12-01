@@ -1,0 +1,10 @@
+{
+my $ftp = $vsftpd{status} || 'disabled';
+return "#vsftpd not used on this server" 
+           unless (($ftp eq 'enabled') && (-f /var/log/vsftpd.log));
+}
+
+[vsftpd]
+enabled  = {($fail2ban{Vsftpd_status} || 'true');}
+port     = {$vsftpd{TCPPort}}
+logpath  = /var/log/vsftpd.log

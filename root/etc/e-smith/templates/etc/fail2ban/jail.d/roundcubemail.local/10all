@@ -1,0 +1,8 @@
+{
+return "#roundcubemail not installed on this server" unless (-f /var/log/roundcubemail/errors);
+}
+
+[roundcube-auth]
+enabled  = {($fail2ban{Roundcube_status} || 'true');}
+port     = {$httpd{TCPPorts};}
+logpath  = /var/log/roundcubemail/errors

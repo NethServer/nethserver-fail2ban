@@ -1,0 +1,9 @@
+{
+my $sogo = $sogod{status} || 'disabled';
+return '#sogo is not used on this server' unless ($sogo eq 'enabled');
+}
+
+[sogo-auth]
+enabled  = {($fail2ban{SogoAuth_status} || 'true');}
+port     = {$httpd{TCPPorts};}
+logpath  = /var/log/sogo/sogo.log
