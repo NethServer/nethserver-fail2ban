@@ -1,0 +1,21 @@
+#!/usr/bin/perl -w
+
+use esmith::Build::CreateLinks qw(:all);
+
+# actions to do
+my $event = 'nethserver-fail2ban-update';
+event_actions($event, 
+             'initialize-default-databases' => '00');
+
+#templates to expand
+foreach my $event (qw ( runlevel-adjust nethserver-fail2ban-save)) {
+    templates2events("/etc/fail2ban/fail2ban.local", $event);
+    templates2events('/etc/fail2ban/jail.local', $event);
+    templates2events('/etc/fail2ban/action.d/shorewall.local', $event);
+}
+
+# services to launch on event
+foreach my $event (qw ( runlevel-adjust nethserver-fail2ban-save)) {
+event_services($event,
+    'fail2ban'=> 'restart');
+}

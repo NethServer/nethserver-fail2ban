@@ -1,0 +1,24 @@
+{
+my $postfix = $postfix{status} || 'disabled';
+return "\n#postfix not used on this server"
+                   unless (($postfix eq 'enabled') && (-f '/var/log/maillog'));
+
+my $postfixstatus = $fail2ban{Postfix_status} || 'true';
+my $postfixtcp = $postfix{TCPPorts}|| '25,465,587';
+my $postfixrblstatus = $fail2ban{PostfixRbl_status} || 'true';
+my $postfixrblretry = $fail2ban{PostfixRbl_maxretry} || '1';
+
+$OUT .= qq (
+[postfix]
+enabled  = $postfixstatus
+port     = $postfixtcp
+logpath  = \%(postfix_log)s
+
+
+[postfix-rbl]
+enabled  = $postfixrblstatus
+port     = $postfixtcp
+logpath  = \%(syslog_mail)s
+maxretry = $postfixrblretry
+);
+}

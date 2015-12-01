@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [[ -z $1 ]]; then
+echo 'Usage : 
+    fail2ban-unban IP_number (fail2ban-unban 156.156.156.156)'
+exit
+fi
+
+shorewall allow $1

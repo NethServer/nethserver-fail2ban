@@ -1,0 +1,16 @@
+[DEFAULT]
+ignoreip = {$localAccess}
+bantime  = {($fail2ban{BanTime} || '600');}
+findtime  = {($fail2ban{FindTime} || '600');}
+maxretry = {($fail2ban{MaxRetry} || '3');}
+usedns = yes
+
+banaction = {($fail2ban{BanAction} || 'shorewall');}
+
+sender = admin@{$SystemName}.{$DomainName}
+{
+my @customemail = join(', ', split(",", ($fail2ban{CustomDestemail} || '')));
+$OUT .= "destemail = admin\@$SystemName.$DomainName, @customemail";
+}
+
+action = {(($fail2ban{Mail} || 'enabled') eq 'enabled') ? '%(action_mw)s' : '%(action_)s' }

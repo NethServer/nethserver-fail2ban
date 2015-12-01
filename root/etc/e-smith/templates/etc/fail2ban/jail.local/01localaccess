@@ -1,0 +1,24 @@
+{
+    #---------------------------------------------------------------------
+    # Grab ValidFrom access list property of httpd-admin
+    # SSL enabled virtual hosts should only allow access from IP's in
+    # this list, as well as local networks.
+    #---------------------------------------------------------------------
+    use esmith::NetworksDB;
+    my $ndb = esmith::NetworksDB->open_ro();
+
+#check the network to ignore
+    my @localAccess = $ndb->local_access_spec();
+
+# if wanted by the admin we can blacklist on the local network
+    @localAccess = '' if (($fail2ban{BanLocalNetwork} || 'disabled') eq 'enabled');
+
+#Add specific IP to ignore
+    my @ip = split(",", ($fail2ban{IgnoreIP} || ""));
+
+    $localAccess .= join ' ',
+	map { s:/255.255.255.255::; $_ }
+	    @localAccess , @ip;
+
+    "";
+}

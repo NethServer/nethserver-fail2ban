@@ -1,0 +1,6 @@
+
+[pam-generic]
+enabled  = {($fail2ban{PamGeneric_status} || 'true')}
+banaction = {($fail2ban{PamGeneric_banaction} || 'shorewall')}
+maxretry = {($fail2ban{PamGeneric_maxretry} || '6')}
+logpath  = %(syslog_authpriv)s
