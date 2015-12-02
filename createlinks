@@ -1,0 +1,32 @@
+#!/usr/bin/perl -w
+
+use esmith::Build::CreateLinks qw(:all);
+
+# actions to do
+my $event = 'nethserver-fail2ban-update';
+event_actions($event, 
+             'initialize-default-databases' => '00');
+
+#templates to expand
+foreach my $event (qw ( nethserver-fail2ban-update nethserver-fail2ban-save)) {
+    templates2events("/etc/fail2ban/fail2ban.local", $event);
+    templates2events('/etc/fail2ban/jail.d/httpd.local', $event);
+    templates2events('/etc/fail2ban/jail.d/mysql-auth.local', $event);
+    templates2events('/etc/fail2ban/jail.d/postfix.local', $event);
+    templates2events('/etc/fail2ban/jail.d/vsftpd.local', $event);
+    templates2events('/etc/fail2ban/jail.d/dovecot.local', $event);
+    templates2events('/etc/fail2ban/jail.d/roundcubemail.local', $event);
+    templates2events('/etc/fail2ban/jail.d/jail.local', $event);
+    templates2events('/etc/fail2ban/jail.d/recidive.local', $event);
+    templates2events('/etc/fail2ban/jail.d/nginx.local', $event);
+    templates2events('/etc/fail2ban/jail.d/sshd.local', $event);
+    templates2events('/etc/fail2ban/jail.d/sieve.local', $event);
+    templates2events('/etc/fail2ban/jail.d/pam-generic.local', $event);
+    templates2events('/etc/fail2ban/jail.d/sogo.local', $event);
+}
+
+# services to launch on event
+foreach my $event (qw ( nethserver-fail2ban-update nethserver-fail2ban-save)) {
+event_services($event,
+    'fail2ban'=> 'restart');
+}
