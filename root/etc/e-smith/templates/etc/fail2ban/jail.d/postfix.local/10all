@@ -1,7 +1,7 @@
 {
 my $postfix = $postfix{status} || 'disabled';
 return "#postfix not used on this server" 
-                   unless (($postfix eq 'enabled') && (-f /var/log/maillog));
+                   unless (($postfix eq 'enabled') && (-f '/var/log/maillog'));
 }
 
 [postfix]

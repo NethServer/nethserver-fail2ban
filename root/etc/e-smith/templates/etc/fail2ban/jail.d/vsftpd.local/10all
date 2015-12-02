@@ -1,7 +1,7 @@
 {
 my $ftp = $vsftpd{status} || 'disabled';
 return "#vsftpd not used on this server" 
-           unless (($ftp eq 'enabled') && (-f /var/log/vsftpd.log));
+           unless (($ftp eq 'enabled') && (-f '/var/log/vsftpd.log'));
 }
 
 [vsftpd]

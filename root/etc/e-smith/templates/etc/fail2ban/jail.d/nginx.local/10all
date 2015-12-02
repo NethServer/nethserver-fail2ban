@@ -4,7 +4,7 @@ return "#nginx not used on this server" unless ($nginx eq 'enabled');
 }
 
 [nginx-http-auth]
-enabled = {($fail2ban{NginxHttpAuth_status} || 'true')
+enabled = {($fail2ban{NginxHttpAuth_status} || 'true')}
 port    = {$nginx{TCPPorts};}
 logpath = %(nginx_error_log)s
 

@@ -1,5 +1,5 @@
 {
-return "#roundcubemail not installed on this server" unless (-f /var/log/roundcubemail/errors);
+return "#roundcubemail not installed on this server" unless (-f '/var/log/roundcubemail/errors');
 }
 
 [roundcube-auth]
