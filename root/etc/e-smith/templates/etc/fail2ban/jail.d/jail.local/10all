@@ -1,5 +1,5 @@
 [DEFAULT]
-ignoreip = 127.0.0.1/8 {$localAccess} {$fail2ban{IgnoreIP}}
+ignoreip = {$localAccess} {$fail2ban{IgnoreIP}}
 bantime  = {($fail2ban{BanTime} || '1800');}
 findtime  = {($fail2ban{FindTime} || '900');}
 maxretry = {($fail2ban{MaxRetry} || '3');}

@@ -10,7 +10,7 @@ event_actions($event,
 #templates to expand
 foreach my $event (qw ( nethserver-fail2ban-update nethserver-fail2ban-save)) {
     templates2events("/etc/fail2ban/fail2ban.local", $event);
-    templates2events('/etc/fail2ban/jail.d/httpd.local', $event);
+    templates2events('/etc/fail2ban/jail.d/apache.local', $event);
     templates2events('/etc/fail2ban/jail.d/mysql-auth.local', $event);
     templates2events('/etc/fail2ban/jail.d/postfix.local', $event);
     templates2events('/etc/fail2ban/jail.d/vsftpd.local', $event);
