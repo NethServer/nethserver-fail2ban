@@ -1,60 +1,84 @@
 {
 my $httpd = $httpd{status} || 'disabled';
 return "#httpd not used on this server" unless ($httpd eq 'enabled');
-}
 
+my $apacheauthstatus = $fail2ban{ApacheAuth_status} || 'true';
+my $apachetcp = $httpd{TCPPorts} || '80,443';
+my $maxretry = $fail2ban{MaxRetry} || '3';
+my $ApacheBadbots_status = $fail2ban{ApacheBadbots_status} || 'true';
+my $ApacheBadbots_bantime = $fail2ban{ApacheBadbots_bantime} || '172800';
+my $ApacheBadbots_maxretry = $fail2ban{ApacheBadbots_maxretry} || '1';
+my $ApacheNoscript_status = $fail2ban{ApacheNoscript_status} || 'true';
+my $ApacheNoscript_maxretry = $fail2ban{ApacheNoscript_maxretry} || '6';
+my $ApacheOverflows_status = $fail2ban{ApacheOverflows_status} || 'true';
+my $ApacheOverflows_maxretry = $fail2ban{ApacheOverflows_maxretry} || '2';
+my $ApacheNohome_status = $fail2ban{ApacheNohome_status} || 'true';
+my $ApacheNohome_maxretry = $fail2ban{ApacheNohome_maxretry} || '2';
+my $ApacheBotsearch_status = $fail2ban{ApacheBotsearch_status} || 'true';
+my $ApacheBotsearch_maxretry = $fail2ban{ApacheBotsearch_maxretry} || '2';
+my $ApacheFakegooglebot_status = $fail2ban{ApacheFakegooglebot_status} || 'true';
+my $ApacheFakegooglebot_maxretry = $fail2ban{ApacheFakegooglebot_maxretry} || '1';
+my $ApacheModsecurity_status = $fail2ban{ApacheModsecurity_status} || 'true';
+my $ApacheModsecurity_maxretry = $fail2ban{ApacheModsecurity_maxretry} || '2';
+my $ApacheShellshock_status = $fail2ban{ApacheShellshock_status} || 'true';
+my $ApacheShellshock_maxretry = $fail2ban{ApacheShellshock_maxretry} || '1';
+
+$OUT .= qq (
 [apache-auth]
-enabled  = {($fail2ban{ApacheAuth_status} || 'true');}
-port     = {$httpd{TCPPorts};}
-logpath  = %(apache_error_log)s
-maxretry = {($fail2ban{MaxRetry} || '3');}
+enabled  = $apacheauthstatus
+port     = $apachetcp
+logpath  = /var/log/httpd/error_log
+maxretry = $maxretry
 
 [apache-badbots]
-enabled  = {($fail2ban{ApacheBadbots_status} || 'true');}
-port     = {$httpd{TCPPorts};}
-logpath  = %(apache_access_log)s
-bantime  = {($fail2ban{ApacheBadbots_bantime} || '172800');}
-maxretry = {($fail2ban{ApacheBadbots_maxretry} || '1');}
+enabled  = $ApacheBadbots_status
+port     = $apachetcp
+logpath  = /var/log/httpd/access_log
+bantime  = $ApacheBadbots_bantime
+maxretry = $ApacheBadbots_maxretry
 
 [apache-noscript]
-enabled  = {($fail2ban{ApacheNoscript_status} || 'true');}
-port     = {$httpd{TCPPorts};}
-logpath  = %(apache_error_log)s
-maxretry = {($fail2ban{ApacheNoscript_maxretry} || '6');}
+enabled  = $ApacheNoscript_status
+port     = $apachetcp
+logpath  = /var/log/httpd/error_log
+maxretry = $ApacheNoscript_maxretry
 
 [apache-overflows]
-enabled  = {($fail2ban{ApacheOverflows_status} || 'true');}
-port     = {$httpd{TCPPorts};}
-logpath  = %(apache_error_log)s
-maxretry = {($fail2ban{ApacheOverflows_maxretry} || '2');}
+enabled  = $ApacheOverflows_status
+port     = $apachetcp
+logpath  = /var/log/httpd/error_log
+maxretry = $ApacheOverflows_maxretry
 
 [apache-nohome]
-enabled  = {($fail2ban{ApacheNohome_status} || 'true');}
-port     = {$httpd{TCPPorts};}
-logpath  = %(apache_error_log)s
-maxretry = {($fail2ban{ApacheNohome_maxretry} || '2');}
+enabled  = $ApacheNohome_status
+port     = $apachetcp
+logpath  = /var/log/httpd/error_log
+maxretry = $ApacheNohome_maxretry
 
 [apache-botsearch]
-enabled  = {($fail2ban{ApacheBotsearch_status} || 'true');}
-port     =  {$httpd{TCPPorts};}
-logpath  = %(apache_error_log)s
-maxretry = {($fail2ban{ApacheBotsearch_maxretry} || '2');}
+enabled  = $ApacheBotsearch_status
+port     = $apachetcp
+logpath  = /var/log/httpd/error_log
+maxretry = $ApacheBotsearch_maxretry
 
 [apache-fakegooglebot]
-enabled  = {($fail2ban{ApacheFakegooglebot_status} || 'true');}
-port     = {$httpd{TCPPorts};}
-logpath  = %(apache_access_log)s
-maxretry = {($fail2ban{ApacheFakegooglebot_maxretry} || '1');}
+enabled  = $ApacheFakegooglebot_status
+port     = $apachetcp
+logpath  = /var/log/httpd/access_log
+maxretry = $ApacheFakegooglebot_maxretry
 ignorecommand = %(ignorecommands_dir)s/apache-fakegooglebot <ip>
 
 [apache-modsecurity]
-enabled  = {($fail2ban{ApacheModsecurity_status} || 'true');}
-port     = {$httpd{TCPPorts};}
-logpath  = %(apache_error_log)s
-maxretry = {($fail2ban{ApacheModsecurity_maxretry} || '2');}
+enabled  = $ApacheModsecurity_status
+port     = $apachetcp
+logpath  = /var/log/httpd/error_log
+maxretry = $ApacheModsecurity_maxretry
 
 [apache-shellshock]
-enabled  = {($fail2ban{ApacheShellshock_status} || 'true');}
-port     = {$httpd{TCPPorts};}
-logpath  = %(apache_error_log)s
-maxretry = {($fail2ban{ApacheShellshock_maxretry} || '1');}
+enabled  = $ApacheShellshock_status
+port     = $apachetcp
+logpath  = /var/log/httpd/error_log
+maxretry = $ApacheShellshock_maxretry
+);
+
+}

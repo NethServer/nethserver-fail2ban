@@ -1,9 +1,14 @@
 {
 my $dovecot = $dovecot{status} || 'disabled';
 return "#dovecot not used on this server" unless ($dovecot eq 'enabled');
-}
 
+my $Dovecot_status = $fail2ban{Dovecot_status} || 'true';
+my $TCPPorts = $dovecot{TCPPorts} || '110,143,4190,993,995';
+
+$OUT .= qq (
 [dovecot]
-enabled  = { ($fail2ban{Dovecot_status} || 'true')}
-port    = { $dovecot{TCPPorts};}
-logpath = %(dovecot_log)s
+enabled  = $Dovecot_status
+port     = $TCPPorts
+logpath  = \%(dovecot_log)s
+);
+}

@@ -1,5 +1,5 @@
 [DEFAULT]
-ignoreip = {$localAccess} {$fail2ban{IgnoreIP}}
+ignoreip = {$localAccess}
 bantime  = {($fail2ban{BanTime} || '1800');}
 findtime  = {($fail2ban{FindTime} || '900');}
 maxretry = {($fail2ban{MaxRetry} || '3');}
@@ -8,9 +8,13 @@ usedns = yes
 #ban action can iptables-allports or shorewall
 banaction = {($fail2ban{BanAction} || 'iptables-multiport');}
 
+#who receive/sent the email, use 'CustomDestemail' to send to a custom email
 sender = admin@{$DomainName}
-destemail = admin@{$DomainName}
+{
+my $customemail = $fail2ban{CustomDestemail} || '';
+$OUT .= "destemail = admin\@$DomainName" if ($customemail eq '');
+$OUT .= "destemail = $customemail" if ($customemail);
+}
 
 ###action = %(action_)s if you don't want email
 action = {($fail2ban{Action} || '%(action_mw)s');}
-

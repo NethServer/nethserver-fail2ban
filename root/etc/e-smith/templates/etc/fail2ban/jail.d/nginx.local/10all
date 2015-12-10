@@ -1,15 +1,22 @@
 {
 my $nginx = $nginx{status} || 'disabled';
 return "#nginx not used on this server" unless ($nginx eq 'enabled');
-}
 
+my $NginxHttpAuth_status = $fail2ban{NginxHttpAuth_status} || 'true';
+my $TCPPorts = $nginx{TCPPorts} || '80,443';
+my $NginxBotSearch_status = $fail2ban{NginxBotSearch_status} || 'true';
+my $NginxBotSearch_maxretry = $fail2ban{NginxBotSearch_maxretry} || '2';
+
+$OUT .= qq (
 [nginx-http-auth]
-enabled = {($fail2ban{NginxHttpAuth_status} || 'true')}
-port    = {$nginx{TCPPorts};}
-logpath = %(nginx_error_log)s
+enabled = $NginxHttpAuth_status
+port    = $TCPPorts
+logpath = \%(nginx_error_log)s
 
 [nginx-botsearch]
-enabled  = {($fail2ban{NginxBotSearch_status} || 'true')}
-port     = {$nginx{TCPPorts};}
-logpath  = %(nginx_error_log)s
-maxretry = {($fail2ban{NginxBotSearch_maxretry} || '2')}
+enabled  = $NginxBotSearch_status
+port     = $TCPPorts
+logpath  = \%(nginx_error_log)s
+maxretry = $NginxBotSearch_maxretry
+);
+}
