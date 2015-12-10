@@ -1,9 +1,14 @@
 {
 my $sieve = $dovecot{status} || 'disabled';
 return "#sieve not used on this server" unless ($sieve eq 'enabled');
-}
 
+my $Sieve_status = $fail2ban{Sieve_status} || 'true';
+my $TCPPorts = $postfix{TCPPorts} || '25,465,587';
+
+$OUT .= qq (
 [sieve]
-enabled  = {($fail2ban{Sieve_status} || 'true');}
-port     = {($postfix{TCPPorts} || '25,465,587');}
-logpath  = %(dovecot_log)s
+enabled  = $Sieve_status
+port     = $TCPPorts
+logpath  = \%(dovecot_log)s
+);
+}

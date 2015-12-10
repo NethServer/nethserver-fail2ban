@@ -1,7 +1,7 @@
 [recidive]
-enabled  = {($fail2ban{Recidive_status} || 'true');}
+enabled  = {($fail2ban{Recidive_status} || 'true')}
 logpath  = /var/log/messages
 banaction = iptables-allports
-bantime  = {($fail2ban{Recidive_bantime} || '604800');}
-findtime = {($fail2ban{Recidive_findtime} || '86400');}
-maxretry = {($fail2ban{Recidive_maxretry} || '5');}
+bantime  = {($fail2ban{Recidive_bantime} || '604800')}
+findtime = {($fail2ban{Recidive_findtime} || '86400')}
+maxretry = {($fail2ban{Recidive_maxretry} || '5')}
