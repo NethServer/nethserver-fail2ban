@@ -10,19 +10,7 @@ event_actions($event,
 #templates to expand
 foreach my $event (qw ( nethserver-fail2ban-update nethserver-fail2ban-save)) {
     templates2events("/etc/fail2ban/fail2ban.local", $event);
-    templates2events('/etc/fail2ban/jail.d/apache.local', $event);
-    templates2events('/etc/fail2ban/jail.d/mysql-auth.local', $event);
-    templates2events('/etc/fail2ban/jail.d/postfix.local', $event);
-    templates2events('/etc/fail2ban/jail.d/vsftpd.local', $event);
-    templates2events('/etc/fail2ban/jail.d/dovecot.local', $event);
-    templates2events('/etc/fail2ban/jail.d/roundcubemail.local', $event);
-    templates2events('/etc/fail2ban/jail.d/jail.local', $event);
-    templates2events('/etc/fail2ban/jail.d/recidive.local', $event);
-    templates2events('/etc/fail2ban/jail.d/nginx.local', $event);
-    templates2events('/etc/fail2ban/jail.d/sshd.local', $event);
-    templates2events('/etc/fail2ban/jail.d/sieve.local', $event);
-    templates2events('/etc/fail2ban/jail.d/pam-generic.local', $event);
-    templates2events('/etc/fail2ban/jail.d/sogo.local', $event);
+    templates2events('/etc/fail2ban/jail.local', $event);
 }
 
 # services to launch on event
