@@ -1,7 +1,7 @@
 [DEFAULT]
 ignoreip = {$localAccess}
-bantime  = {($fail2ban{BanTime} || '600');}
-findtime  = {($fail2ban{FindTime} || '600');}
+bantime  = {($fail2ban{BanTime} || '1800');}
+findtime  = {($fail2ban{FindTime} || '900');}
 maxretry = {($fail2ban{MaxRetry} || '3');}
 usedns = yes
 
