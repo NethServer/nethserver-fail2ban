@@ -16,4 +16,4 @@ logtarget = /var/log/fail2ban.log
 # Options: dbpurgeage
 # Notes.: Sets age at which bans should be purged from the database
 # Values: [ SECONDS ] Default: 86400 (24hours)
-dbpurgeage = {($fail2ban{'DbPurgeage'} || '648000');}
+dbpurgeage = {($fail2ban{'DbPurgeage'} || '1209600');}

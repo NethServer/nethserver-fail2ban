@@ -5,6 +5,7 @@
     # this list, as well as local networks.
     #---------------------------------------------------------------------
     use esmith::NetworksDB;
+    use Net::IPv4Addr qw(ipv4_chkip);
     my $ndb = esmith::NetworksDB->open_ro();
 
 #check the network to ignore
@@ -14,11 +15,16 @@
     @localAccess = '' if (($fail2ban{BanLocalNetwork} || 'disabled') eq 'enabled');
 
 #Add specific IP to ignore
-    my @ip = split(",", ($fail2ban{IgnoreIP} || ""));
+    my @ip;
+    foreach my $ip (split(/\s+/, ($fail2ban{IgnoreIP} || ""))) {
+    push @ip, $iptest if $iptest = ipv4_chkip($ip);
+    #sort IP array
+    %seen = ();
+    @ip = sort (grep { ! $seen{ $_ }++ } (@ip));
+    }
 
     $localAccess .= join ' ',
 	map { s:/255.255.255.255::; $_ }
-	    @localAccess , @ip;
-
+	    @localAccess, @ip;
     "";
 }

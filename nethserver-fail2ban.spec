@@ -1,6 +1,6 @@
 Summary: NethServer configuration for crontab
 %define name nethserver-fail2ban
-%define version 0.0.2
+%define version 0.0.3
 %define release 1
 Name: %{name}
 Version: %{version}
@@ -10,7 +10,7 @@ Source: %{name}-%{version}.tar.gz
 BuildArch: noarch
 URL: http://dev.nethserver.org/projects/nethforge/wiki/%{name}
 BuildRequires: nethserver-devtools
-Requires: fail2ban
+Requires: fail2ban perl-Email-Valid
 Conflicts: nethserver-release < 6.7
 AutoReq: no
 
@@ -47,5 +47,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 
 %changelog
+* Wed Jan 27 2016 Stephane de Labrusse <stephdl@de-labrusse.fr> - 0.0.3-ns6
+- WebUI designed
+
 * Wed Dec 02 2015 Stephane de Labrusse <stephdl@de-labrusse.fr> - 0.0.2-ns6
 - Initial release

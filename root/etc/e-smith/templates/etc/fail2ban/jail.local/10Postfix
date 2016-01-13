@@ -6,7 +6,7 @@ return "\n#postfix not used on this server"
 my $postfixstatus = $fail2ban{Postfix_status} || 'true';
 my $postfixtcp = $postfix{TCPPorts}|| '25,465,587';
 my $postfixrblstatus = $fail2ban{PostfixRbl_status} || 'true';
-my $postfixrblretry = $fail2ban{PostfixRbl_maxretry} || '1';
+my $postfixrblretry = $fail2ban{MaxRetry} || '3';
 
 $OUT .= qq (
 [postfix]
