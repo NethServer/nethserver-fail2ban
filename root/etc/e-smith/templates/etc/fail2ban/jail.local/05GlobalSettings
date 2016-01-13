@@ -1,11 +1,11 @@
 [DEFAULT]
 ignoreip = {$localAccess}
-bantime  = {($fail2ban{BanTime} || '600');}
-findtime  = {($fail2ban{FindTime} || '600');}
-maxretry = {($fail2ban{MaxRetry} || '3');}
+bantime  = {$fail2ban{BanTime} || '600'}
+findtime  = {$fail2ban{FindTime} || '600'}
+maxretry = {$fail2ban{MaxRetry} || '3'}
 usedns = yes
 
-banaction = {($fail2ban{BanAction} || 'shorewall');}
+banaction = {$fail2ban{BanAction} || 'shorewall'}
 
 sender = admin@{$SystemName}.{$DomainName}
 {
