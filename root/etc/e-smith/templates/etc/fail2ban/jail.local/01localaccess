@@ -14,7 +14,7 @@
     @localAccess = '' if (($fail2ban{BanLocalNetwork} || 'disabled') eq 'enabled');
 
 #Add specific IP to ignore
-    my @ip = split(",", ($fail2ban{IgnoreIP} || ""));
+    my @ip = split(/\s+/, ($fail2ban{IgnoreIP} || ""));
 
     $localAccess .= join ' ',
 	map { s:/255.255.255.255::; $_ }

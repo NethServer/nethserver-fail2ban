@@ -9,7 +9,7 @@ banaction = {$fail2ban{BanAction} || 'shorewall'}
 
 sender = admin@{$SystemName}.{$DomainName}
 {
-my @customemail = join(', ', split(",", ($fail2ban{CustomDestemail} || '')));
+my @customemail = join(', ', split(/\s+/, ($fail2ban{CustomDestemail} || '')));
 $OUT .= "destemail = admin\@$SystemName.$DomainName, @customemail";
 }
 
