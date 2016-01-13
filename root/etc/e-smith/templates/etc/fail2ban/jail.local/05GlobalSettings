@@ -1,16 +1,25 @@
 [DEFAULT]
 ignoreip = {$localAccess}
-bantime  = {$fail2ban{BanTime} || '600'}
-findtime  = {$fail2ban{FindTime} || '600'}
-maxretry = {$fail2ban{MaxRetry} || '3'}
+bantime  = {($fail2ban{BanTime} || '600');}
+findtime  = {($fail2ban{FindTime} || '600');}
+maxretry = {($fail2ban{MaxRetry} || '3');}
 usedns = yes
 
-banaction = {$fail2ban{BanAction} || 'shorewall'}
+banaction = {($fail2ban{BanAction} || 'shorewall');}
 
 sender = admin@{$SystemName}.{$DomainName}
 {
-my @customemail = join(', ', split(/\s+/, ($fail2ban{CustomDestemail} || '')));
-$OUT .= "destemail = admin\@$SystemName.$DomainName, @customemail";
+    use Email::Valid;
+    my @customemail;
+    foreach my $email (split(/\s+/, ($fail2ban{CustomDestemail} || ''))) {
+    push @customemail , $email if (Email::Valid->address($email));
+    #sort email array
+    %seen = ();
+    @customemail = sort (grep { ! $seen{ $_ }++ } (@customemail));
+    }
+
+    $OUT .= "destemail = admin\@$SystemName.$DomainName, " . join(', ',@customemail);
 }
 
 action = {(($fail2ban{Mail} || 'enabled') eq 'enabled') ? '%(action_mw)s' : '%(action_)s' }
+

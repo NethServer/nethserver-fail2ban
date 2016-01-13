@@ -10,7 +10,7 @@ Source: %{name}-%{version}.tar.gz
 BuildArch: noarch
 URL: http://dev.nethserver.org/projects/nethforge/wiki/%{name}
 BuildRequires: nethserver-devtools
-Requires: fail2ban
+Requires: fail2ban perl-Email-Valid
 Conflicts: nethserver-release < 6.7
 AutoReq: no
 
