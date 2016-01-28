@@ -1,6 +1,6 @@
 Summary: NethServer configuration for crontab
 %define name nethserver-fail2ban
-%define version 0.0.3
+%define version 0.0.4
 %define release 1
 Name: %{name}
 Version: %{version}
@@ -47,6 +47,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 
 %changelog
+* Thu Jan 28 2016 Stephane de Labrusse <stephdl@de-labrusse.fr> - 0.0.4-ns6
+- WebUI enhanced
+
 * Wed Jan 27 2016 Stephane de Labrusse <stephdl@de-labrusse.fr> - 0.0.3-ns6
 - WebUI designed
 
