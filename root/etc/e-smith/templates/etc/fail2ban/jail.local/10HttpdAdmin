@@ -1,0 +1,4 @@
+[httpd-admin]
+enabled  = {($fail2ban{HttpdAdmin_status} || 'true')}
+logpath = /var/log/httpd-admin/access_log
+port    = { ${'httpd-admin'}{TCPPort} || '980'}

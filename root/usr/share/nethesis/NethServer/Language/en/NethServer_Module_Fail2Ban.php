@@ -1,5 +1,4 @@
 <?php
-
 $L['Fail2Ban_Title'] = 'Fail2Ban';
 $L['Fail2Ban_header'] = 'Fail2ban settings';
 $L['status_label'] = 'Enable the Service';
@@ -13,7 +12,7 @@ $L['${0} hour'] = '${0} hour';
 $L['${0} seconds'] = '${0} seconds';
 $L['Maximum ban time (${0})'] = 'Maximum ban time (${0})';
 $L['Maximum retry number (${0})'] = 'Maximum retry number (${0})';
-$L['BanLocalNetwork_label'] = 'IP bans on your local network';
+$L['BanLocalNetwork_label'] = 'Allow bans on the LAN';
 $L['IgnoreIP_label'] = 'IP Whitelisting (one per line)';
 $L['Mail_label'] = 'Send email notifications';
 $L['CustomDestemail_label'] = 'Email administrators (one per line)';
@@ -44,3 +43,13 @@ $L['SogoAuth_status_label'] = 'Sogo Auth';
 $L['SshdDdos_status_label'] = 'Sshd Ddos';
 $L['Sshd_status_label'] = 'Sshd Auth';
 $L['Vsftpd_status_label'] = 'Vsftpd Auth';
+$L['ApacheStatus_label'] = 'Apache Jails';
+$L['NginxStatus_label'] = 'Nginx Jails';
+$L['WebappStatus_label'] = 'Web Application Jails';
+$L['MailStatus_label'] = 'Email Jails';
+$L['FtpStatus_label'] = 'Ftp Jails';
+$L['DatabaseStatus_label'] = 'Database Jails';
+$L['SecurityStatus_label'] = 'Security Jails';
+$L['SshStatus_label'] = 'Ssh Jails';
+$L['ChatStatus_label'] = 'Instant Messaging Jails';
+$L['HttpdAdmin_status_label'] = 'Httpd-admin Auth';
