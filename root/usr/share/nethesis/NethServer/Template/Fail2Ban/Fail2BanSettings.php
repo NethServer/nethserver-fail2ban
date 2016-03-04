@@ -21,8 +21,9 @@ echo $view->panel()
     )
 
 ->insert ($view->columns()
-->insert($view->textArea('IgnoreIP', $view::LABEL_ABOVE)->setAttribute('dimensions', '5x30'))
-->insert($view->textArea('CustomDestemail', $view::LABEL_ABOVE)->setAttribute('dimensions', '5x30'))
+->insert($view->textArea('IgnoreIP', $view::LABEL_ABOVE)->setAttribute('dimensions', '10x30'))
+->insert($view->literal(' '))
+->insert($view->textArea('CustomDestemail', $view::LABEL_ABOVE)->setAttribute('dimensions', '10x30'))
     )
 
 #start the jail status

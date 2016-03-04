@@ -1,16 +1,17 @@
 #!/bin/bash
 
 echo ""
-echo "Look after a jail, do : fail2ban-client status {JailName}"
+echo "You want more informations on a jail, do : fail2ban-client status {JailName}"
 echo ""
-echo "Count the number of IP Banned"
-
+echo "Status of Jails"
+echo "---------------"
 JAILS=$(fail2ban-client status | grep " Jail list:" | sed 's/`- Jail list://g' | sed 's/,//g')
 for j in $JAILS
 do
-echo " $j Jail
+echo " $j Jail enabled
     - Currently banned: $(fail2ban-client status $j | grep " Currently banned:" | sed 's/   |- Currently banned:\t//g') \
     - Total banned: $(fail2ban-client status $j | grep " Total banned:" | sed 's/   |- Total banned:\t//g')"
+echo "    - Banned IP: $(fail2ban-client status $j | grep " Banned IP list:" | sed 's/   `- Banned IP list:\t//g')"
 done
 
 echo ''

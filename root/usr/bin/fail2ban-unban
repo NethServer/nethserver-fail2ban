@@ -5,5 +5,9 @@ echo 'Usage :
     fail2ban-unban IP_number (fail2ban-unban 156.156.156.156)'
 exit
 fi
-
-shorewall allow $1
+JAILS=$(fail2ban-client status | grep " Jail list:" | sed 's/`- Jail list://g' | sed 's/,//g')
+for j in $JAILS
+do
+echo "==$j jail=="
+/usr/bin/fail2ban-client set $j  unbanip $1
+done

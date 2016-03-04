@@ -1,6 +1,11 @@
 <?php
-$L['Fail2Ban_Title'] = 'Fail2Ban';
-$L['Fail2Ban_header'] = 'Fail2ban settings';
+$L['Fail2Ban_Title'] = 'Fail2ban';
+$L['Fail2BanSettings_Title'] = 'Service';
+$L['Fail2Ban_header'] = 'Service settings';
+$L['Fail2BanUnban_Title'] = 'Blacklist';
+$L['Fail2BanUnBan_header'] = 'Manage blocked IP';
+$L['UnBanIP_label'] = 'Unban the specified IP';
+$L['SUBMIT/REFRESH_label'] = 'Submit/Refresh';
 $L['status_label'] = 'Enable the Service';
 $L['Maximum find time (${0})'] = 'Maximum find time (${0})';
 $L['${0} week'] = '${0} week';

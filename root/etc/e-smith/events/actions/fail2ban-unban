@@ -1,0 +1,12 @@
+#!/bin/bash
+IP=$(/sbin/e-smith/db configuration getprop fail2ban UnBanIP)
+if [[ $IP == '' ]]; then 
+exit 0
+fi
+JAILS=$(fail2ban-client status | grep " Jail list:" | sed 's/`- Jail list://g' | sed 's/,//g')
+for j in $JAILS
+do
+echo "==$j jail=="
+/usr/bin/fail2ban-client set $j  unbanip $IP
+done
+/sbin/e-smith/db configuration delprop fail2ban UnBanIP

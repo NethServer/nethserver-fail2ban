@@ -1,6 +1,6 @@
 Summary: NethServer configuration for crontab
 %define name nethserver-fail2ban
-%define version 0.0.5
+%define version 0.0.6
 %define release 1
 Name: %{name}
 Version: %{version}
@@ -38,6 +38,7 @@ touch $RPM_BUILD_ROOT/var/log/fail2ban.log
   --file /usr/bin/fail2ban-listban 'attr(0750,root,root)' \
   --file /usr/bin/fail2ban-unban 'attr(0750,root,root)' \
   --file /var/log/fail2ban.log 'attr(0600,root,root)' \
+  --file /usr/libexec/nethserver/fail2ban-listban 'attr(0755,root,root)' \
 $RPM_BUILD_ROOT > e-smith-%{version}-filelist
 
 %clean
@@ -47,6 +48,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 
 %changelog
+* Sat Mar 5 2016 Stephane de Labrusse <stephdl@de-labrusse.fr> - 0.0.6-ns6
+- Fail2ban panel uses Tab now
+- Blacklist tab created with Unban Input Box
+
 * Sat Feb 20 2016 Stephane de Labrusse <stephdl@de-labrusse.fr> - 0.0.5-ns6
 - New jail against bad authentication to httpd-admin
 - Help page created
