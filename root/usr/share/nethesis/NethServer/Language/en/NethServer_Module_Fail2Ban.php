@@ -58,3 +58,4 @@ $L['SecurityStatus_label'] = 'Security Jails';
 $L['SshStatus_label'] = 'Ssh Jails';
 $L['ChatStatus_label'] = 'Instant Messaging Jails';
 $L['HttpdAdmin_status_label'] = 'Httpd-admin Auth';
+$L['Owncloud_status_label'] = 'Owncloud Auth';
