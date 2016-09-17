@@ -1,6 +1,6 @@
 Summary: NethServer configuration for crontab
 %define name nethserver-fail2ban
-%define version 0.0.7
+%define version 0.1.0
 %define release 1
 Name: %{name}
 Version: %{version}
@@ -10,9 +10,8 @@ Source: %{name}-%{version}.tar.gz
 BuildArch: noarch
 URL: http://dev.nethserver.org/projects/nethforge/wiki/%{name}
 BuildRequires: nethserver-devtools
-Requires: fail2ban perl-Email-Valid
-Conflicts: nethserver-release < 6.7
-AutoReq: no
+Requires: fail2ban fail2ban-shorewall perl-Email-Valid
+#AutoReq: no
 
 %description
 NethServer configuration for ddclient
@@ -34,7 +33,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__mkdir_p} -p $RPM_BUILD_ROOT/var/log/
 touch $RPM_BUILD_ROOT/var/log/fail2ban.log 
 
-%{genfilelist} \
+%{genfilelist} %{buildroot} \
   --file /usr/bin/fail2ban-listban 'attr(0750,root,root)' \
   --file /usr/bin/fail2ban-unban 'attr(0750,root,root)' \
   --file /var/log/fail2ban.log 'attr(0600,root,root)' \
@@ -47,7 +46,15 @@ rm -rf $RPM_BUILD_ROOT
 %files -f e-smith-%{version}-filelist
 %defattr(-,root,root)
 
+%dir %{_nseventsdir}/%{name}-update
+
 %changelog
+* Sun Nov 6 2016 Stephane de Labrusse <stephdl@de-labrusse.fr> - 0.1.0-1-ns7
+- NS7 adaptation
+
+* Tue Mar 8 2016 Stephane de Labrusse <stephdl@de-labrusse.fr> - 0.0.7-ns6
+- Owncloud Jail created
+
 * Tue Mar 8 2016 Stephane de Labrusse <stephdl@de-labrusse.fr> - 0.0.7-ns6
 - Owncloud Jail created
 
