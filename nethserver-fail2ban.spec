@@ -10,9 +10,8 @@ Source: %{name}-%{version}.tar.gz
 BuildArch: noarch
 URL: http://dev.nethserver.org/projects/nethforge/wiki/%{name}
 BuildRequires: nethserver-devtools
-Requires: fail2ban perl-Email-Valid
-Conflicts: nethserver-release < 6.7
-AutoReq: no
+Requires: fail2ban fail2ban-shorewall perl-Email-Valid
+#AutoReq: no
 
 %description
 NethServer configuration for ddclient
@@ -46,6 +45,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f e-smith-%{version}-filelist
 %defattr(-,root,root)
+
+%dir %{_nseventsdir}/%{name}-update
 
 %changelog
 * Tue Mar 8 2016 Stephane de Labrusse <stephdl@de-labrusse.fr> - 0.0.7-ns6
