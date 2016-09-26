@@ -1,6 +1,6 @@
 Summary: NethServer configuration for crontab
 %define name nethserver-fail2ban
-%define version 0.0.17
+%define version 0.0.7
 %define release 1
 Name: %{name}
 Version: %{version}
@@ -27,18 +27,18 @@ NethServer configuration for ddclient
 perl createlinks
 
 %install
-rm -rf %{buildroot}
-(cd root   ; find . -depth -print | cpio -dump %{buildroot}
+rm -rf $RPM_BUILD_ROOT
+(cd root   ; find . -depth -print | cpio -dump $RPM_BUILD_ROOT)
 
-%{__mkdir_p} -p %{buildroot}/var/log/
-touch %{buildroot}/var/log/fail2ban.log 
+%{__mkdir_p} -p $RPM_BUILD_ROOT/var/log/
+touch $RPM_BUILD_ROOT/var/log/fail2ban.log 
 
-%{genfilelist} %{buildroot} \
+%{genfilelist} \
   --file /usr/bin/fail2ban-listban 'attr(0750,root,root)' \
   --file /usr/bin/fail2ban-unban 'attr(0750,root,root)' \
   --file /var/log/fail2ban.log 'attr(0600,root,root)' \
   --file /usr/libexec/nethserver/fail2ban-listban 'attr(0755,root,root)' \
-%{buildroot}> e-smith-%{version}-filelist
+$RPM_BUILD_ROOT > e-smith-%{version}-filelist
 
 %clean
 rm -rf $RPM_BUILD_ROOT
