@@ -3,17 +3,17 @@
 use esmith::Build::CreateLinks qw(:all);
 
 # actions to do
- $event = 'nethserver-fail2ban-update';
+my $event = 'nethserver-fail2ban-update';
 event_actions($event, 
              'initialize-default-databases' => '00');
 
 #Action to unbanIP
- $event = 'nethserver-fail2banUnBan-save';
+my $event = 'nethserver-fail2banUnBan-save';
 event_actions($event,
     'fail2ban-unban' => '10');
 
 #templates to expand
-foreach  $event (qw ( runlevel-adjust nethserver-fail2ban-save)) {
+foreach my $event (qw ( runlevel-adjust nethserver-fail2ban-save)) {
     templates2events("/etc/fail2ban/fail2ban.local", $event);
     templates2events('/etc/fail2ban/jail.local', $event);
     templates2events('/etc/fail2ban/action.d/shorewall.local', $event);
@@ -21,7 +21,7 @@ foreach  $event (qw ( runlevel-adjust nethserver-fail2ban-save)) {
 }
 
 # services to launch on event
-foreach  $event (qw ( runlevel-adjust nethserver-fail2ban-save)) {
+foreach my $event (qw ( runlevel-adjust nethserver-fail2ban-save)) {
 event_services($event,
     'fail2ban'=> 'restart');
 }
