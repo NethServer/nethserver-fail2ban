@@ -7,7 +7,7 @@ usedns = yes
 
 banaction = {($fail2ban{BanAction} || 'shorewall');}
 
-sender = admin@{$SystemName}.{$DomainName}
+sender = root@localhost
 {
     use Email::Valid;
     my @customemail;
@@ -18,7 +18,7 @@ sender = admin@{$SystemName}.{$DomainName}
     @customemail = sort (grep { ! $seen{ $_ }++ } (@customemail));
     }
 
-    $OUT .= "destemail = admin\@$SystemName.$DomainName, " . join(', ',@customemail);
+    $OUT .= "destemail = root\@localhost, " . join(', ',@customemail);
 }
 
 action = {(($fail2ban{Mail} || 'enabled') eq 'enabled') ? '%(action_mw)s' : '%(action_)s' }
