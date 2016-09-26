@@ -33,7 +33,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__mkdir_p} -p $RPM_BUILD_ROOT/var/log/
 touch $RPM_BUILD_ROOT/var/log/fail2ban.log 
 
-%{genfilelist} \
+%{genfilelist} %{buildroot} \
   --file /usr/bin/fail2ban-listban 'attr(0750,root,root)' \
   --file /usr/bin/fail2ban-unban 'attr(0750,root,root)' \
   --file /var/log/fail2ban.log 'attr(0600,root,root)' \
