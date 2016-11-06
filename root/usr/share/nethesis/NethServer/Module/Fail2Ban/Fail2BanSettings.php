@@ -38,6 +38,7 @@ class  Fail2BanSettings extends \Nethgui\Controller\AbstractController
     $this->declareParameter('EjabberAuth_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'EjabberAuth_status'));
     $this->declareParameter('HttpdAdmin_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'HttpdAdmin_status'));
     $this->declareParameter('MysqldAuth_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'MysqldAuth_status'));
+    $this->declareParameter('Nextcloud_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'Nextcloud_status'));
     $this->declareParameter('NginxBotSearch_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'NginxBotSearch_status'));
     $this->declareParameter('NginxHttpAuth_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'NginxHttpAuth_status'));
     $this->declareParameter('Owncloud_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'Owncloud_status'));
