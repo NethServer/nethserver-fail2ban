@@ -51,6 +51,7 @@ echo $view->panel()
         ->insert($view->checkBox('SogoAuth_status', 'true')->setAttribute('uncheckedValue', 'false'))
         ->insert($view->checkBox('Roundcube_status', 'true')->setAttribute('uncheckedValue', 'false'))
         ->insert($view->checkBox('Owncloud_status', 'true')->setAttribute('uncheckedValue', 'false'))
+        ->insert($view->checkBox('Nextcloud_status', 'true')->setAttribute('uncheckedValue', 'false'))
         )
 
     ->insert( $view->fieldset(NULL, $view::FIELDSET_EXPANDABLE)->setAttribute('template', $T('MailStatus_label'))
