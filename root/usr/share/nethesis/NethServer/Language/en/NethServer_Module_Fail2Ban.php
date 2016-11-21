@@ -60,3 +60,4 @@ $L['ChatStatus_label'] = 'Instant Messaging Jails';
 $L['HttpdAdmin_status_label'] = 'Httpd-admin Auth';
 $L['Owncloud_status_label'] = 'Owncloud Auth';
 $L['Nextcloud_status_label'] = 'Nextcloud Auth';
+$L['Urbackup_status_label'] = 'Urbackup Auth';
