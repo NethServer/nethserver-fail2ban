@@ -51,6 +51,7 @@ class  Fail2BanSettings extends \Nethgui\Controller\AbstractController
     $this->declareParameter('SogoAuth_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'SogoAuth_status'));
     $this->declareParameter('SshdDdos_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'SshdDdos_status'));
     $this->declareParameter('Sshd_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'Sshd_status'));
+    $this->declareParameter('Urbackup_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'Urbackup_status'));
     $this->declareParameter('Vsftpd_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'Vsftpd_status'));
 
         parent::initialize();
