@@ -1,0 +1,13 @@
+{
+return "\n#urbackup not installed on this server" unless (-f '/var/log/urbackup.log');
+
+my $Urbackup_status = $fail2ban{Urbackup_status} || 'true';
+my $TCPPorts = ${'urbackup-server'}{TCPPorts} || '55413,55414';
+
+$OUT .= qq(
+[urbackup-auth]
+enabled  = $Urbackup_status
+port     = $TCPPorts
+logpath  = /var/log/messages
+);
+}
