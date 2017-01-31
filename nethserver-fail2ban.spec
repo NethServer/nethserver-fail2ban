@@ -1,7 +1,7 @@
 Summary: NethServer configuration for crontab
 %define name nethserver-fail2ban
 %define version 0.1.3
-%define release 1
+%define release 2
 Name: %{name}
 Version: %{version}
 Release: %{release}%{?dist}
@@ -18,6 +18,12 @@ NethServer configuration for ddclient
 
 %prep
 %setup
+
+%pre
+#With NS7 < RC4 firewalld was not disabled
+#with the stable version, it could be removed
+/usr/bin/systemctl stop firewalld >/dev/null 2>&1
+/usr/bin/systemctl disable firewalld >/dev/null 2>&1
 
 %post
 %preun
@@ -49,6 +55,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_nseventsdir}/%{name}-update
 
 %changelog
+* Tue Jan 31 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> - 0.1.3-2-ns7
+- Firewalld is stopped and disabled in %pre
+
 * Wed Nov 23 2016 Stephane de Labrusse <stephdl@de-labrusse.fr> - 0.1.3-1-ns7
 - urbackup jail is templated now
 
