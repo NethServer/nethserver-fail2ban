@@ -21,8 +21,8 @@ NethServer configuration for ddclient
 
 %pre
 #With NS7 < RC4 firewalld was not disabled
-/usr/bin/systemctl stop firewalld
-/usr/bin/systemctl disable firewalld
+/usr/bin/systemctl stop firewalld  >/dev/null
+/usr/bin/systemctl disable firewalld >/dev/null
 
 %post
 %preun
