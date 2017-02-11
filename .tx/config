@@ -1,0 +1,9 @@
+[main]
+host = https://www.transifex.com
+
+[nethserver.Fail2Ban]
+source_file = root/usr/share/nethesis/NethServer/Language/en/NethServer_Module_Fail2Ban.php
+source_lang = en
+type = PHP_ALT_ARRAY
+
+
