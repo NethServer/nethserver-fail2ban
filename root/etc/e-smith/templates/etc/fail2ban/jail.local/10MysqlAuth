@@ -10,7 +10,7 @@ $OUT .= qq (
 [mysqld-auth]
 enabled  = $MysqldAuth_status
 port     = $TCPPort
-logpath  = /var/log/mysqld.log
+logpath  = /var/log/mysqld.log*
 maxretry = $MysqldAuth_maxretry
 );
 }

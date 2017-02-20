@@ -8,6 +8,6 @@ $OUT .= qq(
 [roundcube-auth]
 enabled  = $Roundcube_status
 port     = $TCPPorts
-logpath  = /var/log/roundcubemail/errors
+logpath  = /var/log/roundcubemail/errors*
 );
 }

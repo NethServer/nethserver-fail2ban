@@ -1,6 +1,6 @@
 Summary: NethServer configuration for crontab
 %define name nethserver-fail2ban
-%define version 0.0.7
+%define version 0.0.8
 %define release 1
 Name: %{name}
 Version: %{version}
@@ -33,6 +33,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__mkdir_p} -p $RPM_BUILD_ROOT/var/log/
 touch $RPM_BUILD_ROOT/var/log/fail2ban.log 
+%{__mkdir_p} -p $RPM_BUILD_ROOT/var/run/fail2ban
 
 %{genfilelist} \
   --file /usr/bin/fail2ban-listban 'attr(0750,root,root)' \
@@ -48,6 +49,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 
 %changelog
+* Mon Feb 20 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> - 0.0.8-1-ns6
+- Handle the log rotation by wildcard
+- Create /var/run/fail2ban
+
 * Tue Mar 8 2016 Stephane de Labrusse <stephdl@de-labrusse.fr> - 0.0.7-ns6
 - Owncloud Jail created
 
