@@ -8,6 +8,6 @@ $OUT .= qq(
 [nextcloud-auth]
 enabled  = $Nextcloud_status
 port     = $TCPPorts
-logpath  = /var/lib/nethserver/nextcloud/nextcloud.log
+logpath  = /var/lib/nethserver/nextcloud/nextcloud.log*
 )
 }

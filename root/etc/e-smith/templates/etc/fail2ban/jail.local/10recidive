@@ -1,7 +1,7 @@
 
 [recidive]
 enabled  = {$fail2ban{Recidive_status} || 'true'}
-logpath  = /var/log/fail2ban.log
+logpath  = /var/log/fail2ban.log*
 banaction = {$fail2ban{Recidive_banaction} || 'shorewall'}
 bantime  = {$fail2ban{BanTime}*336 || '604800'}
 findtime = {$fail2ban{FindTime}*94 || '86400'}

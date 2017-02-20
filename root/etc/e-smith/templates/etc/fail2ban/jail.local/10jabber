@@ -9,6 +9,6 @@ $OUT .= qq (
 [ejabberd-auth]
 enabled = $EjabberAuth_status
 port    = $TCPPorts
-logpath = /var/log/ejabberd/ejabberd.log
+logpath = /var/log/ejabberd/ejabberd.log*
 );
 }

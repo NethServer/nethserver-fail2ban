@@ -1,7 +1,7 @@
 Summary: NethServer configuration for crontab
 %define name nethserver-fail2ban
-%define version 0.1.3
-%define release 2
+%define version 0.1.4
+%define release 1
 Name: %{name}
 Version: %{version}
 Release: %{release}%{?dist}
@@ -38,6 +38,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__mkdir_p} -p $RPM_BUILD_ROOT/var/log/
 touch $RPM_BUILD_ROOT/var/log/fail2ban.log 
+%{__mkdir_p} -p $RPM_BUILD_ROOT/var/run/fail2ban
 
 %{genfilelist} %{buildroot} \
   --file /usr/bin/fail2ban-listban 'attr(0750,root,root)' \
@@ -55,6 +56,10 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_nseventsdir}/%{name}-update
 
 %changelog
+* Mon Feb 20 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> - 0.1.4-1-ns7
+- Handle the log rotation by wildcard
+- Create /var/run/fail2ban
+
 * Tue Jan 31 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> - 0.1.3-2-ns7
 - Firewalld is stopped and disabled in %pre
 
