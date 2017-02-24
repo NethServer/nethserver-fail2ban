@@ -1,6 +1,6 @@
 Summary: NethServer configuration for crontab
 %define name nethserver-fail2ban
-%define version 0.1.4
+%define version 0.1.5
 %define release 1
 Name: %{name}
 Version: %{version}
@@ -56,6 +56,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_nseventsdir}/%{name}-update
 
 %changelog
+* Fri Feb 24 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> - 0.1.5-1-ns7
+- Corrected the email recipient
+
 * Mon Feb 20 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> - 0.1.4-1-ns7
 - Handle the log rotation by wildcard
 - Create /var/run/fail2ban
