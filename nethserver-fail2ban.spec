@@ -1,6 +1,6 @@
 Summary: NethServer configuration for crontab
 %define name nethserver-fail2ban
-%define version 0.0.8
+%define version 0.0.9
 %define release 1
 Name: %{name}
 Version: %{version}
@@ -49,6 +49,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 
 %changelog
+* Mon Feb 27 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> - 0.0.9-1-ns6
+- Added phpmyadmin jail
+
 * Mon Feb 20 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> - 0.0.8-1-ns6
 - Handle the log rotation by wildcard
 - Create /var/run/fail2ban

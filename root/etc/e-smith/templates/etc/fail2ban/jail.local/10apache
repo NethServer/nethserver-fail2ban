@@ -16,6 +16,7 @@ my $ApacheFakegooglebot_status = $fail2ban{ApacheFakegooglebot_status} || 'true'
 my $ApacheModsecurity_status = $fail2ban{ApacheModsecurity_status} || 'true';
 my $ApacheShellshock_status = $fail2ban{ApacheShellshock_status} || 'true';
 my $ApacheScan_status = $fail2ban{ApacheScan_status} || 'true';
+my $ApachePhpMyAdmin_status = $fail2ban{ApachePhpMyAdmin_status} || 'true';
 
 $OUT .= qq (
 [apache-auth]
@@ -78,6 +79,11 @@ maxretry = $maxretry
 enabled  = $ApacheScan_status
 port     = $apachetcp
 logpath  = /var/log/httpd/error_log*
+
+[phpmyadmin]
+enabled  = $ApachePhpMyAdmin_status
+port     = $apachetcp
+logpath  = /var/log/httpd/access_log*
 );
 
 }
