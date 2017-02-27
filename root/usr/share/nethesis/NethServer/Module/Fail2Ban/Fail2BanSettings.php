@@ -34,6 +34,7 @@ class  Fail2BanSettings extends \Nethgui\Controller\AbstractController
     $this->declareParameter('ApacheOverflows_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'ApacheOverflows_status'));
     $this->declareParameter('ApacheScan_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'ApacheScan_status'));
     $this->declareParameter('ApacheShellshock_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'ApacheShellshock_status'));
+    $this->declareParameter('ApachePhpMyAdmin_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'ApachePhpMyAdmin_status'));
     $this->declareParameter('Dovecot_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'Dovecot_status'));
     $this->declareParameter('EjabberAuth_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'EjabberAuth_status'));
     $this->declareParameter('HttpdAdmin_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'HttpdAdmin_status'));
