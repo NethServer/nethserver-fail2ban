@@ -91,6 +91,10 @@ echo $view->panel()
     ->insert( $view->fieldset(NULL, $view::FIELDSET_EXPANDABLE)->setAttribute('template', $T('ChatStatus_label'))
         ->insert($view->checkBox('EjabberAuth_status', 'true')->setAttribute('uncheckedValue', 'false'))
         )
+
+    ->insert( $view->fieldset(NULL, $view::FIELDSET_EXPANDABLE)->setAttribute('template', $T('VPNStatus_label'))
+        ->insert($view->checkBox('OpenVpnAuth_status', 'true')->setAttribute('uncheckedValue', 'false'))
+        )
 )
 
 );
