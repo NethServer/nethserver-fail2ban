@@ -42,6 +42,7 @@ class  Fail2BanSettings extends \Nethgui\Controller\AbstractController
     $this->declareParameter('Nextcloud_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'Nextcloud_status'));
     $this->declareParameter('NginxBotSearch_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'NginxBotSearch_status'));
     $this->declareParameter('NginxHttpAuth_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'NginxHttpAuth_status'));
+    $this->declareParameter('OpenVpnAuth_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'OpenVpnAuth_status'));
     $this->declareParameter('Owncloud_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'Owncloud_status'));
     $this->declareParameter('PamGeneric_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'PamGeneric_status'));
     $this->declareParameter('PostfixRbl_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'PostfixRbl_status'));
