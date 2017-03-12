@@ -1,5 +1,5 @@
 {
-return "\n#openvpn is not used on this server" unless (-f '/var/log/httpd-admin/access_log');
+return "\n#openvpn is not used on this server" unless (-f '/var/log/openvpn.log');
 
 my $OpenVpnAuth_status = $fail2ban{OpenVpnAuth_status} || 'true';
 my $UDPPort = ${'openvpn@host-to-net'}{UDPPort} || '1194';
