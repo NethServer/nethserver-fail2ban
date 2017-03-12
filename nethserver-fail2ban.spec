@@ -1,7 +1,7 @@
 Summary: NethServer configuration for crontab
 %define name nethserver-fail2ban
 %define version 0.0.9
-%define release 1
+%define release 2
 Name: %{name}
 Version: %{version}
 Release: %{release}%{?dist}
@@ -47,8 +47,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f e-smith-%{version}-filelist
 %defattr(-,root,root)
-
+%doc COPYING
 %changelog
+* Sun Mar 12 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.9-2-ns6
+- GPL license
+
 * Mon Feb 27 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> - 0.0.9-1-ns6
 - Added phpmyadmin jail
 
