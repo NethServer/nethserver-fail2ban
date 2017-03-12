@@ -50,7 +50,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
-* Sun Mar 12 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.10-1-ns7
+* Sun Mar 12 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.10-1-ns6
 - Added OPENVPN jail
 
 * Sun Mar 12 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.9-2-ns6
