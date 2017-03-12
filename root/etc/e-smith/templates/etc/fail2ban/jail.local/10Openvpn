@@ -1,5 +1,5 @@
 {
-return "\n#openvpn is not used on this server" unless (-f '/var/log/openvpn.log');
+return "\n#openvpn is not used on this server" unless (-f '/var/log/openvpn/openvpn.log');
 
 my $OpenVpnAuth_status = $fail2ban{OpenVpnAuth_status} || 'true';
 my $UDPPort = ${'openvpn@host-to-net'}{UDPPort} || '1194';
@@ -11,7 +11,7 @@ enabled  = $OpenVpnAuth_status
 port     = $UDPPort
 protocol = udp
 filter   = openvpn
-logpath  = /var/log/openvpn.log*
+logpath  = /var/log/openvpn/openvpn.log*
 maxretry = $maxretry
 );
 }
