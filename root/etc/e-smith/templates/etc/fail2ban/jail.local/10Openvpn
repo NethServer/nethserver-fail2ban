@@ -2,7 +2,7 @@
 return "\n#openvpn is not used on this server" unless (-f '/var/log/openvpn/openvpn.log');
 
 my $OpenVpnAuth_status = $fail2ban{OpenVpnAuth_status} || 'true';
-my $UDPPort = ${'openvpn@host-to-net'}{UDPPort} || '1194';
+my $UDPPort = ${'openvpn'}{UDPPort} || '1194';
 my $maxretry = $fail2ban{MaxRetry} || '3';
 
 $OUT .= qq (
