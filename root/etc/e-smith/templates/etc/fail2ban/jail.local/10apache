@@ -79,11 +79,13 @@ maxretry = $maxretry
 enabled  = $ApacheScan_status
 port     = $apachetcp
 logpath  = /var/log/httpd/*error_log*
+maxretry = $maxretry
 
 [phpmyadmin]
 enabled  = $ApachePhpMyAdmin_status
 port     = $apachetcp
 logpath  = /var/log/httpd/*access_log*
+maxretry = $maxretry
 );
 
 }
