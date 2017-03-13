@@ -58,6 +58,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Sun Mar 12 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.8-1-ns7
 - Added OPENVPN Jail
+- Enforce the MaxRetry setting
 
 * Sun Mar 12 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.7-2-ns7
 - GPL license
