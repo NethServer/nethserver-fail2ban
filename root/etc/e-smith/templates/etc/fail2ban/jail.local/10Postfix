@@ -13,6 +13,7 @@ $OUT .= qq (
 enabled  = $postfixstatus
 port     = $postfixtcp
 logpath  = \%(postfix_log)s
+maxretry = $postfixrblretry
 
 
 [postfix-rbl]

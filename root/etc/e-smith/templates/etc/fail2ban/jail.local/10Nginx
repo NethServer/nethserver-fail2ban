@@ -12,6 +12,8 @@ $OUT .= qq (
 enabled = $NginxHttpAuth_status
 port    = $TCPPorts
 logpath = \%(nginx_error_log)s
+maxretry = $NginxBotSearch_maxretry
+
 
 [nginx-botsearch]
 enabled  = $NginxBotSearch_status

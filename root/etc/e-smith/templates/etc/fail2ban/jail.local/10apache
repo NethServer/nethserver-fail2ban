@@ -84,6 +84,7 @@ logpath  = /var/log/httpd/error_log*
 enabled  = $ApachePhpMyAdmin_status
 port     = $apachetcp
 logpath  = /var/log/httpd/access_log*
+maxretry = $maxretry
 );
 
 }
