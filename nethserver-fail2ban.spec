@@ -1,7 +1,7 @@
 Summary: NethServer configuration for crontab
 %define name nethserver-fail2ban
 %define version 0.1.8
-%define release 1
+%define release 2
 Name: %{name}
 Version: %{version}
 Release: %{release}%{?dist}
@@ -56,7 +56,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_nseventsdir}/%{name}-update
 
 %changelog
-* Sun Mar 12 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.8-1-ns7
+* Sun Mar 12 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.8-2-ns7
 - Added OPENVPN Jail
 - Enforce the MaxRetry setting
 
