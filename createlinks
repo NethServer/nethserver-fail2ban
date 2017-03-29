@@ -25,3 +25,7 @@ foreach my $event (qw ( runlevel-adjust nethserver-fail2ban-save)) {
 event_services($event,
     'fail2ban'=> 'restart');
 }
+
+my $event = 'trusted-networks-modify';
+templates2events('/etc/fail2ban/jail.local', $event);
+

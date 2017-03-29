@@ -1,7 +1,7 @@
 Summary: NethServer configuration for crontab
 %define name nethserver-fail2ban
-%define version 0.0.10
-%define release 2
+%define version 0.0.11
+%define release 1
 Name: %{name}
 Version: %{version}
 Release: %{release}%{?dist}
@@ -50,6 +50,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Wed Mar 29 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 1.1.11-1-ns6
+- Template expansion on trusted-network
+
 * Sun Mar 12 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.10-2-ns6
 - Added OPENVPN jail
 
