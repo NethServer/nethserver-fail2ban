@@ -1,6 +1,6 @@
 Summary: NethServer configuration for crontab
 %define name nethserver-fail2ban
-%define version 0.1.10
+%define version 0.1.9
 %define release 1
 Name: %{name}
 Version: %{version}
@@ -56,9 +56,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_nseventsdir}/%{name}-update
 
 %changelog
-* Mon May 01 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.10-1-ns7
-- dovecot and postfix jails get a fixed name for their watched logs
-
 * Wed Mar 29 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.9-1-ns7
 - Template expansion on trusted-network
 

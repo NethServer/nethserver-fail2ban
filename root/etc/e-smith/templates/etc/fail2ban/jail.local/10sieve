@@ -10,7 +10,7 @@ $OUT .= qq (
 [sieve]
 enabled  = $Sieve_status
 port     = $TCPPorts
-logpath  = /var/log/imap*
+logpath  = \%(dovecot_log)s
 maxretry = $maxretry
 );
 }
