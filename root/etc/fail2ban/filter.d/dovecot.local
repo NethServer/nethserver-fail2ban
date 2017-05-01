@@ -1,0 +1,5 @@
+# Fail2Ban filter Dovecot authentication and pop3/imap server
+# Custom regex added by stephane de Labrusse <stephdl@de-labrusse.fr>
+
+[Definition]
+failregex = ^%(__prefix_line)s(?:pop3-login|imap-login):.*(?:Disconnected|Authentication failure|Aborted login \(auth failed|Aborted login \(tried to use disabled|Disconnected \(auth failed|Aborted login \(tried to use disallowed plaintext auth).*\s+rip=(?P<host>\S*),.*
