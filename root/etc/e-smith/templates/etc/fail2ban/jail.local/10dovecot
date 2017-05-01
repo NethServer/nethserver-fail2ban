@@ -10,7 +10,7 @@ $OUT .= qq (
 [dovecot]
 enabled  = $Dovecot_status
 port     = $TCPPorts
-logpath  = \%(dovecot_log)s
+logpath  = /var/log/imap*
 maxretry = $maxretry
 );
 }
