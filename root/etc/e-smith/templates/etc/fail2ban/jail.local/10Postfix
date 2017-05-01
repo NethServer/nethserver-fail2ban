@@ -13,13 +13,15 @@ $OUT .= qq (
 enabled  = $postfixstatus
 port     = $postfixtcp
 logpath  = \%(postfix_log)s
+backend  = \%(postfix_backend)s
 maxretry = $postfixrblretry
 
 
 [postfix-rbl]
 enabled  = $postfixrblstatus
 port     = $postfixtcp
-logpath  = \%(syslog_mail)s
+logpath  = \%(postfix_log)s
+backend  = \%(postfix_backend)s
 maxretry = $postfixrblretry
 );
 }
