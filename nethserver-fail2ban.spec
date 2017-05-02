@@ -58,6 +58,8 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Tue May 02 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.12-1-ns7
 - Added postfix-ddos jail
+- Added dovecot-nethserver Jail
+- Added pam-generic-nethserver jail
 
 * Mon May 01 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.11-1-ns7
 - adjusted log file and backend in jail
