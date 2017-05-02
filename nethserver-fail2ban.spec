@@ -1,6 +1,6 @@
 Summary: NethServer configuration for crontab
 %define name nethserver-fail2ban
-%define version 0.1.11
+%define version 0.1.12
 %define release 1
 Name: %{name}
 Version: %{version}
@@ -56,6 +56,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_nseventsdir}/%{name}-update
 
 %changelog
+* Tue May 02 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.12-1-ns7
+- Added postfix-ddos jail
+
 * Mon May 01 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.11-1-ns7
 - adjusted log file and backend in jail
 
