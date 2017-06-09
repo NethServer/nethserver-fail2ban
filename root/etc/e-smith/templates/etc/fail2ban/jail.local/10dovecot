@@ -1,6 +1,6 @@
 {
 my $dovecot = $dovecot{status} || 'disabled';
-return "\n#dovecot not used on this server" unless ($dovecot eq 'enabled');
+return "\n#dovecot not used on this server" unless (($dovecot eq 'enabled') && (-f '/var/log/imap'));
 
 my $Dovecot_status = $fail2ban{Dovecot_status} || 'true';
 my $TCPPorts = $dovecot{TCPPorts} || '110,143,4190,993,995';
