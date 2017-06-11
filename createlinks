@@ -17,6 +17,7 @@ foreach my $event (qw ( runlevel-adjust nethserver-fail2ban-save)) {
     templates2events("/etc/fail2ban/fail2ban.local", $event);
     templates2events('/etc/fail2ban/jail.local', $event);
     templates2events('/etc/fail2ban/action.d/shorewall.local', $event);
+    templates2events('/etc/fail2ban/action.d/sendmail-whois.local', $event);
     templates2events('/etc/sudoers', $event);
     templates2events('/etc/fail2ban/filter.d/urbackup-auth.conf', $event);
 }
