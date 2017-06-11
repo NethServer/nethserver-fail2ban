@@ -20,6 +20,7 @@ $L['Maximum retry number (${0})'] = 'Maximum retry number (${0})';
 $L['BanLocalNetwork_label'] = 'Allow bans on the LAN';
 $L['IgnoreIP_label'] = 'IP Whitelisting (one per line)';
 $L['Mail_label'] = 'Send email notifications';
+$L['MailJailState_label'] = 'Notify jail start/stop events';
 $L['CustomDestemail_label'] = 'Email administrators (one per line)';
 $L['LogLevel_label'] = 'Logging Level';
 $L['JailsStatus_label'] = 'Status of Jails';
