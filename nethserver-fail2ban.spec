@@ -1,4 +1,4 @@
-Summary: NethServer configuration for crontab
+Summary: NethServer configuration for fail2ban
 %define name nethserver-fail2ban
 %define version 0.1.14
 %define release 1
@@ -14,7 +14,7 @@ Requires: fail2ban fail2ban-shorewall perl-Email-Valid
 #AutoReq: no
 
 %description
-NethServer configuration for ddclient
+NethServer configuration for fail2ban
 
 %prep
 %setup
