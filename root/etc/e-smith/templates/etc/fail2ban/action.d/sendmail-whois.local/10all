@@ -2,10 +2,20 @@
 $OUT = '';
 
 if ($fail2ban{MailJailState} eq 'disabled') {
-$OUT .= qq(
+$OUT .= qq(whois
 [Definition]
-actionstart =
-actionstop =
+
+# Option:  actionstart
+# Notes.:  command executed once at the start of Fail2Ban.
+# Values:  CMD
+#
+actionstart = 
+
+# Option:  actionstop
+# Notes.:  command executed once at the end of Fail2Ban
+# Values:  CMD
+#
+actionstop = 
 );
 }
 
