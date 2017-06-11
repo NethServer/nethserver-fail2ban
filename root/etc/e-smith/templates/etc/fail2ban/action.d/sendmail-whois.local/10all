@@ -1,0 +1,12 @@
+{
+$OUT = '';
+
+if ($fail2ban{MailJailState} eq 'disabled') {
+$OUT .= qq(
+[Definition]
+actionstart =
+actionstop =
+);
+}
+
+}
