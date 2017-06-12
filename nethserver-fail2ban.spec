@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 %define name nethserver-fail2ban
-%define version 0.1.14
+%define version 0.1.15
 %define release 1
 Name: %{name}
 Version: %{version}
@@ -56,6 +56,11 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_nseventsdir}/%{name}-update
 
 %changelog
+* Mon Jun 12 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.15-1.ns7
+- Stop to send notifications on start/stop jails
+- UI tweaks
+- Thank to dnutan 
+
 * Fri Jun 09 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.14-1.ns7
 - Test if the dovecot log exists before to start the dovecot/sieve jails
 
