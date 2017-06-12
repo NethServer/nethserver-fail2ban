@@ -2,7 +2,7 @@
 $OUT = '';
 
 if ($fail2ban{MailJailState} eq 'disabled') {
-$OUT .= qq(whois
+$OUT .= qq(
 [Definition]
 
 # Option:  actionstart
