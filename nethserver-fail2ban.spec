@@ -1,6 +1,6 @@
 Summary: NethServer configuration for crontab
 %define name nethserver-fail2ban
-%define version 0.0.12
+%define version 0.0.13
 %define release 1
 Name: %{name}
 Version: %{version}
@@ -50,7 +50,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
-* Fri Jun 09 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.12-1.ns6
+* Fri Jun 09 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.13-1.ns6
 - Test if the dovecot log exists before to start the dovecot/sieve jails
 
 * Wed Mar 29 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.11-1-ns6
