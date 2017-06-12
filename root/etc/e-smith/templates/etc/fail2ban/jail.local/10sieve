@@ -1,6 +1,6 @@
 {
 my $sieve = $dovecot{status} || 'disabled';
-return "\n#sieve not used on this server" unless (($dovecot eq 'enabled') && (-f '/var/log/imap'));
+return "\n#sieve not used on this server" unless (($sieve eq 'enabled') && (-f '/var/log/imap'));
 
 my $Sieve_status = $fail2ban{Sieve_status} || 'true';
 my $TCPPorts = $postfix{TCPPorts} || '25,465,587';
