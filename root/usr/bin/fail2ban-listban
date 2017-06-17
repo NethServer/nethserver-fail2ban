@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo ""
-echo "You want more informations on a jail, do : fail2ban-client status {JailName}"
+echo "If you want more informations on a jail, do : fail2ban-client status {JailName}"
 echo ""
 echo "Status of Jails"
 echo "---------------"

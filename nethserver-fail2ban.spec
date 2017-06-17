@@ -1,6 +1,6 @@
-Summary: NethServer configuration for crontab
+Summary: NethServer configuration for fail2ban
 %define name nethserver-fail2ban
-%define version 0.0.13
+%define version 0.0.14
 %define release 1
 Name: %{name}
 Version: %{version}
@@ -15,7 +15,7 @@ Conflicts: nethserver-release < 6.7
 AutoReq: no
 
 %description
-NethServer configuration for ddclient
+NethServer configuration for fail2ban
 
 %prep
 %setup
@@ -50,6 +50,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Sat Jun 17 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.14-1.ns6
+- Stop to send notifications on start/stop jails
+- UI tweaks
+- Thank to dnutan 
+
 * Fri Jun 09 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.13-1.ns6
 - Test if the dovecot log exists before to start the dovecot/sieve jails
 
