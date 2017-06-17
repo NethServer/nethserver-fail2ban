@@ -20,6 +20,7 @@ class  Fail2BanSettings extends \Nethgui\Controller\AbstractController
     $this->declareParameter('LogLevel', $this->createValidator()->memberOf('CRITICAL','ERROR','WARNING','NOTICE','INFO','DEBUG'), 
                  array('configuration', 'fail2ban', 'LogLevel'));
     $this->declareParameter('Mail', Validate::SERVICESTATUS, array('configuration', 'fail2ban', 'Mail'));
+    $this->declareParameter('MailJailState', Validate::SERVICESTATUS, array('configuration', 'fail2ban', 'MailJailState'));
     $this->declareParameter('MaxRetry', Validate::POSITIVE_INTEGER, array('configuration', 'fail2ban', 'MaxRetry'));
     $this->declareParameter('status', Validate::SERVICESTATUS, array('configuration', 'fail2ban', 'status'));
 
