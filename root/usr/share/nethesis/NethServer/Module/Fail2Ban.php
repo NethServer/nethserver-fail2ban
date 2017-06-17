@@ -1,7 +1,7 @@
 <?php
 namespace NethServer\Module;
 /**
- * Implementation of dynamic dns with ddclient
+ * Implementation of Fail2Ban
  */
 class Fail2Ban extends \Nethgui\Controller\TabsController
 {
