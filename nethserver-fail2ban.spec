@@ -1,4 +1,4 @@
-Summary: NethServer configuration for crontab
+Summary: NethServer configuration for fail2ban
 %define name nethserver-fail2ban
 %define version 0.0.12
 %define release 1
@@ -15,7 +15,7 @@ Conflicts: nethserver-release < 6.7
 AutoReq: no
 
 %description
-NethServer configuration for ddclient
+NethServer configuration for fail2ban
 
 %prep
 %setup
