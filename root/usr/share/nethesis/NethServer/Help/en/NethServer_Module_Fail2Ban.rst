@@ -27,6 +27,9 @@ IP Whitelisting
 Send email notifications
     Enable to send administrative emails.
 
+Notify jail start/stop events
+    Enable to send notification emails when a jail is started or stopped.
+
 Email administrators
     List of email addresses of administrators (one address per line).
 
