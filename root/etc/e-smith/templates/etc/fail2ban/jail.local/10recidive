@@ -1,8 +1,21 @@
+{
+return "\n#recidive not used on this server"
+           unless (-f '/var/log/fail2ban.log');
 
+my $status   = $fail2ban{Recidive_status} || 'true';
+my $action   = $fail2ban{Recidive_banaction} || 'shorewall';
+my $bantime  = $fail2ban{BanTime}*336 || '604800';
+my $findtime = $fail2ban{FindTime}*94 || '86400';
+my $maxretry = $fail2ban{MaxRetry}*2 || '6';
+
+$OUT .= qq (
 [recidive]
-enabled  = {$fail2ban{Recidive_status} || 'true'}
-logpath  = /var/log/fail2ban.log*
-banaction = {$fail2ban{Recidive_banaction} || 'shorewall'}
-bantime  = {$fail2ban{BanTime}*336 || '604800'}
-findtime = {$fail2ban{FindTime}*94 || '86400'}
-maxretry = {$fail2ban{MaxRetry}*2 || '6'}
+enabled   = $status
+logpath   = /var/log/fail2ban.log*
+maxretry  = $maxretry
+banaction = $action
+bantime   = $bantime
+findtime  = $findtime
+maxretry  = $maxretry
+);
+}

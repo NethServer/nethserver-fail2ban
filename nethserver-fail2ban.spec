@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 %define name nethserver-fail2ban
-%define version 0.0.14
+%define version 0.0.15
 %define release 1
 Name: %{name}
 Version: %{version}
@@ -50,6 +50,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Thu Jun 22 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.15-1.ns6
+- Test if the fail2ban log exists for recidive jail
+
 * Sat Jun 17 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.14-1.ns6
 - Stop to send notifications on start/stop jails
 - UI tweaks
