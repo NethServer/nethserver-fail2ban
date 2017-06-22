@@ -22,68 +22,68 @@ $OUT .= qq (
 [apache-auth]
 enabled  = $apacheauthstatus
 port     = $apachetcp
-logpath  = /var/log/httpd/error_log*
+logpath  = /var/log/httpd/error_log
 maxretry = $maxretry
 
 [apache-badbots]
 enabled  = $ApacheBadbots_status
 port     = $apachetcp
-logpath  = /var/log/httpd/access_log*
+logpath  = /var/log/httpd/access_log
 bantime  = $bantime
 maxretry = $maxretry
 
 [apache-noscript]
 enabled  = $ApacheNoscript_status
 port     = $apachetcp
-logpath  = /var/log/httpd/error_log*
+logpath  = /var/log/httpd/error_log
 maxretry = $maxretry
 
 [apache-overflows]
 enabled  = $ApacheOverflows_status
 port     = $apachetcp
-logpath  = /var/log/httpd/error_log*
+logpath  = /var/log/httpd/error_log
 maxretry = $maxretry
 
 [apache-nohome]
 enabled  = $ApacheNohome_status
 port     = $apachetcp
-logpath  = /var/log/httpd/error_log*
+logpath  = /var/log/httpd/error_log
 maxretry = $maxretry
 
 [apache-botsearch]
 enabled  = $ApacheBotsearch_status
 port     = $apachetcp
-logpath  = /var/log/httpd/error_log*
+logpath  = /var/log/httpd/error_log
 maxretry = $maxretry
 
 [apache-fakegooglebot]
 enabled  = $ApacheFakegooglebot_status
 port     = $apachetcp
-logpath  = /var/log/httpd/access_log*
+logpath  = /var/log/httpd/access_log
 maxretry = $maxretry
 ignorecommand = %(ignorecommands_dir)s/apache-fakegooglebot <ip>
 
 [apache-modsecurity]
 enabled  = $ApacheModsecurity_status
 port     = $apachetcp
-logpath  = /var/log/httpd/error_log*
+logpath  = /var/log/httpd/error_log
 maxretry = $maxretry
 
 [apache-shellshock]
 enabled  = $ApacheShellshock_status
 port     = $apachetcp
-logpath  = /var/log/httpd/error_log*
+logpath  = /var/log/httpd/error_log
 maxretry = $maxretry
 
 [apache-scan]
 enabled  = $ApacheScan_status
 port     = $apachetcp
-logpath  = /var/log/httpd/error_log*
+logpath  = /var/log/httpd/error_log
 
 [phpmyadmin]
 enabled  = $ApachePhpMyAdmin_status
 port     = $apachetcp
-logpath  = /var/log/httpd/access_log*
+logpath  = /var/log/httpd/access_log
 maxretry = $maxretry
 );
 

@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 %define name nethserver-fail2ban
-%define version 0.0.15
+%define version 0.0.16
 %define release 1
 Name: %{name}
 Version: %{version}
@@ -50,6 +50,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Thu Jun 22 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.16-1.ns6
+- Removed the wildcard on watched logs
+
 * Thu Jun 22 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.15-1.ns6
 - Test if the fail2ban log exists for recidive jail
 

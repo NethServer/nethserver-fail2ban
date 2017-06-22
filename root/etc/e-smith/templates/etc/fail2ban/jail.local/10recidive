@@ -11,7 +11,7 @@ my $maxretry = $fail2ban{MaxRetry}*2 || '6';
 $OUT .= qq (
 [recidive]
 enabled   = $status
-logpath   = /var/log/fail2ban.log*
+logpath   = /var/log/fail2ban.log
 maxretry  = $maxretry
 banaction = $action
 bantime   = $bantime
