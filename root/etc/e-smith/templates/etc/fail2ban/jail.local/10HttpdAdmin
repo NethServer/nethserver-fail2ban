@@ -10,7 +10,7 @@ $OUT .= qq(
 [httpd-admin]
 enabled = $HttpdAdminAuth_status
 port    = $TCPPorts
-logpath = /var/log/httpd-admin/access_log*
+logpath = /var/log/httpd-admin/access_log
 maxretry = $maxretry
 );
 }

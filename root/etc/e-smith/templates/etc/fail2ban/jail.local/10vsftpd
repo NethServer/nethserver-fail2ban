@@ -11,7 +11,7 @@ $OUT .= qq (
 [vsftpd]
 enabled  = $Vsftpd_status
 port     = $TCPPort
-logpath  = /var/log/vsftpd.log*
+logpath  = /var/log/vsftpd.log
 maxretry = $maxretry
 );
 }

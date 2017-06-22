@@ -11,4 +11,4 @@ backend  = %(syslog_backend)s
 enabled  = {$fail2ban{PamGeneric_status} || 'true'}
 banaction = {$fail2ban{PamGeneric_banaction} || 'shorewall'}
 maxretry = {$fail2ban{MaxRetry}*2 || '6'}
-logpath  = /var/log/secure*
+logpath  = /var/log/secure
