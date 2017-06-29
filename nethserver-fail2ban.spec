@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 %define name nethserver-fail2ban
-%define version 0.1.17
+%define version 0.1.18
 %define release 1
 Name: %{name}
 Version: %{version}
@@ -56,6 +56,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_nseventsdir}/%{name}-update
 
 %changelog
+* Thu Jun 29 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.18-1.ns7
+- Add translation description
+
 * Thu Jun 22 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.17-1.ns7
 - Removed the wildcard on watched log files
 

@@ -1,5 +1,6 @@
 <?php
 $L['Fail2Ban_Title'] = 'Fail2ban';
+$L['Fail2Ban_Description'] = 'Protect your server from brute-force attacks';
 $L['Fail2BanSettings_Title'] = 'Service';
 $L['Fail2Ban_header'] = 'Service settings';
 $L['Fail2BanUnban_Title'] = 'Blacklist';
