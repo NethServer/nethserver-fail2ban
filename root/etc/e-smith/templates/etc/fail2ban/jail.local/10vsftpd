@@ -5,7 +5,7 @@ return "\n#vsftpd not used on this server"
 
 my $Vsftpd_status = $fail2ban{Vsftpd_status} || 'true';
 my $TCPPort = $vsftpd{TCPPort} || '21';
-my $maxretry = $fail2ban{MaxRetry} || '3';
+my $maxretry = $fail2ban{Vsftpd_MaxRetry} || $fail2ban{MaxRetry} || '3';
 
 $OUT .= qq (
 [vsftpd]

@@ -6,7 +6,7 @@ my $status   = $fail2ban{Recidive_status} || 'true';
 my $action   = $fail2ban{Recidive_banaction} || 'shorewall';
 my $bantime  = $fail2ban{BanTime}*336 || '604800';
 my $findtime = $fail2ban{FindTime}*94 || '86400';
-my $maxretry = $fail2ban{MaxRetry}*2 || '6';
+my $maxretry = $fail2ban{Recidive_MaxRetry} || $fail2ban{MaxRetry}*2 || '6';
 
 $OUT .= qq (
 [recidive]
@@ -16,6 +16,5 @@ maxretry  = $maxretry
 banaction = $action
 bantime   = $bantime
 findtime  = $findtime
-maxretry  = $maxretry
 );
 }

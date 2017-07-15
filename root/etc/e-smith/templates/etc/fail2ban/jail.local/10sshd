@@ -3,10 +3,10 @@
 enabled  = {($fail2ban{Sshd_status} || 'true')}
 port    = {$sshd{TCPPort} || '22'}
 logpath = %(sshd_log)s
-maxretry = {($fail2ban{MaxRetry} || '3')}
+maxretry = {($fail2ban{Sshd_MaxRetry} || $fail2ban{MaxRetry} || '3')}
 
 [sshd-ddos]
 enabled  = {($fail2ban{SshdDdos_status} || 'true')}
 port     = {$sshd{TCPPort} || '22'}
 logpath  = %(sshd_log)s
-maxretry = {($fail2ban{MaxRetry} || '3')}
+maxretry = {($fail2ban{Sshd_MaxRetry} || $fail2ban{MaxRetry} || '3')}

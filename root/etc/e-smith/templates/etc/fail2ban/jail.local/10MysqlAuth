@@ -4,7 +4,7 @@ return "\n#mysqld not used on this server" unless ($mysql eq 'enabled');
 
 my $MysqldAuth_status = $fail2ban{MysqldAuth_status} || 'true';
 my $TCPPort = $mysqld{TCPPort} || '3306';
-my $MysqldAuth_maxretry = $fail2ban{MaxRetry} || '3';
+my $MysqldAuth_maxretry = $fail2ban{Mysqld_MaxRetry} || $fail2ban{MaxRetry} || '3';
 
 $OUT .= qq (
 [mysqld-auth]

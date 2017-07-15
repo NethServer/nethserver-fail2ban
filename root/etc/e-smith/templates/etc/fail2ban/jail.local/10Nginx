@@ -5,7 +5,7 @@ return "\n#nginx not used on this server" unless ($nginx eq 'enabled');
 my $NginxHttpAuth_status = $fail2ban{NginxHttpAuth_status} || 'true';
 my $TCPPorts = $nginx{TCPPorts} || '80,443';
 my $NginxBotSearch_status = $fail2ban{NginxBotSearch_status} || 'true';
-my $NginxBotSearch_maxretry = $fail2ban{MaxRetry} || '3';
+my $NginxBotSearch_maxretry = $fail2ban{Nginx_MaxRetry} || $fail2ban{MaxRetry} || '3';
 
 $OUT .= qq (
 [nginx-http-auth]
