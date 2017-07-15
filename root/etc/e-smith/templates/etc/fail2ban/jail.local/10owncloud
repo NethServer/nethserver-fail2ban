@@ -3,7 +3,7 @@ return "\n#owncloud not installed on this server" unless (-f '/var/www/html/ownc
 
 my $Owncloud_status = $fail2ban{Owncloud_status} || 'true';
 my $TCPPorts = $httpd{TCPPorts} || '80,443';
-my $maxretry = $$fail2ban{Owncloud_MaxRetry} || fail2ban{MaxRetry} || '3';
+my $maxretry = $fail2ban{Owncloud_MaxRetry} || fail2ban{MaxRetry} || '3';
 
 $OUT .= qq(
 [owncloud-auth]

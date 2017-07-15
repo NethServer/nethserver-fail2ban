@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 %define name nethserver-fail2ban
-%define version 0.0.18
+%define version 0.0.19
 %define release 1
 Name: %{name}
 Version: %{version}
@@ -50,7 +50,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
-* Sat Jul 15 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.18-1.ns6
+* Sat Jul 15 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.19-1.ns6
 - Custom MaxRetry property per jail (only by db)
 - Remove MaxRetry recidive listed twice
 
