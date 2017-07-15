@@ -4,7 +4,7 @@ return "\n#dovecot not used on this server" unless (($dovecot eq 'enabled') && (
 
 my $Dovecot_status = $fail2ban{Dovecot_status} || 'true';
 my $TCPPorts = $dovecot{TCPPorts} || '110,143,4190,993,995';
-my $maxretry = $fail2ban{MaxRetry} || '3';
+my $maxretry = $fail2ban{Dovecot_MaxRetry} || $fail2ban{MaxRetry} || '3';
 
 $OUT .= qq (
 [dovecot]

@@ -4,7 +4,7 @@ return "\n#sogo is not used on this server" unless ($sogo eq 'enabled');
 
 my $SogoAuth_status = $fail2ban{SogoAuth_status} || 'true';
 my $TCPPorts = $httpd{TCPPorts} || '80,443';
-my $maxretry = $fail2ban{MaxRetry} || '3';
+my $maxretry = $fail2ban{Sogo_MaxRetry} || $fail2ban{MaxRetry} || '3';
 
 $OUT .= qq (
 [sogo-auth]

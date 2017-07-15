@@ -4,7 +4,7 @@ return "\n#sieve not used on this server" unless (($sieve eq 'enabled') && (-f '
 
 my $Sieve_status = $fail2ban{Sieve_status} || 'true';
 my $TCPPorts = $postfix{TCPPorts} || '25,465,587';
-my $maxretry = $fail2ban{MaxRetry} || '3';
+my $maxretry = $fail2ban{Sieve_MaxRetry} || $fail2ban{MaxRetry} || '3';
 
 $OUT .= qq (
 [sieve]

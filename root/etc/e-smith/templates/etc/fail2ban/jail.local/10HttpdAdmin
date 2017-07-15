@@ -3,7 +3,7 @@ return "\n#cannot find logs for httpd-admin" unless (-f '/var/log/httpd-admin/ac
 
 my $HttpdAdminAuth_status = $fail2ban{HttpdAdmin_status} || 'true';
 my $TCPPorts = ${'httpd-admin'}{TCPPort} || '980';
-my $maxretry = $fail2ban{MaxRetry} || '3';
+my $maxretry = $fail2ban{HttpdAdmin_MaxRetry} || $fail2ban{MaxRetry} || '3';
 
 
 $OUT .= qq(
