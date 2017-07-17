@@ -66,7 +66,7 @@ rm -rf $RPM_BUILD_ROOT
 * Sat Jun 17 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.14-1.ns6
 - Stop to send notifications on start/stop jails
 - UI tweaks
-- Thank to dnutan 
+- Code from dnutan <dnutan@openaliasbox.org>
 
 * Fri Jun 09 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.13-1.ns6
 - Test if the dovecot log exists before to start the dovecot/sieve jails
