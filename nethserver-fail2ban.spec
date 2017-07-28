@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 %define name nethserver-fail2ban
-%define version 0.1.21
+%define version 0.1.22
 %define release 1
 Name: %{name}
 Version: %{version}
@@ -56,6 +56,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_nseventsdir}/%{name}-update
 
 %changelog
+* Fri Jul 28 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.22-1.ns7
+- Start sogo jail if the log exists
+
 * Tue Jul 18 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.21-1.ns7
 - Fix variable error on owncloud jail
 
