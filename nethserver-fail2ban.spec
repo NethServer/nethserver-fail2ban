@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 %define name nethserver-fail2ban
-%define version 0.0.20
+%define version 0.0.21
 %define release 1
 Name: %{name}
 Version: %{version}
@@ -50,6 +50,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Sat Aug 19 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.21-1.ns6
+- escape path file for sogo jail , code from phonon112358
+
 * Fri Jul 28 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.20-1.ns6
 - Start sogo jail if the log exists
  
