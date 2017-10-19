@@ -27,7 +27,7 @@ maxretry = $postfixrblretry
 [postfix-ddos]
 enabled  = $postfixstatus
 port     = $postfixtcp
-logpath  = /var/log/maillog
+logpath  = /var/log/maillog*
 maxretry = $postfixrblretry
 
 );

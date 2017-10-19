@@ -9,7 +9,7 @@ $OUT .= qq(
 [urbackup-auth]
 enabled  = $Urbackup_status
 port     = $TCPPorts
-logpath  = /var/log/httpd/ssl_access_log
+logpath  = /var/log/httpd/ssl_access_log*
 maxretry = $maxretry
 );
 }
