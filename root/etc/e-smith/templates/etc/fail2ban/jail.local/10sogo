@@ -9,7 +9,7 @@ $OUT .= qq (
 [sogo-auth]
 enabled  = $SogoAuth_status
 port     = $TCPPorts
-logpath  = /var/log/sogo/sogo.log
+logpath  = /var/log/sogo/sogo.log*
 maxretry = $maxretry
 );
 }

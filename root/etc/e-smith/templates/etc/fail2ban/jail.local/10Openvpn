@@ -11,7 +11,7 @@ enabled  = $OpenVpnAuth_status
 port     = $UDPPort
 protocol = udp
 filter   = openvpn
-logpath  = /var/log/openvpn/openvpn.log
+logpath  = /var/log/openvpn/openvpn.log*
 maxretry = $maxretry
 );
 }

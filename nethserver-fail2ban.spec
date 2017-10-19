@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 %define name nethserver-fail2ban
-%define version 0.0.22
+%define version 0.0.23
 %define release 1
 Name: %{name}
 Version: %{version}
@@ -32,7 +32,7 @@ rm -rf $RPM_BUILD_ROOT
 (cd root   ; find . -depth -print | cpio -dump $RPM_BUILD_ROOT)
 
 %{__mkdir_p} -p $RPM_BUILD_ROOT/var/log/
-touch $RPM_BUILD_ROOT/var/log/fail2ban.log 
+touch $RPM_BUILD_ROOT/var/log/fail2ban.log
 %{__mkdir_p} -p $RPM_BUILD_ROOT/var/run/fail2ban
 
 %{genfilelist} \
@@ -50,6 +50,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Thu Oct 19 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.23-1.ns6
+- Restart fail2ban service on trusted-network
+- back to the * wildcard
+- reload the fail2ban configuration when logrotate
+
 * Sun Sep 10 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.22-1.ns6
 - Restart httpd service on trusted-network
 
@@ -58,7 +63,7 @@ rm -rf $RPM_BUILD_ROOT
 
 * Fri Jul 28 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.20-1.ns6
 - Start sogo jail if the log exists
- 
+
 * Sat Jul 15 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.19-1.ns6
 - Custom MaxRetry property per jail (only by db)
 - Remove MaxRetry recidive listed twice
