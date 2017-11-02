@@ -9,7 +9,7 @@ $OUT .= qq(
 [owncloud-auth]
 enabled  = $Owncloud_status
 port     = $TCPPorts
-logpath  = /var/www/html/owncloud/data/owncloud.log*
+logpath  = /var/www/html/owncloud/data/owncloud.log
 maxretry = $maxretry
 )
 }

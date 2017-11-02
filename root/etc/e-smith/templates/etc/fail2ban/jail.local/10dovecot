@@ -17,7 +17,7 @@ maxretry = $maxretry
 [dovecot-nethserver]
 enabled  = $Dovecot_status
 port     = $TCPPorts
-logpath  = /var/log/imap*
+logpath  = /var/log/imap
 maxretry = $maxretry
 
 );
