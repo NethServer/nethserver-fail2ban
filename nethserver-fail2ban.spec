@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 %define name nethserver-fail2ban
-%define version 0.1.24
+%define version 0.1.26
 %define release 1
 Name: %{name}
 Version: %{version}
@@ -56,6 +56,15 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_nseventsdir}/%{name}-update
 
 %changelog
+* Thu Nov 02 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.26-1.ns7
+- Revert the wildcard 0.1.25-1.ns7
+- restart fail2ban on trusted network expand
+
+* Thu Oct 19 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.25-1.ns7
+- Restart fail2ban service on trusted-network
+- back to the * wildcard
+- reload the fail2ban configuration when logrotate
+
 * Sun Sep 10 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.24-1.ns7
 - Restart httpd service on trusted-network
 
