@@ -29,4 +29,4 @@ event_services($event,
 
 my $event = 'trusted-networks-modify';
 templates2events('/etc/fail2ban/jail.local', $event);
-event_services($event, 'httpd' => 'reload');
+event_services($event, 'fail2ban' => 'restart');
