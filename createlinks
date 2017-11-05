@@ -4,7 +4,7 @@ use esmith::Build::CreateLinks qw(:all);
 
 # actions to do
 my $event = 'nethserver-fail2ban-update';
-event_actions($event, 
+event_actions($event,
              'initialize-default-databases' => '00');
 
 #Action to unbanIP
@@ -19,6 +19,7 @@ foreach my $event (qw ( runlevel-adjust nethserver-fail2ban-save)) {
     templates2events('/etc/fail2ban/action.d/shorewall.local', $event);
     templates2events('/etc/fail2ban/action.d/sendmail-common.local', $event);
     templates2events('/etc/sudoers', $event);
+    templates2events('/etc/logrotate.d/fail2ban', $event);
 }
 
 # services to launch on event
