@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 %define name nethserver-fail2ban
-%define version 0.1.26
+%define version 0.1.27
 %define release 1
 Name: %{name}
 Version: %{version}
@@ -37,7 +37,7 @@ rm -rf $RPM_BUILD_ROOT
 (cd root   ; find . -depth -print | cpio -dump $RPM_BUILD_ROOT)
 
 %{__mkdir_p} -p $RPM_BUILD_ROOT/var/log/
-touch $RPM_BUILD_ROOT/var/log/fail2ban.log 
+touch $RPM_BUILD_ROOT/var/log/fail2ban.log
 %{__mkdir_p} -p $RPM_BUILD_ROOT/var/run/fail2ban
 
 %{genfilelist} %{buildroot} \
@@ -56,6 +56,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_nseventsdir}/%{name}-update
 
 %changelog
+* Sun Nov 05 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.27-1.ns7
+- template of /etc/logrotate.d/fail2ban
+
 * Thu Nov 02 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.26-1.ns7
 - Revert the wildcard 0.1.25-1.ns7
 - restart fail2ban on trusted network expand
@@ -93,7 +96,7 @@ rm -rf $RPM_BUILD_ROOT
 * Mon Jun 12 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.15-1.ns7
 - Stop to send notifications on start/stop jails
 - UI tweaks
-- Code from dnutan <dnutan@openaliasbox.org> 
+- Code from dnutan <dnutan@openaliasbox.org>
 
 * Fri Jun 09 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.14-1.ns7
 - Test if the dovecot log exists before to start the dovecot/sieve jails
