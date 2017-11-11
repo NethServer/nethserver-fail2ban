@@ -66,3 +66,5 @@ $L['Urbackup_status_label'] = 'Urbackup Auth';
 $L['ApachePhpMyAdmin_status_label'] = 'PhpMyAdmin Auth';
 $L['OpenVpnAuth_status_label'] = 'OpenVPN Auth';
 $L['VPNStatus_label'] = 'VPN Jails';
+$L['Not an IP'] = '"${0}" is not an IP';
+$L['Not an email'] = '"${0}" is not an email';

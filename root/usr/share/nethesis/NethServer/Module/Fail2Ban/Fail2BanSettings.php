@@ -60,6 +60,52 @@ class  Fail2BanSettings extends \Nethgui\Controller\AbstractController
         parent::initialize();
     }
 
+        public static function splitLines($text)
+    {
+        return array_filter(preg_split("/[,;\s]+/", $text));
+    }
+
+    public function readIgnoreIP($dbList)
+    {
+        return implode("\r\n", explode(',' ,$dbList));
+    }
+
+    public function writeIgnoreIP($viewText)
+    {
+        return array(implode(',', self::splitLines($viewText)));
+    }
+
+    public function readCustomDestemail($dbList)
+    {
+        return implode("\r\n", explode(',' ,$dbList));
+    }
+
+    public function writeCustomDestemail($viewText)
+    {
+        return array(implode(',', self::splitLines($viewText)));
+    }
+
+    public function validate(\Nethgui\Controller\ValidationReportInterface $report)
+    {
+        parent::validate($report);
+        $itemValidator = $this->getPlatform()->createValidator(\Nethgui\System\PlatformInterface::IP);
+
+        foreach (self::splitLines($this->parameters['IgnoreIP']) as $v) {
+            if ( ! $itemValidator->evaluate($v)) {
+                $report->addValidationErrorMessage($this, 'AllowedIP', 'Not an IP', array($v));
+                break;
+            }
+        }
+        $emailValidator = $this->getPlatform()->createValidator(\Nethgui\System\PlatformInterface::EMAIL);
+
+        foreach (self::splitLines($this->parameters['CustomDestemail']) as $v) {
+            if ( ! $emailValidator->evaluate($v)) {
+                $report->addValidationErrorMessage($this, 'CustomDestemail', 'Not an email', array($v));
+                break;
+            }
+        }
+    }
+
     public function prepareView(\Nethgui\View\ViewInterface $view)
     {
         parent::prepareView($view);
