@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 %define name nethserver-fail2ban
-%define version 0.0.26
+%define version 0.0.27
 %define release 1
 Name: %{name}
 Version: %{version}
@@ -50,6 +50,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Fri Dec 8 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.27-1.ns6
+- Button creation to restart fail2ban in the gui
+
 * Sat Nov 11 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.26-1.ns6
 - Validate the content of IgnoreIP & CustomDestemail in nethgui
 

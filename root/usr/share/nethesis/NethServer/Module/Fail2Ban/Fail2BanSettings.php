@@ -156,6 +156,14 @@ class  Fail2BanSettings extends \Nethgui\Controller\AbstractController
 
     }
 
+    public function process()
+    {
+        parent::process();
+        if ($this->getRequest()->hasParameter('RestartFail2ban')) {
+            $this->getPlatform()->signalEvent('nethserver-fail2ban-save');
+        }
+    }
+
     public function onParametersSaved($changes)
     {
         $this->getPlatform()->signalEvent('nethserver-fail2ban-save@post-process');
