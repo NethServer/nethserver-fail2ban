@@ -18,6 +18,9 @@ Maximum retry number (maxretry)
 Maximum ban time (bantime)
     Duration for IP to be banned for.
 
+Recidive jail is perpetual
+    When an IP goes several time in jail, it goes to the recidive jail for a much longer time, if enable, it is perpetual
+
 Allow bans on the LAN
     By default all local network are whitelisted, enable to ban IP from the LAN.
 
