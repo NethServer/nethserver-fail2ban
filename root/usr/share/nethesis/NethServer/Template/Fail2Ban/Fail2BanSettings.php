@@ -17,6 +17,7 @@ echo $view->panel()
 
     ->insert($view->columns()
         ->insert($view->elementList()
+            ->insert($view->checkBox('Recidive_Perpetual', 'enabled')->setAttribute('uncheckedValue', 'disabled'))
             ->insert($view->checkBox('BanLocalNetwork', 'enabled')->setAttribute('uncheckedValue', 'disabled'))
             ->insert($view->textArea('IgnoreIP', $view::LABEL_ABOVE)->setAttribute('dimensions', '10x30'))
         )

@@ -49,6 +49,7 @@ class  Fail2BanSettings extends \Nethgui\Controller\AbstractController
     $this->declareParameter('PostfixRbl_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'PostfixRbl_status'));
     $this->declareParameter('Postfix_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'Postfix_status'));
     $this->declareParameter('Recidive_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'Recidive_status'));
+    $this->declareParameter('Recidive_Perpetual', Validate::SERVICESTATUS, array('configuration', 'fail2ban', 'Recidive_Perpetual'));
     $this->declareParameter('Roundcube_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'Roundcube_status'));
     $this->declareParameter('Sieve_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'Sieve_status'));
     $this->declareParameter('SogoAuth_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'SogoAuth_status'));
