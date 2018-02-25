@@ -1,7 +1,6 @@
 
 [pam-generic]
 enabled  = {$fail2ban{PamGeneric_status} || 'true'}
-banaction = {$fail2ban{PamGeneric_banaction} || 'shorewall'}
 maxretry = {$fail2ban{PamGeneric_MaxRetry} || $fail2ban{MaxRetry}*2 || '6'}
 logpath  = %(syslog_authpriv)s
 backend  = %(syslog_backend)s
@@ -9,6 +8,5 @@ backend  = %(syslog_backend)s
 
 [pam-generic-nethserver]
 enabled  = {$fail2ban{PamGeneric_status} || 'true'}
-banaction = {$fail2ban{PamGeneric_banaction} || 'shorewall'}
 maxretry = {$fail2ban{PamGeneric_MaxRetry} || $fail2ban{MaxRetry}*2 || '6'}
 logpath  = /var/log/secure
