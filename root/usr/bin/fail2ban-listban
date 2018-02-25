@@ -16,4 +16,4 @@ done
 
 echo ''
 echo "List of all banned IP: "
-/usr/sbin/iptables -L -n | awk '$1=="REJECT" && $4!="0.0.0.0/0" {print $4}'
+/sbin/iptables -L -n | awk '$1=="REJECT" && $4!="0.0.0.0/0" {print $4}'
