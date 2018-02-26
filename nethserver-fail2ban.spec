@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 %define name nethserver-fail2ban
-%define version 0.1.34
+%define version 0.1.35
 %define release 1
 Name: %{name}
 Version: %{version}
@@ -56,6 +56,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_nseventsdir}/%{name}-update
 
 %changelog
+* Mon Feb 26 2018  Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.35-1.ns7
+- Back to shorewall
+
 * Sun Feb 25 2018 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.34-1.ns7
 - Recidive jail can be perpetual
 
