@@ -40,6 +40,7 @@ touch $RPM_BUILD_ROOT/var/log/fail2ban.log
   --file /usr/bin/fail2ban-unban 'attr(0750,root,root)' \
   --file /var/log/fail2ban.log 'attr(0600,root,root)' \
   --file /usr/libexec/nethserver/fail2ban-listban 'attr(0755,root,root)' \
+  --file /usr/libexec/nethserver/shorewall-nethserver 'attr(0750,root,root)' \
 $RPM_BUILD_ROOT > e-smith-%{version}-filelist
 
 %clean

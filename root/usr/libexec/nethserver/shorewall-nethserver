@@ -1,0 +1,43 @@
+#!/bin/perl
+# the purpose is to count how many time the IP is banned by different jails
+# if the counter is not equal to zero, then a jail is still active and the 
+# IP is not allowed
+# This is due to the bad implementation of shorewall in fail2ban
+
+use esmith::ConfigDB;
+use esmith::DB;
+
+my $fdb = esmith::ConfigDB->open('fail2ban')
+    || esmith::ConfigDB->create('fail2ban');
+
+
+my ($action,$ip) = @ARGV;
+$action = $ARGV[0];
+$ip = $ARGV[1];
+
+my $count = $fdb->get_prop ("$ip",'counter') || '';
+if ($count eq '') {
+    $fdb->set_prop("$ip",'counter','0', type => 'ban');
+}
+
+my $date = localtime();
+
+if ($action eq 'drop') {
+    $count = $fdb->get_prop("$ip",'counter');
+    $count ++;
+    $fdb->set_prop("$ip",'counter',"$count");
+    $fdb->set_prop("$ip",'date',"$date");
+    system ("shorewall drop $ip");
+}
+
+elsif ($action eq 'allow') {
+    $count = $fdb->get_prop("$ip",'counter');
+    $count --;
+    $fdb->set_prop("$ip",'counter',"$count");
+    $fdb->set_prop("$ip",'date',"$date");
+    if ($count <= '0') {
+        system ("shorewall allow $ip");
+        my $dbkey = $fdb->get("$ip");
+        $dbkey->delete;
+    }
+}
