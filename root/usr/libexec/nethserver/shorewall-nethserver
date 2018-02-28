@@ -1,4 +1,4 @@
-#!/bin/perl
+#!/usr/bin/perl
 # the purpose is to count how many time the IP is banned by different jails
 # if the counter is not equal to zero, then a jail is still active and the 
 # IP is not allowed
