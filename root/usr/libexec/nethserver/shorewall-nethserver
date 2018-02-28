@@ -33,11 +33,14 @@ if ($action eq 'drop') {
 elsif ($action eq 'allow') {
     $count = $fdb->get_prop("$ip",'counter');
     $count --;
-    $fdb->set_prop("$ip",'counter',"$count");
-    $fdb->set_prop("$ip",'date',"$date");
+
     if ($count <= '0') {
         system ("shorewall allow $ip");
         my $dbkey = $fdb->get("$ip");
         $dbkey->delete;
+    }
+    else {
+        $fdb->set_prop("$ip",'counter',"$count");
+        $fdb->set_prop("$ip",'date',"$date");
     }
 }
