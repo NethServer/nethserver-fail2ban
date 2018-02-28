@@ -11,7 +11,7 @@ sender = admin@{$SystemName}.{$DomainName}
 {
     use Email::Valid;
     my @customemail;
-    foreach my $email (split(/\s+/, ($fail2ban{CustomDestemail} || ''))) {
+    foreach my $email (split(/,/, ($fail2ban{CustomDestemail} || ''))) {
     push @customemail , $email if (Email::Valid->address($email));
     #sort email array
     %seen = ();

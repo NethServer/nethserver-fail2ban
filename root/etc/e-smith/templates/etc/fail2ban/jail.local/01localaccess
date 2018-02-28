@@ -16,7 +16,7 @@
 
 #Add specific IP to ignore
     my @ip;
-    foreach my $ip (split(/\s+/, ($fail2ban{IgnoreIP} || ""))) {
+    foreach my $ip (split(/,/, ($fail2ban{IgnoreIP} || ""))) {
     push @ip, $iptest if $iptest = ipv4_chkip($ip);
     #sort IP array
     %seen = ();
