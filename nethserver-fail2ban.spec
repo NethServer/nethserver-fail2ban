@@ -51,7 +51,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
-* Wed Feb 28 2018  Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.31-1.ns6
+* Wed Feb 28 2018  Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.36-1.ns6
 - fail2ban database to fix the recidive unban issue
 - fix typo for whitelisting and email address
 
