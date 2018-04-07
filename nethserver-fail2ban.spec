@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 %define name nethserver-fail2ban
-%define version 0.1.36
+%define version 0.1.37
 %define release 1
 Name: %{name}
 Version: %{version}
@@ -57,6 +57,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_nseventsdir}/%{name}-update
 
 %changelog
+* Sat Apr 07 2018 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.37-1.ns7
+- recidive jail delete the esmith key
+
 * Wed Feb 28 2018  Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.36-1.ns7
 - fail2ban database to fix the recidive unban issue
 - fix typo for whitelisting and email address
