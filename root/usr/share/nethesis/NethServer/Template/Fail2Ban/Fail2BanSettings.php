@@ -4,17 +4,17 @@ echo $view->header()->setAttribute('template', $T('Fail2Ban_header'));
 
 $advanced = $view->fieldset(NULL, $view::FIELDSET_EXPANDABLE)->setAttribute('template', $T('Advanced_label'))
 ->insert($view->columns()
-    ->insert($view->slider('MaxRetry', $view::SLIDER_ENUMERATIVE | $view::LABEL_ABOVE)->setAttribute('label', $T('Maximum retry number (${0})')))
+    ->insert($view->slider('MaxRetry', $view::SLIDER_ENUMERATIVE | $view::LABEL_ABOVE)->setAttribute('label', $T('Retry_number_label')))
     ->insert($view->checkBox('Recidive_Perpetual', 'enabled')->setAttribute('uncheckedValue', 'disabled'))
 )
 
 ->insert($view->columns()
-    ->insert($view->slider('FindTime', $view::SLIDER_ENUMERATIVE | $view::LABEL_ABOVE)->setAttribute('label', $T('Maximum find time (${0})')))
+    ->insert($view->slider('FindTime', $view::SLIDER_ENUMERATIVE | $view::LABEL_ABOVE)->setAttribute('label', $T('Find_time_label')))
     ->insert($view->checkBox('BanLocalNetwork', 'enabled')->setAttribute('uncheckedValue', 'disabled'))
 )
 
 ->insert($view->columns()
-    ->insert($view->slider('BanTime', $view::SLIDER_ENUMERATIVE | $view::LABEL_ABOVE)->setAttribute('label', $T('Maximum ban time (${0})')))
+    ->insert($view->slider('BanTime', $view::SLIDER_ENUMERATIVE | $view::LABEL_ABOVE)->setAttribute('label', $T('Ban_time_label')))
     ->insert($view->selector('LogLevel', $view::SELECTOR_DROPDOWN))
 );
 
