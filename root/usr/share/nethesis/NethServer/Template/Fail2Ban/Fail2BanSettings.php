@@ -35,6 +35,7 @@ echo $view->panel()
 
 
     #start the jail status
+    ->insert($view->fieldset(NULL)->setAttribute('template', $T('Jails'))
     ->insert($view->columns()
 
         #jails column #1
@@ -128,7 +129,7 @@ echo $view->panel()
 
         )
 
-    )
+    ))
 
 );
 
