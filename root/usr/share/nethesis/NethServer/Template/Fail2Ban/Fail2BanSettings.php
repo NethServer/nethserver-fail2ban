@@ -2,23 +2,28 @@
 /* @var $view Nethgui\Renderer\Xhtml */
 echo $view->header()->setAttribute('template', $T('Fail2Ban_header'));
 
+$advanced = $view->fieldset(NULL, $view::FIELDSET_EXPANDABLE)->setAttribute('template', $T('Advanced_label'))
+->insert($view->columns()
+    ->insert($view->slider('MaxRetry', $view::SLIDER_ENUMERATIVE | $view::LABEL_ABOVE)->setAttribute('label', $T('Maximum retry number (${0})')))
+    ->insert($view->checkBox('Recidive_Perpetual', 'enabled')->setAttribute('uncheckedValue', 'disabled'))
+)
+
+->insert($view->columns()
+    ->insert($view->slider('FindTime', $view::SLIDER_ENUMERATIVE | $view::LABEL_ABOVE)->setAttribute('label', $T('Maximum find time (${0})')))
+    ->insert($view->checkBox('BanLocalNetwork', 'enabled')->setAttribute('uncheckedValue', 'disabled'))
+)
+
+->insert($view->columns()
+    ->insert($view->slider('BanTime', $view::SLIDER_ENUMERATIVE | $view::LABEL_ABOVE)->setAttribute('label', $T('Maximum ban time (${0})')))
+    ->insert($view->selector('LogLevel', $view::SELECTOR_DROPDOWN))
+);
+
+
 echo $view->panel()
 ->insert($view->fieldsetSwitch('status', 'enabled', $view::FIELDSETSWITCH_CHECKBOX | $view::FIELDSETSWITCH_EXPANDABLE)->setAttribute('uncheckedValue', 'disabled')
 
     ->insert($view->columns()
-        ->insert($view->slider('FindTime', $view::SLIDER_ENUMERATIVE | $view::LABEL_ABOVE)->setAttribute('label', $T('Maximum find time (${0})')))
-        ->insert($view->slider('BanTime', $view::SLIDER_ENUMERATIVE | $view::LABEL_ABOVE)->setAttribute('label', $T('Maximum ban time (${0})')))
-    )
-
-    ->insert($view->columns()
-        ->insert($view->slider('MaxRetry', $view::SLIDER_ENUMERATIVE | $view::LABEL_ABOVE)->setAttribute('label', $T('Maximum retry number (${0})')))
-        ->insert($view->selector('LogLevel', $view::SELECTOR_DROPDOWN))
-    )
-
-    ->insert($view->columns()
         ->insert($view->elementList()
-            ->insert($view->checkBox('Recidive_Perpetual', 'enabled')->setAttribute('uncheckedValue', 'disabled'))
-            ->insert($view->checkBox('BanLocalNetwork', 'enabled')->setAttribute('uncheckedValue', 'disabled'))
             ->insert($view->textArea('IgnoreIP', $view::LABEL_ABOVE)->setAttribute('dimensions', '10x30'))
         )
 
@@ -128,6 +133,8 @@ echo $view->panel()
     )
 
 );
+
+echo $advanced;
 
 echo $view->buttonList($view::BUTTON_SUBMIT| $view::BUTTON_HELP)
         ->insert($view->button('RestartFail2ban', $view::BUTTON_SUBMIT)->setAttribute('label', $T('RestartFail2ban_label')));

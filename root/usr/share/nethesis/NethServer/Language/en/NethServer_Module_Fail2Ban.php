@@ -70,3 +70,4 @@ $L['VPNStatus_label'] = 'VPN Jails';
 $L['Not an IP'] = '"${0}" is not an IP';
 $L['Not an email'] = '"${0}" is not an email';
 $L['RestartFail2ban_label'] = 'Restart Fail2ban';
+$L['Advanced_label'] = 'Advanced';
