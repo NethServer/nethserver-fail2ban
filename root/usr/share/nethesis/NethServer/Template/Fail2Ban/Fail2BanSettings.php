@@ -22,16 +22,14 @@ $advanced = $view->fieldset(NULL, $view::FIELDSET_EXPANDABLE)->setAttribute('tem
 echo $view->panel()
 ->insert($view->fieldsetSwitch('status', 'enabled', $view::FIELDSETSWITCH_CHECKBOX | $view::FIELDSETSWITCH_EXPANDABLE)->setAttribute('uncheckedValue', 'disabled')
 
-    ->insert($view->columns()
-        ->insert($view->elementList()
-            ->insert($view->textArea('IgnoreIP', $view::LABEL_ABOVE)->setAttribute('dimensions', '10x30'))
-        )
+    ->insert($view->elementList()
+        ->insert($view->textArea('IgnoreIP', $view::LABEL_ABOVE)->setAttribute('dimensions', '10x30'))
+    )
 
-        ->insert($view->elementList()
-            ->insert($view->fieldsetSwitch('Mail', 'enabled', $view::FIELDSETSWITCH_CHECKBOX | $view::FIELDSETSWITCH_EXPANDABLE)->setAttribute('uncheckedValue', 'disabled')
-                ->insert($view->checkBox('MailJailState', 'enabled')->setAttribute('uncheckedValue', 'disabled'))
-                ->insert($view->textArea('CustomDestemail', $view::LABEL_ABOVE)->setAttribute('dimensions', '10x30'))
-            )
+    ->insert($view->panel()
+        ->insert($view->fieldsetSwitch('Mail', 'enabled', $view::FIELDSETSWITCH_CHECKBOX | $view::FIELDSETSWITCH_EXPANDABLE)->setAttribute('uncheckedValue', 'disabled')
+            ->insert($view->textArea('CustomDestemail', $view::LABEL_ABOVE)->setAttribute('dimensions', '10x30'))
+            ->insert($view->checkBox('MailJailState', 'enabled')->setAttribute('uncheckedValue', 'disabled'))
         )
     )
 
