@@ -130,10 +130,9 @@ echo $view->panel()
         )
 
     ))
-
+    ->insert($advanced)
 );
 
-echo $advanced;
 
 echo $view->buttonList($view::BUTTON_SUBMIT| $view::BUTTON_HELP)
         ->insert($view->button('RestartFail2ban', $view::BUTTON_SUBMIT)->setAttribute('label', $T('RestartFail2ban_label')));
