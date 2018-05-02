@@ -18,7 +18,8 @@ sender = admin@{$DomainName}
     @customemail = sort (grep { ! $seen{ $_ }++ } (@customemail));
     }
 
-    $OUT .= "destemail = admin\@$DomainName, " . join(', ',@customemail);
+    my $mails = join(', ',@customemail) || "admin@".$DomainName;
+    $OUT .= "destemail = $mails";
 }
 
 action = {(($fail2ban{Mail} || 'enabled') eq 'enabled') ? '%(action_mw)s' : '%(action_)s' }
