@@ -24,6 +24,13 @@ if ($count eq '') {
 my $date = localtime();
 
 if ($action eq 'drop') {
+
+    # Jail statistic
+    my $stat = $fdb->get_prop("jailStatistic",$jail) || 0;
+    $stat ++;
+    $fdb->set_prop("jailStatistic",$jail,$stat, type => 'stats');
+
+    # Drop action
     $count = $fdb->get_prop("$ip",'counter');
     $count ++;
     $fdb->set_prop("$ip",'counter',"$count");
