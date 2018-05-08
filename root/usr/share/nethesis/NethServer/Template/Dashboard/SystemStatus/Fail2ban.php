@@ -13,6 +13,6 @@ else {
             $totalCounter = $totalCounter + $value;
         }
     }
-    echo '<br/>'.'<b>'.$T('TotalBannedIP').'</b>'." : $totalCounter";
+    echo '<br/>'.'<b>'.$T('TotalBannedIP_label').'</b>'." : $totalCounter";
 }
 
