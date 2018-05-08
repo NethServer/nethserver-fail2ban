@@ -39,6 +39,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__mkdir_p} -p $RPM_BUILD_ROOT/var/run/fail2ban
 
 %{genfilelist} %{buildroot} \
+  --file /usr/libexec/nethserver/fail2ban-status 'attr(0755,root,root)' \
   --file /usr/bin/fail2ban-listban 'attr(0750,root,root)' \
   --file /usr/bin/fail2ban-unban 'attr(0750,root,root)' \
   --file /usr/libexec/nethserver/fail2ban-listban 'attr(0755,root,root)' \
