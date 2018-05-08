@@ -3,7 +3,7 @@
 echo "<div class='dashboard-item'>";
 echo $view->header()->setAttribute('template',$T('fail2banstatus_title'));
 
-if ( ! file_exists ('/var/lib/nethserver/db/fail2ban.json')) {
+if ( ! file_exists ('/var/lib/nethserver/fail2ban/fail2ban.json')) {
     echo $T('no_fail2ban_stat_label');
     }
 else {

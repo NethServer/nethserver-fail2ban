@@ -29,7 +29,7 @@ my $date = localtime();
 if ($action eq 'drop') {
 
     # decode jsonFile
-    my $jsonFile = '/var/lib/nethserver/db/fail2ban.json';
+    my $jsonFile = '/var/lib/nethserver/fail2ban/fail2ban.json';
     my $json;
 
     if ( -f $jsonFile )    {
@@ -38,6 +38,8 @@ if ($action eq 'drop') {
       close $fh;
     }
     else {
+      umask 022;
+      mkdir '/var/lib/nethserver/fail2ban';
       $json ='{"TotalBannedIP": {}}';
     }
 

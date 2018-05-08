@@ -3,7 +3,7 @@ binmode STDOUT, ":utf8";
 use utf8;
 use JSON;
 
-my $jsonFile = '/var/lib/nethserver/db/fail2ban.json';
+my $jsonFile = '/var/lib/nethserver/fail2ban/fail2ban.json';
 my $json;
 
 if ( -f $jsonFile )    {
