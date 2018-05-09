@@ -1,0 +1,18 @@
+#!/usr/bin/perl
+binmode STDOUT, ":utf8";
+use utf8;
+use JSON;
+
+my $jsonFile = '/var/lib/nethserver/fail2ban/fail2ban.json';
+my $json;
+
+if ( -f $jsonFile )    {
+    open my $fh, "<", $jsonFile;
+    $json = <$fh>;
+    close $fh;
+    }
+else {
+    $json ='{"TotalBannedIP": {}}';
+    }
+
+print $json;

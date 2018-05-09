@@ -6,6 +6,9 @@
 
 use esmith::ConfigDB;
 use esmith::DB;
+use utf8;
+use JSON;
+binmode STDOUT, ":utf8";
 
 my $fdb = esmith::ConfigDB->open('fail2ban')
     || esmith::ConfigDB->create('fail2ban');
@@ -24,6 +27,36 @@ if ($count eq '') {
 my $date = localtime();
 
 if ($action eq 'drop') {
+
+    # decode jsonFile
+    my $jsonFile = '/var/lib/nethserver/fail2ban/fail2ban.json';
+    my $json;
+
+    if ( -f $jsonFile )    {
+      open my $fh, "<", $jsonFile;
+      $json = <$fh>;
+      close $fh;
+    }
+    else {
+      umask 022;
+      mkdir '/var/lib/nethserver/fail2ban';
+      $json ='{"TotalBannedIP": {}}';
+    }
+
+    my $data = decode_json($json);
+
+    # Retrieve the counter
+    my $counter = $data->{'TotalBannedIP'}{$jail} || 0;
+    $counter++;
+    $data->{'TotalBannedIP'}->{$jail}= $counter;
+
+    # Encode jsonFile
+    umask 022;
+    open my $fh, ">", $jsonFile;
+    print $fh encode_json($data);
+    close $fh;
+
+    # Drop action
     $count = $fdb->get_prop("$ip",'counter');
     $count ++;
     $fdb->set_prop("$ip",'counter',"$count");
