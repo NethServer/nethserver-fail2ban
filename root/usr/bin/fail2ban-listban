@@ -10,7 +10,7 @@ for j in $JAILS
 do
 echo " $j Jail enabled
     - Currently banned: $(fail2ban-client status $j | grep " Currently banned:" | sed 's/   |- Currently banned:\t//g') \
-    - Total banned: $(fail2ban-client status $j | grep " Total banned:" | sed 's/   |- Total banned:\t//g')"
+    - Total banned after service start: $(fail2ban-client status $j | grep " Total banned:" | sed 's/   |- Total banned:\t//g')"
 echo "    - Banned IP: $(fail2ban-client status $j | grep " Banned IP list:" | sed 's/   `- Banned IP list:\t//g')"
 done
 
