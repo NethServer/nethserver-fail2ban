@@ -7,3 +7,9 @@ source_lang = en
 type = PHP_ALT_ARRAY
 
 
+[nethserver.Dashboard_SystemStatus_Fail2ban]
+source_file = root/usr/share/nethesis/NethServer/Language/en/NethServer_Module_Dashboard_SystemStatus_Fail2ban.php
+source_lang = en
+type = PHP_ALT_ARRAY
+
+
