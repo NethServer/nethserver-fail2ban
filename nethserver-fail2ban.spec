@@ -1,8 +1,5 @@
 Summary: NethServer configuration for fail2ban
-%define name nethserver-fail2ban
-%define version 0.1.37
-%define release 1
-Name: %{name}
+Name: nethserver-fail2ban
 Version: 1.0.0
 Release: 1%{?dist}
 License: GPL
