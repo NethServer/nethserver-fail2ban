@@ -3,8 +3,8 @@ Summary: NethServer configuration for fail2ban
 %define version 0.1.37
 %define release 1
 Name: %{name}
-Version: %{version}
-Release: %{release}%{?dist}
+Version: 1.0.0
+Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
 BuildArch: noarch
@@ -55,6 +55,11 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_nseventsdir}/%{name}-update
 
 %changelog
+* Tue May 15 2018 Stephane de Labrusse <stephdl@de-labrusse.fr> - 1.0.0-1
+- Fail2Ban: collect statistics of permanent jail ban - NethServer/dev#5480
+- Fail2Ban: dovecot brute force attack not recognized - Bug NethServer/dev#5481
+- Fail2ban: Documentation and Travis code - NethServer/dev#5489
+
 * Sat Apr 07 2018 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.37-1.ns7
 - recidive jail delete the esmith key
 
