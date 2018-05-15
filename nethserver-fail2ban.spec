@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 Name: nethserver-fail2ban
-Version: 1.0.0
+Version: 1.0.1
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -52,6 +52,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_nseventsdir}/%{name}-update
 
 %changelog
+* Tue May 15 2018 Stephane de Labrusse <stephdl@de-labrusse.fr> - 1.0.1-1
+- Remove the define settings in spec file
+
 * Tue May 15 2018 Stephane de Labrusse <stephdl@de-labrusse.fr> - 1.0.0-1
 - Fail2Ban: collect statistics of permanent jail ban - NethServer/dev#5480
 - Fail2Ban: dovecot brute force attack not recognized - Bug NethServer/dev#5481
