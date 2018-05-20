@@ -14,10 +14,7 @@ my $fdb = esmith::ConfigDB->open('fail2ban')
     || esmith::ConfigDB->create('fail2ban');
 
 
-my ($action,$ip) = @ARGV;
-$action = $ARGV[0];
-$ip = $ARGV[1];
-$jail = $ARGV[2];
+my ($action,$ip,$jail) = @ARGV;
 
 my $count = $fdb->get_prop ("$ip",'counter') || '';
 if ($count eq '') {
@@ -61,17 +58,23 @@ if ($action eq 'drop') {
     $count ++;
     $fdb->set_prop("$ip",'counter',"$count");
     $fdb->set_prop("$ip",'date',"$date");
-    system ("shorewall drop $ip");
+    system ("shorewall drop $ip") == 0 or die ("Fai2ban cannot ban $ip via shorewall");
 }
 
 elsif ($action eq 'allow') {
     $count = $fdb->get_prop("$ip",'counter');
     $count --;
 
-    if (($count <= '0') || ($jail eq 'recidive')) {
-    system ("shorewall allow $ip");
+    # the counter is decreased after each unban
+    # If <= 0, then unban and delete key, last ban is over
+    # If >= 2, something wrong occured, then delete key and unban
+    # For recidive always unban and delete key
+    if (($count <= '0') ||
+        ($count >= '2') ||
+        ($jail eq 'recidive')) {
         my $dbkey = $fdb->get("$ip");
         $dbkey->delete;
+        system ("shorewall allow $ip") == 0 or die ("Fai2ban cannot unban $ip via shorewall");
     }
     else {
         $fdb->set_prop("$ip",'counter',"$count");
