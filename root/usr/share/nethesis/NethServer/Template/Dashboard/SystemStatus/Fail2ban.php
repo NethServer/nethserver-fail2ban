@@ -15,4 +15,4 @@ else {
     }
     echo '<br/>'.'<b>'.$T('TotalBannedIP_label').'</b>'." : $totalCounter";
 }
-
+echo "</div>";
