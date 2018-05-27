@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 Name: nethserver-fail2ban
-Version: 1.0.2
+Version: 1.0.3
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -52,6 +52,10 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_nseventsdir}/%{name}-update
 
 %changelog
+* Sun May 27 2018 Stephane de Labrusse <stephdl@de-labrusse.fr> - 1.0.3-1
+- Blank Dashboard after updates - Bug NethServer/dev#5508
+- Code from dnutan
+
 * Fri May 25 2018 Stephane de Labrusse <stephdl@de-labrusse.fr> - 1.0.2-1
 - Fail2ban dies if ban/unban is impossible. 
 - IP Key suppression and unban if ban counter is > 2
