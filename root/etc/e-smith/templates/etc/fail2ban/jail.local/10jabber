@@ -1,6 +1,6 @@
 {
 my $ejabber = $ejabberd{status} || 'disabled';
-return "\n#ejabberd is not used on this server" unless ($ejabber eq 'enabled');
+return "\n#ejabberd is not used on this server" unless ($ejabber eq 'enabled' && (-f '/var/log/ejabberd/ejabberd.log'));
 
 my $EjabberAuth_status = $fail2ban{EjabberAuth_status} || 'true';
 my $TCPPorts = $ejabberd{TCPPorts} || '5222,5223,5280';
