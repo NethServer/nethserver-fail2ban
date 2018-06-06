@@ -18,18 +18,13 @@ my $ApacheShellshock_status = $fail2ban{ApacheShellshock_status} || 'true';
 my $ApacheScan_status = $fail2ban{ApacheScan_status} || 'true';
 my $ApachePhpMyAdmin_status = $fail2ban{ApachePhpMyAdmin_status} || 'true';
 
+if ( -f '/var/log/httpd/error_log') {
+
 $OUT .= qq (
 [apache-auth]
 enabled  = $apacheauthstatus
 port     = $apachetcp
 logpath  = /var/log/httpd/*error_log
-maxretry = $maxretry
-
-[apache-badbots]
-enabled  = $ApacheBadbots_status
-port     = $apachetcp
-logpath  = /var/log/httpd/*access*log
-bantime  = $bantime
 maxretry = $maxretry
 
 [apache-noscript]
@@ -56,12 +51,6 @@ port     = $apachetcp
 logpath  = /var/log/httpd/*error_log
 maxretry = $maxretry
 
-[apache-fakegooglebot]
-enabled  = $ApacheFakegooglebot_status
-port     = $apachetcp
-logpath  = /var/log/httpd/*access*log
-maxretry = $maxretry
-ignorecommand = %(ignorecommands_dir)s/apache-fakegooglebot <ip>
 
 [apache-modsecurity]
 enabled  = $ApacheModsecurity_status
@@ -80,12 +69,32 @@ enabled  = $ApacheScan_status
 port     = $apachetcp
 logpath  = /var/log/httpd/*error_log
 maxretry = $maxretry
+);
+}
 
+if (-f '/var/log/httpd/access_log') {
+
+$OUT .= qq(
 [phpmyadmin]
 enabled  = $ApachePhpMyAdmin_status
 port     = $apachetcp
 logpath  = /var/log/httpd/*access*log
 maxretry = $maxretry
+
+[apache-fakegooglebot]
+enabled  = $ApacheFakegooglebot_status
+port     = $apachetcp
+logpath  = /var/log/httpd/*access*log
+maxretry = $maxretry
+ignorecommand = %(ignorecommands_dir)s/apache-fakegooglebot <ip>
+
+[apache-badbots]
+enabled  = $ApacheBadbots_status
+port     = $apachetcp
+logpath  = /var/log/httpd/*access*log
+bantime  = $bantime
+maxretry = $maxretry
 );
+}
 
 }
