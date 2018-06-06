@@ -1,6 +1,6 @@
 {
 my $mysql = $mysqld{status} || 'disabled';
-return "\n#mysqld not used on this server" unless ($mysql eq 'enabled');
+return "\n#mysqld not used on this server" unless (($mysql eq 'enabled') && (-f '/var/log/mariadb/mariadb.log'));
 
 my $MysqldAuth_status = $fail2ban{MysqldAuth_status} || 'true';
 my $TCPPort = $mysqld{TCPPort} || '3306';
