@@ -1,12 +1,26 @@
 
+{
+my $sshd = $sshd{'status'} || 'disabled';
+return "\n#sshd not used on this server" unless ($sshd eq 'enabled' && ( -f '/var/log/secure'));
+
+my $status = $fail2ban{Sshd_status} || 'true';
+my $port = $sshd{TCPPort} || '22';
+my $maxretry = $fail2ban{Sshd_MaxRetry} || $fail2ban{MaxRetry} || '3';
+my $sshd_ddos = $fail2ban{SshdDdos_status} || 'true';
+
+$OUT .= qq(
+
 [sshd]
-enabled  = {($fail2ban{Sshd_status} || 'true')}
-port    = {$sshd{TCPPort} || '22'}
-logpath = %(sshd_log)s
-maxretry = {($fail2ban{Sshd_MaxRetry} || $fail2ban{MaxRetry} || '3')}
+enabled  = $status
+port     = $port
+logpath  = \%(sshd_log)s
+maxretry = $maxretry
 
 [sshd-ddos]
-enabled  = {($fail2ban{SshdDdos_status} || 'true')}
-port     = {$sshd{TCPPort} || '22'}
-logpath  = %(sshd_log)s
-maxretry = {($fail2ban{Sshd_MaxRetry} || $fail2ban{MaxRetry} || '3')}
+enabled  = $sshd_ddos
+port     = $port
+logpath  = \%(sshd_log)s
+maxretry = $maxretry
+
+)
+}
