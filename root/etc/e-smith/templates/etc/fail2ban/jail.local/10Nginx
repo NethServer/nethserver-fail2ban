@@ -1,6 +1,6 @@
 {
 my $nginx = $nginx{status} || 'disabled';
-return "\n#nginx not used on this server" unless ($nginx eq 'enabled');
+return "\n#nginx not used on this server" unless ($nginx eq 'enabled' && ( -f '/var/log/nginx/error.log'));
 
 my $NginxHttpAuth_status = $fail2ban{NginxHttpAuth_status} || 'true';
 my $TCPPorts = $nginx{TCPPorts} || '80,443';
