@@ -20,9 +20,7 @@ env:
         -e TRAVIS_REPO_SLUG
         -e TRAVIS_TAG
         -e NSVER
-        -e VERSIONS_PACK
-        -e STAGES_PACK
-        -e UPLOAD_DEST
+        -e ENDPOINTS_PACK
         "
 
 script: >
