@@ -59,7 +59,7 @@ $L['FtpStatus_label'] = 'FTP';
 $L['DatabaseStatus_label'] = 'Database';
 $L['SecurityStatus_label'] = 'Security';
 $L['SshStatus_label'] = 'SSH';
-$L['ChatStatus_label'] = 'Instant Messaging';
+$L['CommunicationStatus_label'] = 'Communication';
 $L['HttpdAdmin_status_label'] = 'Server Manager (httpd-admin) Auth';
 $L['Owncloud_status_label'] = 'Owncloud Auth';
 $L['Nextcloud_status_label'] = 'Nextcloud Auth';
@@ -71,3 +71,5 @@ $L['Not an IP'] = '"${0}" is not an IP';
 $L['Not an email'] = '"${0}" is not an email';
 $L['RestartFail2ban_label'] = 'Restart Fail2ban';
 $L['Advanced_label'] = 'Advanced';
+$L['AsteriskAuth_status_label'] = 'Asterisk Auth';
+
