@@ -1,5 +1,6 @@
 {
-return "\n#Asterisk is not used on this server" unless ( -f '/var/log/asterisk/full' );
+my $asterisk = $asterisk{status} || 'disabled';
+return "\n#asterisk is not used on this server" unless (( -f '/var/log/asterisk/full' ) && ($asterisk eq 'enabled'));
 
 my $AsteriskAuth_status = $fail2ban{AsteriskAuth_status} || 'true';
 my $TCPPorts = $asterisk{TCPPorts} || '5060,6061';
