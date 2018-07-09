@@ -1,0 +1,15 @@
+{
+return "\n#Asterisk is not used on this server" unless ( -f '/var/log/asterisk/full' );
+
+my $AsteriskAuth_status = $fail2ban{AsteriskAuth_status} || 'true';
+my $TCPPorts = $asterisk{TCPPorts} || '5060,6061';
+my $maxretry = $fail2ban{Asterisk_MaxRetry} || $fail2ban{MaxRetry} || '3';
+
+$OUT .= qq (
+[asterisk]
+enabled  = $AsteriskAuth_status
+port     = $TCPPorts
+logpath  = /var/log/asterisk/full
+maxretry = $maxretry
+);
+}
