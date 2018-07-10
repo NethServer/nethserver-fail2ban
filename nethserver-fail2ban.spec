@@ -40,6 +40,7 @@ rm -rf $RPM_BUILD_ROOT
   --file /usr/bin/fail2ban-listban 'attr(0750,root,root)' \
   --file /usr/bin/fail2ban-unban 'attr(0750,root,root)' \
   --file /usr/libexec/nethserver/fail2ban-listban 'attr(0755,root,root)' \
+  --file /usr/libexec/nethserver/fail2ban-listip 'attr(0755,root,root)' \
   --file /usr/libexec/nethserver/shorewall-nethserver 'attr(0750,root,root)' \
 $RPM_BUILD_ROOT > e-smith-%{version}-filelist
 

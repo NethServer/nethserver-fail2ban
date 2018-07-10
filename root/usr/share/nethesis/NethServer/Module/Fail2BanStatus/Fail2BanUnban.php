@@ -1,5 +1,5 @@
 <?php
-namespace NethServer\Module\Fail2Ban;
+namespace NethServer\Module\Fail2BanStatus;
 
 use Nethgui\System\PlatformInterface as Validate;
 
@@ -11,11 +11,16 @@ class  Fail2BanUnban extends \Nethgui\Controller\AbstractController
 {
 
     private $report;
+    private $bannedIP;
 
+    private function getBannedIP()
+    {
+        return $this->getPlatform()->exec('/usr/bin/sudo /usr/libexec/nethserver/fail2ban-listip')->getOutput();
+    }
 
     private function getReport()
     {
-        return $this->getPlatform()->exec('/usr/bin/sudo /usr/libexec/nethserver/fail2ban-listban')->getOutput(); 
+        return $this->getPlatform()->exec('/usr/bin/sudo /usr/libexec/nethserver/fail2ban-listban')->getOutput();
     }
 
     public function initialize()
@@ -28,6 +33,7 @@ class  Fail2BanUnban extends \Nethgui\Controller\AbstractController
     {
         parent::bind($request);
         $this->report = $this->getReport();
+        $this->bannedIP = $this->getBannedIP();
     }
 
     public function prepareView(\Nethgui\View\ViewInterface $view)
@@ -37,6 +43,12 @@ class  Fail2BanUnban extends \Nethgui\Controller\AbstractController
             $this->report = $this->getReport();
         }
         $view['report'] = $this->report;
+
+        if (!$this->bannedIP) {
+            $this->bannedIP = $this->getBannedIP();
+        }
+        $view['bannedIP'] = $this->bannedIP;
+
     }
 
     public function onParametersSaved($changes)

@@ -4,6 +4,7 @@
     #
     push @cmnd_alias_httpd_admin, qw(
         /usr/libexec/nethserver/fail2ban-listban
+        /usr/libexec/nethserver/fail2ban-listip
     );
     '';
 }

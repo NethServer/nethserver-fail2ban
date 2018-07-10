@@ -16,4 +16,5 @@ done
 
 echo ''
 echo "List of all banned IP: "
-shorewall show dynamic
+/usr/sbin/shorewall show dynamic | grep 'DROP' | awk -F ' ' '{print $8}'
+

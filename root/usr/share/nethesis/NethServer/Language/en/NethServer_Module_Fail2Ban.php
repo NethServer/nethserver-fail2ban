@@ -72,4 +72,8 @@ $L['Not an email'] = '"${0}" is not an email';
 $L['RestartFail2ban_label'] = 'Restart Fail2ban';
 $L['Advanced_label'] = 'Advanced';
 $L['AsteriskAuth_status_label'] = 'Asterisk Auth';
-
+$L['Fail2BanStatistics_Title'] = 'Statistics';
+$L['fail2banstatus_title'] = 'Bans per jail';
+$L['Jail_label'] = 'jail';
+$L['TotalBannedIP_label'] = 'Total Banned IPs';
+$L['no_fail2ban_stat_label'] = 'No available statistics';
