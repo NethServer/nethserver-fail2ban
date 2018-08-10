@@ -58,7 +58,7 @@ if ($action eq 'drop') {
     $count ++;
     $fdb->set_prop("$ip",'counter',"$count");
     $fdb->set_prop("$ip",'date',"$date");
-    system ("shorewall drop $ip") == 0 or die ("Fai2ban cannot ban $ip via shorewall");
+    system ("/usr/sbin/shorewall drop $ip") == 0 or die ("Fai2ban cannot ban $ip via shorewall");
 }
 
 elsif ($action eq 'allow') {
@@ -74,7 +74,7 @@ elsif ($action eq 'allow') {
         ($jail eq 'recidive')) {
         my $dbkey = $fdb->get("$ip");
         $dbkey->delete;
-        system ("shorewall allow $ip") == 0 or die ("Fai2ban cannot unban $ip via shorewall");
+        system ("/usr/sbin/shorewall allow $ip") == 0 or die ("Fai2ban cannot unban $ip via shorewall");
     }
     else {
         $fdb->set_prop("$ip",'counter',"$count");
