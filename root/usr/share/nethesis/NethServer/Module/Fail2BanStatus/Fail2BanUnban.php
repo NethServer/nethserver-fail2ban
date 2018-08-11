@@ -53,7 +53,7 @@ class  Fail2BanUnban extends \Nethgui\Controller\AbstractController
 
     public function onParametersSaved($changes)
     {
-        $this->getPlatform()->signalEvent('nethserver-fail2banUnBan-save@post-process');
+        $this->getPlatform()->signalEvent('nethserver-fail2banUnBan-save &');
     }
 
 }
