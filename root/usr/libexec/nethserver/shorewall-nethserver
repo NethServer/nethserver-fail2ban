@@ -10,8 +10,13 @@ use utf8;
 use JSON;
 binmode STDOUT, ":utf8";
 
-my $fdb = esmith::ConfigDB->open('fail2ban')
-    || esmith::ConfigDB->create('fail2ban');
+if ( ! -d '/var/lib/nethserver/fail2ban') {
+      umask 022;
+      mkdir '/var/lib/nethserver/fail2ban';
+}
+
+my $fdb = esmith::ConfigDB->open('/var/lib/nethserver/fail2ban/fail2ban')
+    || esmith::ConfigDB->create('/var/lib/nethserver/fail2ban/fail2ban');
 
 
 my ($action,$ip,$jail) = @ARGV;
@@ -35,8 +40,6 @@ if ($action eq 'drop') {
       close $fh;
     }
     else {
-      umask 022;
-      mkdir '/var/lib/nethserver/fail2ban';
       $json ='{"TotalBannedIP": {}}';
     }
 
