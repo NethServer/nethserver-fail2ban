@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 Name: nethserver-fail2ban
-Version: 1.0.4
+Version: 1.0.5
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -53,6 +53,11 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_nseventsdir}/%{name}-update
 
 %changelog
+* Mon Aug 13 2018 Stephane de Labrusse <stephdl@de-labrusse.fr> - 1.0.5-1
+- Fail2ban: Status section to display statistics - NethServer/dev#5546
+- Asterisk jail for fail2ban - NethServer/dev#5543
+- Fail2ban triggers backup-config run every night - NethServer/dev#5565
+
 * Fri Jun 08 2018 Stephane de Labrusse <stephdl@de-labrusse.fr> - 1.0.4-1
 - Fail2ban: do not start a jail when the log is missing - Bug NethServer/dev#5518
 
