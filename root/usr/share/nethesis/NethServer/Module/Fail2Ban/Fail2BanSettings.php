@@ -15,7 +15,7 @@ class  Fail2BanSettings extends \Nethgui\Controller\AbstractController
     $this->declareParameter('BanLocalNetwork', Validate::SERVICESTATUS, array('configuration', 'fail2ban', 'BanLocalNetwork'));
     $this->declareParameter('FindTime', Validate::POSITIVE_INTEGER, array('configuration', 'fail2ban', 'FindTime'));
     $this->declareParameter('BanTime', Validate::POSITIVE_INTEGER, array('configuration', 'fail2ban', 'BanTime'));
-    $this->declareParameter('CustomDestemail', Validate::NOTEMPTY, array('configuration', 'fail2ban', 'CustomDestemail'));
+    $this->declareParameter('CustomDestemail', Validate::ANYTHING, array('configuration', 'fail2ban', 'CustomDestemail'));
     $this->declareParameter('IgnoreIP', Validate::ANYTHING, array('configuration', 'fail2ban', 'IgnoreIP'));
     $this->declareParameter('LogLevel', $this->createValidator()->memberOf('CRITICAL','ERROR','WARNING','NOTICE','INFO','DEBUG'), 
                  array('configuration', 'fail2ban', 'LogLevel'));
