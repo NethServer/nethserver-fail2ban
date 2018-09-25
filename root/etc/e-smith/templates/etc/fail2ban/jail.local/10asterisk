@@ -11,6 +11,7 @@ $OUT .= qq (
 enabled  = $AsteriskAuth_status
 port     = $TCPPorts
 logpath  = /var/log/asterisk/full
-maxretry = $maxretry
-);
+maxretry = $maxretry);
 }
+action = {(($fail2ban{Mail} || 'enabled') eq 'enabled') ? '%(action_mw)s' : '%(action_)s' }
+
