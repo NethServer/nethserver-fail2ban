@@ -7,10 +7,12 @@ usedns = yes
 
 banaction = {($fail2ban{BanAction} || 'shorewall');}
 
-sender = admin@{$DomainName}
+sender = no-reply@{$SystemName.'.'.$DomainName}
 {
     use Email::Valid;
-    my @customemail;
+
+    my @customemail = 'root@'.$SystemName.'.'.$DomainName;
+
     foreach my $email (split(/,/, ($fail2ban{CustomDestemail} || ''))) {
     push @customemail , $email if (Email::Valid->address($email));
     #sort email array
@@ -18,9 +20,8 @@ sender = admin@{$DomainName}
     @customemail = sort (grep { ! $seen{ $_ }++ } (@customemail));
     }
 
-    my $mails = join(', ',@customemail) || "admin@".$DomainName;
+    my $mails = join(', ',@customemail) ;
     $OUT .= "destemail = $mails";
 }
 
 action = {(($fail2ban{Mail} || 'enabled') eq 'enabled') ? '%(action_mw)s' : '%(action_)s' }
-
