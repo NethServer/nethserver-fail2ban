@@ -1,7 +1,7 @@
 {
 $OUT = '';
 
-if ($fail2ban{MailJailState} eq 'disabled') {
+if ($fail2ban{MailJailState} eq 'disabled' || $fail2ban{Mail} eq 'disabled') {
 $OUT .= qq(
 [Definition]
 
