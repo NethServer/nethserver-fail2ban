@@ -12,3 +12,5 @@ actioncheck =
 actionban = /usr/libexec/nethserver/shorewall-nethserver  drop <ip> <name>
 actionunban = /usr/libexec/nethserver/shorewall-nethserver  allow <ip> <name>
 
+[Init]
+timeout = {$fail2ban{'TimedOut'}||'120'}

@@ -1,2 +1,3 @@
 [Init]
 blocktype = drop
+timeout = {$fail2ban{'TimedOut'}||'120'}

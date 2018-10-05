@@ -61,7 +61,15 @@ if ($action eq 'drop') {
     $count ++;
     $fdb->set_prop("$ip",'counter',"$count");
     $fdb->set_prop("$ip",'date',"$date");
-    system ("/usr/sbin/shorewall drop $ip") == 0 or die ("Fai2ban cannot ban $ip via shorewall");
+    $fdb->set_prop("$ip",'jail',"$jail");
+    $fdb->set_prop("$ip",'action',"$action");
+
+    if (system ("/usr/sbin/shorewall drop $ip")) {
+        warn "Failed to drop $ip, wait 20 seconds and retry: $?";
+        sleep 20;
+        system ("/usr/sbin/shorewall drop $ip") == 0 or die ("Fai2ban cannot ban $ip via shorewall: $?");
+    }
+
 }
 
 elsif ($action eq 'allow') {
@@ -77,10 +85,16 @@ elsif ($action eq 'allow') {
         ($jail eq 'recidive')) {
         my $dbkey = $fdb->get("$ip");
         $dbkey->delete;
-        system ("/usr/sbin/shorewall allow $ip") == 0 or die ("Fai2ban cannot unban $ip via shorewall");
+        if (system ("/usr/sbin/shorewall allow $ip")) {
+            warn "Failed to allow $ip, wait 20 seconds and retry: $?";
+            sleep 20;
+            system ("/usr/sbin/shorewall allow $ip") == 0 or die ("Fai2ban cannot unban $ip via shorewall: $?");
+        }
     }
     else {
         $fdb->set_prop("$ip",'counter',"$count");
         $fdb->set_prop("$ip",'date',"$date");
+        $fdb->set_prop("$ip",'jail',"$jail");
+        $fdb->set_prop("$ip",'action',"$action");
     }
 }

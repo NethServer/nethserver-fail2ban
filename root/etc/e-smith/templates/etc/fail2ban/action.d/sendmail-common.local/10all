@@ -1,6 +1,4 @@
 {
-$OUT = '';
-
 if ($fail2ban{MailJailState} eq 'disabled' || $fail2ban{Mail} eq 'disabled') {
 $OUT .= qq(
 [Definition]
@@ -20,3 +18,7 @@ actionstop =
 }
 
 }
+
+[Init]
+timeout = {$fail2ban{'TimedOut'}||'120'}
+
