@@ -61,7 +61,15 @@ if ($action eq 'drop') {
     $count ++;
     $fdb->set_prop("$ip",'counter',"$count");
     $fdb->set_prop("$ip",'date',"$date");
-    system ("/usr/sbin/shorewall drop $ip") == 0 or die ("Fai2ban cannot ban $ip via shorewall");
+    $fdb->set_prop("$ip",'jail',"$jail");
+    $fdb->set_prop("$ip",'action',"$action");
+    if (system ("/usr/bin/timeout 10 /usr/sbin/shorewall drop $ip")) {
+        warn "Failed to drop $ip, wait 10 seconds and retry: $?";
+        system ('/usr/bin/systemctl restart shorewall') == 0 or die ("Cannot restart fail2ban: $?");
+        sleep 10;
+        system ("/usr/sbin/shorewall drop $ip") == 0 or die ("Fai2ban cannot ban $ip via shorewall: $?");
+    }
+
 }
 
 elsif ($action eq 'allow') {
@@ -77,10 +85,18 @@ elsif ($action eq 'allow') {
         ($jail eq 'recidive')) {
         my $dbkey = $fdb->get("$ip");
         $dbkey->delete;
-        system ("/usr/sbin/shorewall allow $ip") == 0 or die ("Fai2ban cannot unban $ip via shorewall");
+        if (system ("/usr/bin/timeout 10 /usr/sbin/shorewall allow $ip")) {
+            warn "Failed to allow $ip, wait 10 seconds and retry: $?";
+            system ('/usr/bin/systemctl restart shorewall') == 0 or die ("Fail2ban cannot restart shorewall: $?");
+            sleep 10;
+            system ("/usr/sbin/shorewall allow $ip") == 0 or die ("Fai2ban cannot allow $ip via shorewall: $?");
+        }
+
     }
     else {
         $fdb->set_prop("$ip",'counter',"$count");
         $fdb->set_prop("$ip",'date',"$date");
+        $fdb->set_prop("$ip",'jail',"$jail");
+        $fdb->set_prop("$ip",'action',"$action");
     }
 }
