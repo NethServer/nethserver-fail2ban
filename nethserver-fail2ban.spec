@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 Name: nethserver-fail2ban
-Version: 1.0.5
+Version: 1.0.7
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -53,6 +53,12 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_nseventsdir}/%{name}-update
 
 %changelog
+* Fri Sep 28 2018 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.0.7-1
+- Wrong error path for the roundcubemail log - Bug NethServer/dev#5592
+
+* Tue Sep 25 2018 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.0.6-1
+- Fail2Ban: asterisk notification always enabled - Bug NethServer/dev#5586
+
 * Mon Aug 13 2018 Stephane de Labrusse <stephdl@de-labrusse.fr> - 1.0.5-1
 - Fail2ban: Status section to display statistics - NethServer/dev#5546
 - Asterisk jail for fail2ban - NethServer/dev#5543
