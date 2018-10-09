@@ -8,7 +8,17 @@ use esmith::ConfigDB;
 use esmith::DB;
 use utf8;
 use JSON;
+use esmith::Logger;
 binmode STDOUT, ":utf8";
+
+#Function to write to messages
+sub log2messages
+{
+    my $message = shift;
+    tie *FH, 'esmith::Logger';
+    print FH "$message";
+    close FH;
+}
 
 if ( ! -d '/var/lib/nethserver/fail2ban') {
       umask 022;
@@ -64,7 +74,7 @@ if ($action eq 'drop') {
     $fdb->set_prop("$ip",'jail',"$jail");
     $fdb->set_prop("$ip",'action',"$action");
     if (system ("/usr/bin/timeout 10 /usr/sbin/shorewall drop $ip")) {
-        warn "Failed to drop $ip, wait 10 seconds and retry: $?";
+        log2messages("[ERROR] Fail2ban failed to drop $ip, wait 10 seconds and retry: $?");
         system ('/usr/bin/systemctl restart shorewall') == 0 or die ("Cannot restart fail2ban: $?");
         sleep 10;
         system ("/usr/sbin/shorewall drop $ip") == 0 or die ("Fai2ban cannot ban $ip via shorewall: $?");
@@ -86,7 +96,7 @@ elsif ($action eq 'allow') {
         my $dbkey = $fdb->get("$ip");
         $dbkey->delete;
         if (system ("/usr/bin/timeout 10 /usr/sbin/shorewall allow $ip")) {
-            warn "Failed to allow $ip, wait 10 seconds and retry: $?";
+            log2messages("[ERROR] Fail2ban failed to allow $ip, wait 10 seconds and retry: $?");
             system ('/usr/bin/systemctl restart shorewall') == 0 or die ("Fail2ban cannot restart shorewall: $?");
             sleep 10;
             system ("/usr/sbin/shorewall allow $ip") == 0 or die ("Fai2ban cannot allow $ip via shorewall: $?");
