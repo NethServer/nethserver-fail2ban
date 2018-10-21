@@ -125,6 +125,7 @@ echo $view->panel()
                     ->insert($view->checkBox('Roundcube_status', 'true')->setAttribute('uncheckedValue', 'false'))
                     ->insert($view->checkBox('SogoAuth_status', 'true')->setAttribute('uncheckedValue', 'false'))
                     ->insert($view->checkBox('Urbackup_status', 'true')->setAttribute('uncheckedValue', 'false'))
+                    ->insert($view->checkBox('Webtop_status', 'true')->setAttribute('uncheckedValue', 'false'))
                 )
             )
 
