@@ -1,12 +1,37 @@
 #!/bin/bash
+#
+# Copyright (C) 2018 Nethesis S.r.l.
+# http://www.nethesis.it - nethserver@nethesis.it
+#
+# This script is part of NethServer.
+#
+# NethServer is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License,
+# or any later version.
+#
+# NethServer is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with NethServer.  If not, see COPYING.
+#
+
 IP=$(/sbin/e-smith/db configuration getprop fail2ban UnBanIP)
 if [[ $IP == '' ]]; then 
-exit 0
+    exit 0
 fi
+
+#List of jails
 JAILS=$(fail2ban-client status | grep " Jail list:" | sed 's/`- Jail list://g' | sed 's/,//g')
+
 for j in $JAILS
 do
-echo "==$j jail=="
-/usr/bin/fail2ban-client set $j  unbanip $IP
+    echo "==$j jail=="
+    /usr/bin/fail2ban-client set $j  unbanip $IP
 done
+
+/usr/sbin/shorewall allow $IP 2> /dev/null
 /sbin/e-smith/db configuration delprop fail2ban UnBanIP
