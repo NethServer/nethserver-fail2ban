@@ -1,13 +1,19 @@
 #!/bin/bash
 
 if [[ -z $1 ]]; then
-echo 'Usage : 
+    echo 'Usage : 
     fail2ban-unban IP_number (fail2ban-unban 156.156.156.156)'
-exit
+    exit
 fi
+
+#Retrieve the jail list
 JAILS=$(fail2ban-client status | grep " Jail list:" | sed 's/`- Jail list://g' | sed 's/,//g')
+
 for j in $JAILS
 do
-echo "==$j jail=="
-/usr/bin/fail2ban-client set $j  unbanip $1
+    echo "==$j jail=="
+    /usr/bin/fail2ban-client set $j  unbanip $1 2> /dev/null
 done
+
+#Allow the IP in shorewall, this script could be used as a wrapper
+/usr/sbin/shorewall allow $1 2> /dev/null
