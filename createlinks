@@ -12,6 +12,11 @@ my $event = 'nethserver-fail2banUnBan-save';
 event_actions($event,
     'fail2ban-unban' => '10');
 
+#Action for nethserver-fail2ban-save
+my $event = 'nethserver-fail2ban-save';
+event_actions($event,
+    'nethserver-fail2ban-unban-whitelist' => '10');
+
 #templates to expand
 foreach my $event (qw ( runlevel-adjust nethserver-fail2ban-save)) {
     templates2events("/etc/fail2ban/fail2ban.local", $event);
