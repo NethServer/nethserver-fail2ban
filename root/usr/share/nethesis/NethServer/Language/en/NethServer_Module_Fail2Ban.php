@@ -48,6 +48,7 @@ $L['Recidive_Perpetual_label'] = 'Recidive jail is perpetual';
 $L['Roundcube_status_label'] = 'Roundcubemail Auth';
 $L['Sieve_status_label'] = 'Sieve Auth';
 $L['SogoAuth_status_label'] = 'SOGo Auth';
+$L['Webtop_status_label'] = 'Webtop Auth';
 $L['SshdDdos_status_label'] = 'SSH DDOS';
 $L['Sshd_status_label'] = 'SSH Auth';
 $L['Vsftpd_status_label'] = 'vsftpd Auth';
