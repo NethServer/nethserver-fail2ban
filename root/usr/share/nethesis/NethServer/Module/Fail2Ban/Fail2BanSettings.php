@@ -59,6 +59,7 @@ class  Fail2BanSettings extends \Nethgui\Controller\AbstractController
     $this->declareParameter('Vsftpd_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'Vsftpd_status'));
     $this->declareParameter('Webtop_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'Webtop_status'));
     $this->declareParameter('AsteriskAuth_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'AsteriskAuth_status'));
+    $this->declareParameter('PostfixSaslAbuse_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'PostfixSaslAbuse_status'));
 
         parent::initialize();
     }
