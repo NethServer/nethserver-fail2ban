@@ -25,7 +25,7 @@ class  Fail2BanUnban extends \Nethgui\Controller\AbstractController
 
     public function initialize()
     {
-        $this->declareParameter('UnBanIP', Validate::IPv4_OR_EMPTY, array('configuration', 'fail2ban', 'UnBanIP'));
+        $this->declareParameter('UnBanIP', Validate::IPv4_OR_EMPTY);
         parent::initialize();
     }
 
@@ -51,9 +51,11 @@ class  Fail2BanUnban extends \Nethgui\Controller\AbstractController
 
     }
 
-    public function onParametersSaved($changes)
+    public function process()
     {
-        $this->getPlatform()->signalEvent('nethserver-fail2banUnBan-save &');
+        if ( ! $this->getRequest()->isMutation()) {
+            return;
+        }
+        $this->getPlatform()->signalEvent('nethserver-fail2banUnBan-save &', array($this->parameters['UnBanIP']));
     }
-
 }

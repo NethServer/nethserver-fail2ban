@@ -19,19 +19,9 @@
 # along with NethServer.  If not, see COPYING.
 #
 
-IP=$(/sbin/e-smith/db configuration getprop fail2ban UnBanIP)
+IP=$2
 if [[ $IP == '' ]]; then 
     exit 0
 fi
 
-#List of jails
-JAILS=$(fail2ban-client status | grep " Jail list:" | sed 's/`- Jail list://g' | sed 's/,//g')
-
-for j in $JAILS
-do
-    echo "==$j jail=="
-    /usr/bin/fail2ban-client set $j  unbanip $IP
-done
-
-/usr/sbin/shorewall allow $IP 2> /dev/null
-/sbin/e-smith/db configuration delprop fail2ban UnBanIP
+/usr/bin/fail2ban-unban $IP
