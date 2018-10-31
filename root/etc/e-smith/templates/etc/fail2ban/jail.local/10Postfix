@@ -10,7 +10,7 @@ my $postfixretry = $fail2ban{Postfix_MaxRetry} || $fail2ban{MaxRetry} || '3';
 
 my $postfixSaslAbuse = $fail2ban{PostfixSaslAbuse_status} || 'true';
 my $postfixSaslAbuseMaxRetry = $fail2ban{PostfixSaslAbuse_MaxRetry} || $postfixretry*33 || '100';
-my $ignoreipSaslAbuse = $localAccess.','.($fail2ban{Postfix_IgnoreIP}||'');
+my $ignoreipSaslAbuse = $localAccess.','.($fail2ban{PostfixSaslAbuse_IgnoreIP}||'');
 $ignoreipSaslAbuse =~ s/,/ /g;
 
 $OUT .= qq (
