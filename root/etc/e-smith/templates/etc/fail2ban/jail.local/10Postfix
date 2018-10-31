@@ -1,12 +1,17 @@
 {
 my $postfix = $postfix{status} || 'disabled';
 return "\n#postfix not used on this server"
-                   unless (($postfix eq 'enabled') && (-f '/var/log/maillog'));
+                   unless (-f '/var/log/maillog');
 
 my $postfixstatus = $fail2ban{Postfix_status} || 'true';
 my $postfixtcp = $postfix{TCPPorts}|| '25,465,587';
 my $postfixrblstatus = $fail2ban{PostfixRbl_status} || 'true';
-my $postfixrblretry = $fail2ban{Postfix_MaxRetry} || $fail2ban{MaxRetry} || '3';
+my $postfixretry = $fail2ban{Postfix_MaxRetry} || $fail2ban{MaxRetry} || '3';
+
+my $postfixSaslAbuse = $fail2ban{PostfixSaslAbuse_status} || 'true';
+my $postfixSaslAbuseMaxRetry = $fail2ban{PostfixSaslAbuse_MaxRetry} || $postfixretry*33 || '100';
+my $ignoreipSaslAbuse = $localAccess.','.($fail2ban{Postfix_IgnoreIP}||'');
+$ignoreipSaslAbuse =~ s/,/ /g;
 
 $OUT .= qq (
 [postfix]
@@ -14,7 +19,7 @@ enabled  = $postfixstatus
 port     = $postfixtcp
 logpath  = \%(postfix_log)s
 backend  = \%(postfix_backend)s
-maxretry = $postfixrblretry
+maxretry = $postfixretry
 
 
 [postfix-rbl]
@@ -22,13 +27,26 @@ enabled  = $postfixrblstatus
 port     = $postfixtcp
 logpath  = \%(postfix_log)s
 backend  = \%(postfix_backend)s
-maxretry = $postfixrblretry
+maxretry = $postfixretry
 
 [postfix-ddos]
 enabled  = $postfixstatus
 port     = $postfixtcp
 logpath  = /var/log/maillog
-maxretry = $postfixrblretry
+maxretry = $postfixretry
+
+[postfix-sasl]
+enabled  = $postfixstatus
+port     = $postfixtcp
+logpath  = /var/log/maillog
+maxretry = $postfixretry
+
+[postfix-sasl-abuse]
+enabled  = $postfixSaslAbuse
+port     = $postfixtcp
+logpath  = /var/log/maillog
+maxretry = $postfixSaslAbuseMaxRetry
+ignoreip = $ignoreipSaslAbuse
 
 );
 }
