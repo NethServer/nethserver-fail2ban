@@ -8,7 +8,6 @@ BuildArch: noarch
 URL: http://dev.nethserver.org/projects/nethforge/wiki/%{name}
 BuildRequires: nethserver-devtools
 Requires: fail2ban fail2ban-shorewall perl-Email-Valid
-Requires: jq
 #AutoReq: no
 
 %description
@@ -40,7 +39,6 @@ rm -rf $RPM_BUILD_ROOT
   --file /usr/libexec/nethserver/fail2ban-status 'attr(0755,root,root)' \
   --file /usr/bin/fail2ban-listban 'attr(0750,root,root)' \
   --file /usr/bin/fail2ban-unban 'attr(0750,root,root)' \
-  --file /usr/bin/fail2ban-statistic 'attr(0750,root,root)' \
   --file /usr/libexec/nethserver/fail2ban-listban 'attr(0755,root,root)' \
   --file /usr/libexec/nethserver/fail2ban-listip 'attr(0755,root,root)' \
   --file /usr/libexec/nethserver/shorewall-nethserver 'attr(0750,root,root)' \
