@@ -21,4 +21,4 @@
 
 # display in a human readable way the json statistic and jail counter
 
-/usr/bin/cat /var/lib/nethserver/fail2ban/fail2ban.json|/usr/bin/jq
+/usr/bin/cat /var/lib/nethserver/fail2ban/fail2ban.json|jq
