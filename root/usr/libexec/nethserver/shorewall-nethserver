@@ -1,17 +1,38 @@
 #!/usr/bin/perl
+#
+# Copyright (C) 2018 Nethesis S.r.l.
+# http://www.nethesis.it - nethserver@nethesis.it
+#
+# This script is part of NethServer.
+#
+# NethServer is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License,
+# or any later version.
+#
+# NethServer is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with NethServer.  If not, see COPYING.
+#
 # the purpose is to count how many time the IP is banned by different jails
 # if the counter is not equal to zero, then a jail is still active and the 
-# IP is not allowed
-# This is due to the bad implementation of shorewall in fail2ban
+# IP is not allowed. This is due to the bad implementation of shorewall in fail2ban
+# https://github.com/fail2ban/fail2ban/issues/2031
 
-use esmith::ConfigDB;
-use esmith::DB;
 use utf8;
 use JSON;
 use esmith::Logger;
 binmode STDOUT, ":utf8";
 
-#Function to write to messages
+my ($action,$ip,$jail) = @ARGV;
+my $jsonFile = '/var/lib/nethserver/fail2ban/fail2ban.json';
+my $json;
+
+#write to logs
 sub log2messages
 {
     my $message = shift;
@@ -20,59 +41,48 @@ sub log2messages
     close FH;
 }
 
+#encode Json file
+sub encodeJSON {
+      $data = shift;
+      umask 022;
+      open my $fh, ">", $jsonFile;
+      print $fh encode_json($data);
+      close $fh;
+}
+
 if ( ! -d '/var/lib/nethserver/fail2ban') {
       umask 022;
       mkdir '/var/lib/nethserver/fail2ban';
 }
 
-my $fdb = esmith::ConfigDB->open('/var/lib/nethserver/fail2ban/fail2ban')
-    || esmith::ConfigDB->create('/var/lib/nethserver/fail2ban/fail2ban');
 
-
-my ($action,$ip,$jail) = @ARGV;
-
-my $count = $fdb->get_prop ("$ip",'counter') || '';
-if ($count eq '') {
-    $fdb->set_prop("$ip",'counter','0', type => 'ban');
+#decode Json
+if ( -f $jsonFile )    {
+    open my $fh, "<", $jsonFile;
+    $json = <$fh>;
+    close $fh;
+}
+else {
+    $json ='{"TotalBannedIP": {},"IPList": {},"IPDebug": {}}';
 }
 
-my $date = localtime();
+my $data = decode_json($json);
 
 if ($action eq 'drop') {
 
-    # decode jsonFile
-    my $jsonFile = '/var/lib/nethserver/fail2ban/fail2ban.json';
-    my $json;
+    # Retrieve the statistic counter
+    my $counterStat = $data->{'TotalBannedIP'}{$jail} || 0;
+    $counterStat++;
+    $data->{'TotalBannedIP'}->{$jail}= $counterStat;
 
-    if ( -f $jsonFile )    {
-      open my $fh, "<", $jsonFile;
-      $json = <$fh>;
-      close $fh;
-    }
-    else {
-      $json ='{"TotalBannedIP": {}}';
-    }
-
-    my $data = decode_json($json);
-
-    # Retrieve the counter
-    my $counter = $data->{'TotalBannedIP'}{$jail} || 0;
-    $counter++;
-    $data->{'TotalBannedIP'}->{$jail}= $counter;
-
+    # retrieve the IP counter
+    my $counterIP = $data->{'IPList'}{$ip} || 0;
+    $counterIP++;
+    $data->{'IPList'}->{$ip} = $counterIP;
+    $data->{'IPDebug'}->{$ip} = localtime().'|JAIL '.$jail.'|ACTION '.$action;
     # Encode jsonFile
-    umask 022;
-    open my $fh, ">", $jsonFile;
-    print $fh encode_json($data);
-    close $fh;
+    encodeJSON ($data);
 
-    # Drop action
-    $count = $fdb->get_prop("$ip",'counter');
-    $count ++;
-    $fdb->set_prop("$ip",'counter',"$count");
-    $fdb->set_prop("$ip",'date',"$date");
-    $fdb->set_prop("$ip",'jail',"$jail");
-    $fdb->set_prop("$ip",'action',"$action");
     if (system ("/usr/bin/timeout 10 /usr/sbin/shorewall drop $ip")) {
         log2messages("[ERROR] Fail2ban failed to drop $ip, wait 10 seconds and retry: $?");
         system ('/usr/bin/systemctl restart shorewall') == 0 or die ("Cannot restart fail2ban: $?");
@@ -83,18 +93,29 @@ if ($action eq 'drop') {
 }
 
 elsif ($action eq 'allow') {
-    $count = $fdb->get_prop("$ip",'counter');
-    $count --;
+
+    # retrieve the IP counter
+    my $counterIP = $data->{'IPList'}{$ip} || 0;
+    $counterIP--;
+    $data->{'IPList'}->{$ip}= $counterIP;
+    $data->{'IPDebug'}->{$ip} = localtime().'|JAIL '.$jail.'|ACTION '.$action;
+
+    # Encode jsonFile
+    encodeJSON ($data);
 
     # the counter is decreased after each unban
     # If <= 0, then unban and delete key, last ban is over
     # If >= 2, something wrong occured, then delete key and unban
     # For recidive always unban and delete key
-    if (($count <= '0') ||
-        ($count >= '2') ||
+    if (($counterIP <= '0') ||
+        ($counterIP >= '2') ||
         ($jail eq 'recidive')) {
-        my $dbkey = $fdb->get("$ip");
-        $dbkey->delete;
+
+        delete $data->{'IPList'}->{$ip};
+        delete $data->{'IPDebug'}->{$ip}; 
+        #Encode Json
+        encodeJSON ($data);
+
         if (system ("/usr/bin/timeout 10 /usr/sbin/shorewall allow $ip")) {
             log2messages("[ERROR] Fail2ban failed to allow $ip, wait 10 seconds and retry: $?");
             system ('/usr/bin/systemctl restart shorewall') == 0 or die ("Fail2ban cannot restart shorewall: $?");
@@ -102,11 +123,5 @@ elsif ($action eq 'allow') {
             system ("/usr/sbin/shorewall allow $ip") == 0 or die ("Fai2ban cannot allow $ip via shorewall: $?");
         }
 
-    }
-    else {
-        $fdb->set_prop("$ip",'counter',"$count");
-        $fdb->set_prop("$ip",'date',"$date");
-        $fdb->set_prop("$ip",'jail',"$jail");
-        $fdb->set_prop("$ip",'action',"$action");
     }
 }
