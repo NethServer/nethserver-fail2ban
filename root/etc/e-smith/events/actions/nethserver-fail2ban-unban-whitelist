@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/perl
 #
 # Copyright (C) 2018 Nethesis S.r.l.
 # http://www.nethesis.it - nethserver@nethesis.it
@@ -17,21 +17,16 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with NethServer.  If not, see COPYING.
+#
 
-if [[ -z $1 ]]; then
-    echo 'Usage : 
-    fail2ban-unban IP_number (fail2ban-unban 156.156.156.156)'
-    exit
-fi
+use strict;
+use warnings;
+use esmith::ConfigDB;
+my $db = esmith::ConfigDB->open_ro;
 
-#Retrieve the jail list
-JAILS=$(fail2ban-client status | grep " Jail list:" | sed 's/`- Jail list://g' | sed 's/,//g')
+my $IPList = $db->get_prop('fail2ban','IgnoreIP') || '';
 
-for j in $JAILS
-do
-    echo "==$j jail=="
-    /usr/bin/fail2ban-client set $j  unbanip $1 2> /dev/null
-done
+exit 0 if ($IPList eq '');
 
-#Allow the IP in shorewall, this script could be used as a wrapper
-/usr/sbin/shorewall allow $1 2> /dev/null
+$IPList =~ s/,/ /g;
+system("/usr/sbin/shorewall allow $IPList");

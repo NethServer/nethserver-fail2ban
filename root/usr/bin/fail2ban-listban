@@ -1,17 +1,38 @@
 #!/bin/bash
+#
+# Copyright (C) 2018 Nethesis S.r.l.
+# http://www.nethesis.it - nethserver@nethesis.it
+#
+# This script is part of NethServer.
+#
+# NethServer is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License,
+# or any later version.
+#
+# NethServer is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with NethServer.  If not, see COPYING.
+#
 
 echo ""
 echo "If you want more information on a jail, do : fail2ban-client status {JailName}"
 echo ""
 echo "Status of Jails"
 echo "---------------"
+#List jails
 JAILS=$(fail2ban-client status | grep " Jail list:" | sed 's/`- Jail list://g' | sed 's/,//g')
+
 for j in $JAILS
 do
-echo " $j Jail enabled
+    echo " $j Jail enabled
     - Currently banned: $(fail2ban-client status $j | grep " Currently banned:" | sed 's/   |- Currently banned:\t//g') \
     - Total banned after service start: $(fail2ban-client status $j | grep " Total banned:" | sed 's/   |- Total banned:\t//g')"
-echo "    - Banned IP: $(fail2ban-client status $j | grep " Banned IP list:" | sed 's/   `- Banned IP list:\t//g')"
+    echo "    - Banned IP: $(fail2ban-client status $j | grep " Banned IP list:" | sed 's/   `- Banned IP list:\t//g')"
 done
 
 echo ''
