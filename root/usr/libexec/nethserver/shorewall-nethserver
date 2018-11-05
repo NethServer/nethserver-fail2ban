@@ -1,8 +1,27 @@
 #!/usr/bin/perl
+#
+# Copyright (C) 2018 Nethesis S.r.l.
+# http://www.nethesis.it - nethserver@nethesis.it
+#
+# This script is part of NethServer.
+#
+# NethServer is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License,
+# or any later version.
+#
+# NethServer is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with NethServer.  If not, see COPYING.
+#
 # the purpose is to count how many time the IP is banned by different jails
 # if the counter is not equal to zero, then a jail is still active and the 
-# IP is not allowed
-# This is due to the bad implementation of shorewall in fail2ban
+# IP is not allowed. This is due to the bad implementation of shorewall in fail2ban
+# https://github.com/fail2ban/fail2ban/issues/2031
 
 use utf8;
 use JSON;
@@ -45,7 +64,6 @@ if ( -f $jsonFile )    {
 }
 else {
     $json ='{"TotalBannedIP": {},"IPList": {},"IPDebug": {}}';
-#$json ='{"TotalBannedIP": {}';
 }
 
 my $data = decode_json($json);
@@ -80,7 +98,7 @@ elsif ($action eq 'allow') {
     my $counterIP = $data->{'IPList'}{$ip} || 0;
     $counterIP--;
     $data->{'IPList'}->{$ip}= $counterIP;
-    $data->{'IPDebug'}->{$ip} = localtime().'|JAIL '.$jail.'|ACTION'.$action;
+    $data->{'IPDebug'}->{$ip} = localtime().'|JAIL '.$jail.'|ACTION '.$action;
 
     # Encode jsonFile
     encodeJSON ($data);
