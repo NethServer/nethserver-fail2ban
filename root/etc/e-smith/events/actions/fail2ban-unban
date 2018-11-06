@@ -24,4 +24,4 @@ if [[ $IP == '' ]]; then
     exit 0
 fi
 
-/usr/bin/fail2ban-unban $IP
+/usr/bin/fail2ban-unban $IP > /dev/null
