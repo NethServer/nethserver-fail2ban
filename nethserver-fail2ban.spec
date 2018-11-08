@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 Name: nethserver-fail2ban
-Version: 1.0.8
+Version: 1.1.0
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -53,6 +53,11 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_nseventsdir}/%{name}-update
 
 %changelog
+* Thu Nov 08 2018 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.1.0-1
+- Fail2ban: Unban enhancement - NethServer/dev#5620
+- Fail2ban: Postfix sasl jails - NethServer/dev#5618
+- Fail2ban: move from esmith API to json file - NethServer/dev#5621
+
 * Tue Oct 30 2018 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.0.8-1
 - Fail2ban: Webtop Jail - NethServer/dev#5612
 - Fail2ban timed out after 60 seconds - Bug NethServer/dev#5599
