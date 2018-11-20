@@ -1,9 +1,0 @@
-{
-    #Leave BanAction shorewall to shorewall-nethserver
-    my $custom = $DB->get_prop('fail2ban','CustomDestemail')|| '';
-    my $mail = $DB->get_prop('fail2ban','Mail')|| 'disabled';
-    if ($mail eq 'enabled' && $custom eq '') {
-        $DB->set_prop('fail2ban','CustomDestemail','admin@'.$DomainName);
-    }
-    '';
-}
