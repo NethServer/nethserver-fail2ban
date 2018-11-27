@@ -1,0 +1,16 @@
+{
+return "\n#cannot find logs for rspamd" unless (-f '/var/log/httpd-admin/access_log');
+
+my $Rspamd_status = $fail2ban{Rspamd_status} || 'true';
+my $TCPPorts = ${'httpd-admin'}{TCPPort} || '980';
+my $maxretry = $fail2ban{Rspamd_MaxRetry} || $fail2ban{MaxRetry} || '3';
+
+
+$OUT .= qq(
+[rspamd]
+enabled = $Rspamd_status
+port    = $TCPPorts
+logpath = /var/log/httpd-admin/access_log
+maxretry = $maxretry
+);
+}
