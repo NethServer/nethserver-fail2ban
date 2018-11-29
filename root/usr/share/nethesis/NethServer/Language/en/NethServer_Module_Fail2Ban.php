@@ -79,3 +79,4 @@ $L['fail2banstatus_title'] = 'Bans per jail';
 $L['Jail_label'] = 'jail';
 $L['TotalBannedIP_label'] = 'Total Banned IPs';
 $L['no_fail2ban_stat_label'] = 'No available statistics';
+$L['Rspamd_status_label'] = 'Rspamd UI Auth';
