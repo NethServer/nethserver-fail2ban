@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 Name: nethserver-fail2ban
-Version: 1.1.1
+Version: 1.1.2
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -53,6 +53,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_nseventsdir}/%{name}-update
 
 %changelog
+* Fri Dec 07 2018 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.1.2-1
+- Fail2ban: Create a jail for the rspamd UI - NethServer/dev#5663
+
 * Tue Nov 20 2018 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.1.1-1
 - Fail2ban: CustomDestemail is set by a migrate fragment - Bug NethServer/dev#5643
 
