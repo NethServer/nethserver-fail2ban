@@ -1,5 +1,5 @@
 {
-return "\n#roundcubemail not installed on this server" unless (-f '/var/log/roundcubemail/errors');
+return "\n#roundcubemail not installed on this server" unless (-f '/var/log/roundcubemail/errors.log');
 
 my $Roundcube_status = $fail2ban{Roundcube_status} || 'true';
 my $TCPPorts = $httpd{TCPPorts} || '80,443';
