@@ -20,7 +20,6 @@ event_actions($event,
 #templates to expand
 foreach my $event (qw ( runlevel-adjust nethserver-fail2ban-save)) {
     templates2events("/etc/fail2ban/fail2ban.local", $event);
-    templates2events('/etc/fail2ban/jail.local', $event);
     templates2events('/etc/fail2ban/action.d/shorewall.local', $event);
     templates2events('/etc/fail2ban/action.d/sendmail-common.local', $event);
     templates2events('/etc/sudoers', $event);
@@ -35,5 +34,4 @@ event_services($event,
 }
 
 my $event = 'trusted-networks-modify';
-templates2events('/etc/fail2ban/jail.local', $event);
 event_services($event, 'fail2ban' => 'restart');
