@@ -8,6 +8,7 @@ event_actions($event,
              'initialize-default-databases' => '00');
 templates2events("/etc/fail2ban/fail2ban.local", $event);
 templates2events('/etc/fail2ban/action.d/sendmail-common.local', $event);
+templates2events('/etc/sudoers', $event);
 
 #Action to unbanIP
 my $event = 'nethserver-fail2banUnBan-save';
@@ -22,12 +23,16 @@ templates2events("/etc/fail2ban/fail2ban.local", $event);
 templates2events('/etc/fail2ban/action.d/sendmail-common.local', $event);
 
 #templates to expand
-foreach my $event (qw ( runlevel-adjust nethserver-fail2ban-save)) {
-    templates2events('/etc/sudoers', $event);
+foreach my $event (qw ( nethserver-fail2ban-update
+                        nethserver-fail2ban-save
+                        nethserver-urbackup-save
+                        nethserver-urbackup-update
+                    )) {
     templates2events('/etc/fail2ban/filter.d/urbackup-auth.conf', $event);
 }
 
 # services to launch on event
+# /etc/fail2ban/jail.local is expanded by systemd before fail2ban restart
 foreach my $event (qw ( runlevel-adjust nethserver-fail2ban-save)) {
 event_services($event,
     'fail2ban'=> 'restart');
