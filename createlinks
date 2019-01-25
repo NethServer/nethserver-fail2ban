@@ -6,6 +6,9 @@ use esmith::Build::CreateLinks qw(:all);
 my $event = 'nethserver-fail2ban-update';
 event_actions($event,
              'initialize-default-databases' => '00');
+templates2events("/etc/fail2ban/fail2ban.local", $event);
+templates2events('/etc/fail2ban/action.d/sendmail-common.local', $event);
+templates2events('/etc/sudoers', $event);
 
 #Action to unbanIP
 my $event = 'nethserver-fail2banUnBan-save';
@@ -16,24 +19,28 @@ event_actions($event,
 my $event = 'nethserver-fail2ban-save';
 event_actions($event,
     'nethserver-fail2ban-unban-whitelist' => '10');
+templates2events("/etc/fail2ban/fail2ban.local", $event);
+templates2events('/etc/fail2ban/action.d/sendmail-common.local', $event);
 
 #templates to expand
-foreach my $event (qw ( runlevel-adjust nethserver-fail2ban-save)) {
-    templates2events("/etc/fail2ban/fail2ban.local", $event);
-    templates2events('/etc/fail2ban/jail.local', $event);
-    templates2events('/etc/fail2ban/action.d/shorewall.local', $event);
-    templates2events('/etc/fail2ban/action.d/sendmail-common.local', $event);
-    templates2events('/etc/sudoers', $event);
+foreach my $event (qw ( nethserver-fail2ban-update
+                        nethserver-fail2ban-save
+                        nethserver-urbackup-save
+                        nethserver-urbackup-update
+                    )) {
     templates2events('/etc/fail2ban/filter.d/urbackup-auth.conf', $event);
-    templates2events('/etc/logrotate.d/fail2ban', $event);
 }
 
 # services to launch on event
-foreach my $event (qw ( runlevel-adjust nethserver-fail2ban-save)) {
+# /etc/fail2ban/jail.local is expanded by systemd before fail2ban restart
+foreach my $event (qw ( runlevel-adjust
+                        nethserver-fail2ban-save
+                        nethserver-urbackup-save
+                        nethserver-urbackup-update
+                    )) {
 event_services($event,
     'fail2ban'=> 'restart');
 }
 
 my $event = 'trusted-networks-modify';
-templates2events('/etc/fail2ban/jail.local', $event);
 event_services($event, 'fail2ban' => 'restart');
