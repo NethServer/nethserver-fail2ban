@@ -50,7 +50,6 @@ rm -rf $RPM_BUILD_ROOT
 %files -f e-smith-%{version}-filelist
 %defattr(-,root,root)
 %doc COPYING
-%attr(0644, root, root) %config(noreplace) %{_sysconfdir}/logrotate.d/fail2ban
 %dir %{_nseventsdir}/%{name}-update
 
 %changelog
