@@ -33,7 +33,11 @@ foreach my $event (qw ( nethserver-fail2ban-update
 
 # services to launch on event
 # /etc/fail2ban/jail.local is expanded by systemd before fail2ban restart
-foreach my $event (qw ( runlevel-adjust nethserver-fail2ban-save)) {
+foreach my $event (qw ( runlevel-adjust
+                        nethserver-fail2ban-save
+                        nethserver-urbackup-save
+                        nethserver-urbackup-update
+                    )) {
 event_services($event,
     'fail2ban'=> 'restart');
 }
