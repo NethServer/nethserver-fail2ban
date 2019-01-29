@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 Name: nethserver-fail2ban
-Version: 1.1.2
+Version: 1.1.3
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -53,6 +53,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_nseventsdir}/%{name}-update
 
 %changelog
+* Tue Jan 29 2019 Stephane de Labrusse <stephdl@de-labrusse.fr> - 1.1.3-1
+- Roundcubemail Jail prevents Fail2ban to start - Bug NethServer/dev#5693
+
 * Fri Dec 07 2018 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.1.2-1
 - Fail2ban: Create a jail for the rspamd UI - NethServer/dev#5663
 
