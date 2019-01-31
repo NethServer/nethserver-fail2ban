@@ -12,5 +12,11 @@ enabled  = $AsteriskAuth_status
 port     = $TCPPorts
 logpath  = /var/log/asterisk/full
 maxretry = $maxretry
+
+[asterisk_nethserver]
+enabled  = $AsteriskAuth_status
+port     = $TCPPorts
+logpath  = /var/log/asterisk/full
+maxretry = $maxretry
 );
 }
