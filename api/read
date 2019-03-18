@@ -1,0 +1,70 @@
+#!/usr/bin/perl
+
+#
+# Copyright (C) 2019 Nethesis S.r.l.
+# http://www.nethesis.it - nethserver@nethesis.it
+#
+# This script is part of NethServer.
+#
+# NethServer is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License,
+# or any later version.
+#
+# NethServer is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with NethServer.  If not, see COPYING.
+#
+
+require "/usr/libexec/nethserver/api/lib/helper_functions.pl";
+require "/usr/libexec/nethserver/api/lib/auth_functions.pl";
+
+use warnings;
+use strict;
+use JSON;
+use esmith::db;
+my $db = esmith::db->open("configuration");
+
+my $input = readInput();
+my $cmd = $input->{'action'} || '';
+my $data;
+
+if ($cmd eq 'TotalBannedIP') {
+    if ( ! -f '/var/lib/nethserver/fail2ban/fail2ban.json') { 
+        $data = {"TotalBannedIP" => {}};
+    }
+    else {
+          $data = read_json("/var/lib/nethserver/fail2ban/fail2ban.json");
+    }
+
+    print encode_json($data->{"TotalBannedIP"});
+    exit(0);
+}
+
+
+elsif ($cmd eq 'IPList') {
+    if ( ! -f '/var/lib/nethserver/fail2ban/fail2ban.json') {
+        $data = {"IPList" => {}};
+    }
+    else {
+          $data = read_json("/var/lib/nethserver/fail2ban/fail2ban.json");
+    }
+
+    print encode_json($data->{"IPList"});
+    exit(0);
+}
+
+elsif ($cmd eq 'configuration') {
+    my %out = (
+    'configuration' => $db->prepare_json('fail2ban')
+    );
+    print to_json(\%out, {utf8 => 1, pretty => 0, allow_nonref => 1});
+    exit (0);
+}
+else {
+    error();
+}

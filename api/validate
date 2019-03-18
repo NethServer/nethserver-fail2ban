@@ -1,0 +1,97 @@
+#!/usr/bin/php
+<?php
+/*
+ * Copyright (C) 2019 Nethesis S.r.l.
+ * http://www.nethesis.it - nethserver@nethesis.it
+ *
+ * This script is part of NethServer.
+ *
+ * NethServer is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License,
+ * or any later version.
+ *
+ * NethServer is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with NethServer.  If not, see COPYING.
+*/
+
+require_once("/usr/libexec/nethserver/api/lib/Helpers.php");
+
+$data = readInput();
+$p = $data['configuration']['props'];
+
+$v = createValidator($p)
+    ->declareParameter('BanLocalNetwork', Validate::SERVICESTATUS)
+    ->declareParameter('FindTime', Validate::POSITIVE_INTEGER)
+    ->declareParameter('BanTime', Validate::POSITIVE_INTEGER)
+    ->declareParameter('CustomDestemail', Validate::ANYTHING)
+    ->declareParameter('IgnoreIP', Validate::ANYTHING)
+    ->declareParameter('LogLevel', $this->createValidator()->memberOf('CRITICAL','ERROR','WARNING','NOTICE','INFO','DEBUG'))
+    ->declareParameter('Mail', Validate::SERVICESTATUS)
+	->declareParameter('MailJailState', Validate::SERVICESTATUS)
+    ->declareParameter('MaxRetry', Validate::POSITIVE_INTEGER)
+    ->declareParameter('status', Validate::SERVICESTATUS)
+    ->declareParameter('ApacheAuth_status', $this->createValidator()->memberOf('true','false'))
+    ->declareParameter('ApacheBadbots_status', $this->createValidator()->memberOf('true','false'))
+    ->declareParameter('ApacheBotsearch_status', $this->createValidator()->memberOf('true','false'))
+    ->declareParameter('ApacheFakegooglebot_status', $this->createValidator()->memberOf('true','false'))
+    ->declareParameter('ApacheModsecurity_status', $this->createValidator()->memberOf('true','false'))
+    ->declareParameter('ApacheNohome_status', $this->createValidator()->memberOf('true','false'))
+    ->declareParameter('ApacheNoscript_status', $this->createValidator()->memberOf('true','false'))
+    ->declareParameter('ApacheOverflows_status', $this->createValidator()->memberOf('true','false'))
+    ->declareParameter('ApacheScan_status', $this->createValidator()->memberOf('true','false'))
+    ->declareParameter('ApacheShellshock_status', $this->createValidator()->memberOf('true','false'))
+    ->declareParameter('ApachePhpMyAdmin_status', $this->createValidator()->memberOf('true','false'))
+    ->declareParameter('Dovecot_status', $this->createValidator()->memberOf('true','false'))
+    ->declareParameter('EjabberAuth_status', $this->createValidator()->memberOf('true','false'))
+    ->declareParameter('HttpdAdmin_status', $this->createValidator()->memberOf('true','false'))
+    ->declareParameter('MysqldAuth_status', $this->createValidator()->memberOf('true','false'))
+    ->declareParameter('Nextcloud_status', $this->createValidator()->memberOf('true','false'))
+    ->declareParameter('NginxBotSearch_status', $this->createValidator()->memberOf('true','false'))
+    ->declareParameter('NginxHttpAuth_status', $this->createValidator()->memberOf('true','false'))
+    ->declareParameter('OpenVpnAuth_status', $this->createValidator()->memberOf('true','false'))
+    ->declareParameter('Owncloud_status', $this->createValidator()->memberOf('true','false'))
+    ->declareParameter('PamGeneric_status', $this->createValidator()->memberOf('true','false'))
+    ->declareParameter('PostfixRbl_status', $this->createValidator()->memberOf('true','false'))
+    ->declareParameter('Postfix_status', $this->createValidator()->memberOf('true','false'))
+    ->declareParameter('Recidive_status', $this->createValidator()->memberOf('true','false'))
+    ->declareParameter('Recidive_Perpetual', Validate::SERVICESTATUS)
+    ->declareParameter('Roundcube_status', $this->createValidator()->memberOf('true','false'))
+    ->declareParameter('Sieve_status', $this->createValidator()->memberOf('true','false'))
+    ->declareParameter('SogoAuth_status', $this->createValidator()->memberOf('true','false'))
+    ->declareParameter('SshdDdos_status', $this->createValidator()->memberOf('true','false'))
+    ->declareParameter('Sshd_status', $this->createValidator()->memberOf('true','false'))
+    ->declareParameter('Urbackup_status', $this->createValidator()->memberOf('true','false'))
+    ->declareParameter('Vsftpd_status', $this->createValidator()->memberOf('true','false'))
+    ->declareParameter('Webtop_status', $this->createValidator()->memberOf('true','false'))
+    ->declareParameter('AsteriskAuth_status', $this->createValidator()->memberOf('true','false'))
+    ->declareParameter('PostfixSaslAbuse_status', $this->createValidator()->memberOf('true','false'))
+    ->declareParameter('Rspamd_status', $this->createValidator()->memberOf('true','false'))
+;
+
+$ipValidator = $v->createValidator()->ipV4Address();
+//$cidrValidator = $v->createValidator(Validate::CIDR_BLOCK);
+foreach ($p['IgnoreIP'] as $el) {
+    if (!$ipValidator->evaluate($el)) {
+        $v->addValidationError('IgnoreIP', 'not_ip_address');
+    }
+}
+
+$emailValidator = $v->createValidator(Validate::EMAIL);
+foreach ($p['CustomDestemail'] as $el) {
+    if (!$emailValidator->evaluate($el)) {
+        $v->addValidationError('CustomDestemail', 'not_valid_mail_address');
+    }
+}
+
+# Validate the input
+if ($v->validate()) {
+    success();
+} else {
+    error($v);
+}
