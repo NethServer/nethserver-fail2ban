@@ -29,66 +29,65 @@ require '/usr/libexec/nethserver/api/lib/helper_functions.pl';
 
 my $cdb = esmith::ConfigDB->open() || die("Could not open ConfigDB");
 my $data = readInput();
+my $action = $data->{'action'};
 
-if(defined $data->{'configuration'}->{'props'} ) {
-    $data = $data->{'configuration'}->{'props'};
+if ($action eq 'configuration') {
+    foreach my $prop (qw(
+    ApacheAuth_status
+    ApacheBadbots_status
+    ApacheBotsearch_status
+    ApacheFakegooglebot_status
+    ApacheModsecurity_status
+    ApacheNohome_status
+    ApacheNoscript_status
+    ApacheOverflows_status
+    ApachePhpMyAdmin_status
+    ApacheScan_status
+    ApacheShellshock_status
+    AsteriskAuth_status
+    BanAction
+    BanLocalNetwork
+    BanTime
+    CustomDestemail
+    DbPurgeage
+    Dovecot_status
+    EjabberAuth_status
+    FindTime
+    HttpdAdmin_status
+    IgnoreIP
+    LogLevel
+    Mail
+    MailJailState
+    MaxRetry
+    MysqldAuth_status
+    Nextcloud_status
+    NginxBotSearch_status
+    NginxHttpAuth_status
+    OpenVpnAuth_status
+    Owncloud_status
+    PamGeneric_status
+    PostfixRbl_status
+    PostfixSaslAbuse_status
+    Postfix_status
+    Recidive_MaxRetry
+    Recidive_Perpetual
+    Recidive_status
+    Roundcube_status
+    Rspamd_status
+    Sieve_status
+    SogoAuth_status
+    SshdDdos_status
+    Sshd_status
+    TimedOut
+    Urbackup_status
+    Vsftpd_status
+    Webtop_status
+    status
+    )) {
+        $cdb->set_prop('fail2ban', $prop, $data->{$prop});
+    }
 } else {
-    error("InputError", "update_action_input_error", 1550763311);
-}
-
-foreach my $prop (qw(
-ApacheAuth_status
-ApacheBadbots_status
-ApacheBotsearch_status
-ApacheFakegooglebot_status
-ApacheModsecurity_status
-ApacheNohome_status
-ApacheNoscript_status
-ApacheOverflows_status
-ApachePhpMyAdmin_status
-ApacheScan_status
-ApacheShellshock_status
-AsteriskAuth_status
-BanAction
-BanLocalNetwork
-BanTime
-CustomDestemail
-DbPurgeage
-Dovecot_status
-EjabberAuth_status
-FindTime
-HttpdAdmin_status
-IgnoreIP
-LogLevel
-Mail
-MailJailState
-MaxRetry
-MysqldAuth_status
-Nextcloud_status
-NginxBotSearch_status
-NginxHttpAuth_status
-OpenVpnAuth_status
-Owncloud_status
-PamGeneric_status
-PostfixRbl_status
-PostfixSaslAbuse_status
-Postfix_status
-Recidive_MaxRetry
-Recidive_Perpetual
-Recidive_status
-Roundcube_status
-Rspamd_status
-Sieve_status
-SogoAuth_status
-SshdDdos_status
-Sshd_status
-TimedOut
-Urbackup_status
-Vsftpd_status
-Webtop_status
-status
-)) {
-    $cdb->set_prop('fail2ban', $prop, $data->{$prop});
+    error();
 }
 
 esmith::event::set_json_log(1);
