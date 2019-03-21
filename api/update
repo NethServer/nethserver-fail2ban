@@ -48,13 +48,11 @@ if ($action eq 'configuration') {
     BanAction
     BanLocalNetwork
     BanTime
-    CustomDestemail
     DbPurgeage
     Dovecot_status
     EjabberAuth_status
     FindTime
     HttpdAdmin_status
-    IgnoreIP
     LogLevel
     Mail
     MailJailState
@@ -86,6 +84,10 @@ if ($action eq 'configuration') {
     )) {
         $cdb->set_prop('fail2ban', $prop, $data->{$prop});
     }
+    # json array must be a toString
+    $cdb->set_prop('fail2ban', 'CustomDestemail',join (',', @{$data->{'CustomDestemail'}}));
+    $cdb->set_prop('fail2ban', 'IgnoreIP',join (',', @{$data->{'IgnoreIP'}}));
+
 } else {
     error();
 }
