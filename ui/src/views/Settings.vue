@@ -84,6 +84,30 @@
             >{{errors.status.message}}</span>
           </div>
         </div>
+        
+        
+        
+        <!-- IgnoreIP -->
+        
+        <div
+        v-if="configuration.status"
+        :class="['form-group', errors.IgnoreIP.hasError ? 'has-error' : '']"
+        >
+        <label
+        class="col-sm-2 control-label"
+        for="textInput-modal-markup"
+        >{{$t('settings.allow_only')}}</label>
+        <div class="col-sm-5">
+            <textarea v-model="configuration.IgnoreIP" class="form-control"></textarea>
+            <span v-if="errors.IgnoreIP.hasError" class="help-block">
+                {{$t('validation.validation_failed')}}:
+                {{$t('validation.'+errors.IgnoreIP.message)}}
+            </span>
+        </div>
+        </div>    
+
+        <!-- mail -->
+        
         <div
           v-if="configuration.status"
           :class="['form-group', errors.mail.hasError ? 'has-error' : '']"
@@ -115,7 +139,7 @@
        </label>
        <div v-if="configuration.mail && configuration.status"
             class="col-sm-5">
-         <input type="email"  v-model="a.email" class="form-control">
+         <input   v-model="a.email" class="form-control">
          <span v-if="errors.CustomDestemail.hasError" class="help-block">
            {{$t('validation.validation_failed')}}:
            {{$t('validation.'+errors.CustomDestemail.message)}}
@@ -138,9 +162,8 @@
         </div>
     </div>
 
-        
-        
-        
+
+
         <div class="form-group">
           <label class="col-sm-2 control-label" for="textInput-modal-markup">
             <div v-if="loaders" class="spinner spinner-sm form-spinner-loader adjust-top-loader"></div>
@@ -190,7 +213,8 @@ export default {
     //      props:{
               status: true,
               mail: true,
-              CustomDestemail: [{}]
+              CustomDestemail: [{}],
+              IgnoreIP: ""
     //      }
       },
       loaders: false,
@@ -227,6 +251,10 @@ export default {
       CustomDestemail: {
         hasError: false,
         message: ""
+      },
+      IgnoreIP: {
+          haserror: false,
+          message:""
       }
       };
     },
@@ -283,7 +311,9 @@ export default {
                   };
               });
                   context.configuration.CustomDestemail = emails.length == 0 ? [{}] : emails;
-                  
+                  context.configuration.IgnoreIP = success.configuration.props.IgnoreIP.split(
+  ","
+).join("\n");
           context.view.isLoaded = true;
         },
         function(error) {
@@ -324,7 +354,10 @@ export default {
             : "disabled",
           CustomDestemail:  context.configuration.CustomDestemail.map(function(e) {
               return e.email;
-            })
+          }),
+          IgnoreIP: context.configuration.IgnoreIP.length > 0
+            ? context.configuration.IgnoreIP.split("\n")
+            : []
       };
       context.loaders = true;
       context.errors = context.initErrors();
