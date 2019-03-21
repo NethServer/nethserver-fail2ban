@@ -61,9 +61,9 @@
         </div>
       </form> -->
 
-      <h3>{{$t('configuration.props.status')}}</h3>
+      <h3>{{$t('fail2ban.definition')}}</h3>
       <form class="form-horizontal" v-on:submit.prevent="saveSettings('status')">
-        <div :class="['form-group', errors.MACValidation.hasError ? 'has-error' : '']">
+        <div :class="['form-group', errors.status.hasError ? 'has-error' : '']">
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
@@ -79,27 +79,68 @@
               @change="toggleSettingsMACValidation()"
             />
             <span
-              v-if="errors.MACValidation.hasError"
+              v-if="errors.status.hasError"
               class="help-block"
-            >{{errors.MACValidation.message}}</span>
+            >{{errors.status.message}}</span>
           </div>
         </div>
         <div
           v-if="configuration.status"
-          :class="['form-group', errors.MACValidationPolicy.hasError ? 'has-error' : '']"
+          :class="['form-group', errors.mail.hasError ? 'has-error' : '']"
         >
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('settings.allow_mac')}}</label>
+          >{{$t('fail2ban.mail')}}</label>
           <div class="col-sm-5">
-            <input type="checkbox" v-model="settings.mac.MACValidationPolicy" class="form-control">
+            <input type="checkbox" v-model="configuration.mail" class="form-control">
             <span
-              v-if="errors.MACValidationPolicy.hasError"
+              v-if="errors.mail.hasError"
               class="help-block"
-            >{{errors.MACValidationPolicy.message}}</span>
+            >{{errors.mail.message}}</span>
           </div>
         </div>
+        
+        
+
+        <div
+        v-if="configuration.mail && configuration.status"
+       v-for="(a, i) in configuration.CustomDestemail"
+       v-bind:key="i"
+       :class="['form-group', errors.CustomDestemail.hasError ? 'has-error' : '']"
+     >
+       <label class="col-sm-2 control-label" for="textInput-modal-markup">
+         {{i == 0 ?
+         $t('settings.notify_to') : ''}}
+       </label>
+       <div v-if="configuration.mail && configuration.status"
+            class="col-sm-5">
+         <input type="email"  v-model="a.email" class="form-control">
+         <span v-if="errors.CustomDestemail.hasError" class="help-block">
+           {{$t('validation.validation_failed')}}:
+           {{$t('validation.'+errors.CustomDestemail.message)}}
+         </span>
+       </div>
+       <div v-if="i > 0" class="col-sm-2">
+         <button @click="removeEmail(a, i)" class="btn btn-default" type="button">
+           <span class="fa fa-minus card-icon-def"></span>
+         </button>
+       </div>
+     </div>
+     <div   v-if="configuration.mail && configuration.status"
+            class="form-group">
+       <div class="col-sm-2 control-label"></div>
+       <div class="col-sm-5">
+         <button @click="addEmail()" class="btn btn-default" type="button">
+           <span class="fa fa-plus card-icon-def"></span>
+           {{$t('settings.add_email')}}
+         </button>
+        </div>
+    </div>
+
+        
+        
+        
         <div class="form-group">
           <label class="col-sm-2 control-label" for="textInput-modal-markup">
             <div v-if="loaders" class="spinner spinner-sm form-spinner-loader adjust-top-loader"></div>
@@ -131,24 +172,26 @@ export default {
         isRoot: false
       },
       settings: {
-        internet: {
-          Policy: true
-        },
-        ping: {
-          ExternalPing: true
-        },
-        pf: {
-          HairpinNat: false
-        },
+      //   internet: {
+      //     Policy: true
+      //   },
+      //   ping: {
+      //     ExternalPing: true
+      //   },
+      //   pf: {
+      //     HairpinNat: false
+      //   },
         mac: {
-          MACValidationPolicy: false,
-          MACValidation: false
+         MACValidationPolicy: false,
+         MACValidation: false
         }
       },
       configuration: {
-          props:{
-              status: false
-          }
+    //      props:{
+              status: true,
+              mail: true,
+              CustomDestemail: [{}]
+    //      }
       },
       loaders: false,
       errors: this.initErrors()
@@ -157,27 +200,43 @@ export default {
   methods: {
     initErrors() {
       return {
-        Policy: {
-          hasError: false,
-          message: ""
-        },
-        ExternalPing: {
-          hasError: false,
-          message: ""
-        },
-        HairpinNat: {
-          hasError: false,
-          message: ""
-        },
+        // Policy: {
+        //   hasError: false,
+        //   message: ""
+        // },
+        // ExternalPing: {
+        //   hasError: false,
+        //   message: ""
+        // },
+        // HairpinNat: {
+        //   hasError: false,
+        //   message: ""
+        // },
         MACValidationPolicy: {
           hasError: false,
           message: ""
         },
-        MACValidation: {
+        status: {
           hasError: false,
           message: ""
-        }
+      },
+      mail: {
+        hasError: false,
+        message: ""
+      },
+      CustomDestemail: {
+        hasError: false,
+        message: ""
+      }
       };
+    },
+    addEmail() {
+      this.configuration.CustomDestemail.push({
+        isNew: true
+      });
+    },
+    removeEmail(alias, index) {
+      this.configuration.CustomDestemail.splice(index, 1);
     },
     getSettings() {
       var context = this;
@@ -214,8 +273,17 @@ export default {
           //   success.settings.MACValidation == "enabled";
 
           //context.configuration = success.configuration;
-          context.configuration.status = success.configuration.props.status === "enabled";
-          
+          context.configuration.status = success.configuration.props.status == "enabled";
+          context.configuration.mail = success.configuration.props.Mail == "enabled";
+//          context.configuration.CustomDestemail = success.configuration.props.CustomDestemail == "enabled";
+            var emails = [{}];
+            emails = success.configuration.props.CustomDestemail.map(function(i) {
+                  return {
+                    email: i
+                  };
+              });
+                  context.configuration.CustomDestemail = emails.length == 0 ? [{}] : emails;
+                  
           context.view.isLoaded = true;
         },
         function(error) {
@@ -250,7 +318,13 @@ export default {
         action: "configuration",
         status: context.configuration.status
           ? "enabled"
-          : "disabled"
+          : "disabled",
+          Mail: context.configuration.mail
+            ? "enabled"
+            : "disabled",
+          CustomDestemail:  context.configuration.CustomDestemail.map(function(e) {
+              return e.email;
+            })
       };
       context.loaders = true;
       context.errors = context.initErrors();
@@ -263,10 +337,10 @@ export default {
       
           // notification
           nethserver.notifications.success = context.$i18n.t(
-            "settings.settings_updated_ok"
+            "fail2ban.settings_updated_ok"
           );
           nethserver.notifications.error = context.$i18n.t(
-            "settings.settings_updated_error"
+            "fail2ban.settings_updated_error"
           );
 
           // update values
