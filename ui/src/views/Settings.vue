@@ -5,8 +5,8 @@
     <div v-if="view.isLoaded">
     <doc-info
           :placement="'top'"
-          :title="$t('docs.tls_policy')"
-          :chapter="'tlspolicy'"
+          :title="$t('docs.fail2ban')"
+          :chapter="'fail2ban'"
           :section="''"
           :inline="false"
     ></doc-info>
@@ -162,6 +162,17 @@
         </div>
     </div>
 
+<!-- advanced -->
+
+<legend class="fields-section-header-pf" aria-expanded="true">
+  <span
+    :class="['fa fa-angle-right field-section-toggle-pf', configuration.advanced ? 'fa-angle-down' : '']"
+  ></span>
+  <a
+    class="field-section-toggle-pf"
+    @click="toggleAdvancedMode()"
+  >{{$t('advanced_mode')}}</a>
+</legend>
 
 
         <div class="form-group">
@@ -257,6 +268,9 @@ export default {
           message:""
       }
       };
+    },
+    toggleAdvancedMode() {
+      this.configuration.advanced = !this.configuration.advanced;
     },
     addEmail() {
       this.configuration.CustomDestemail.push({
