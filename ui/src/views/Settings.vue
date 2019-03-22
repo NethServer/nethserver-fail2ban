@@ -129,7 +129,7 @@
 
         <!-- advanced -->
 
-        <legend class="fields-section-header-pf" aria-expanded="true">
+        <legend v-if="configuration.status" class="fields-section-header-pf" aria-expanded="true">
             <span
             :class="['fa fa-angle-right field-section-toggle-pf', configuration.advanced ? 'fa-angle-down' : '']"
             ></span>
