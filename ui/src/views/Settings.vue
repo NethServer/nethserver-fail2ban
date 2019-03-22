@@ -215,15 +215,18 @@
 </template>
 
 <script>
+import VueSlider from 'vue-slider-component'
+import 'vue-slider-component/theme/default.css'
+
+
 export default {
+  components: {
+    VueSlider
+  },
   name: "Settings",
   mounted() {
     this.getSettings();
 
-    var context = this;
-    context.$parent.$on("changes-applied", function() {
-      context.getSettings();
-    });
   },
   data() {
     return {
