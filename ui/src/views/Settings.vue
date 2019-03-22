@@ -190,6 +190,42 @@
     >{{$t('advanced_mode')}}</a>
 </legend>
 
+<div
+  v-if="configuration.status && configuration.advanced"
+  :class="['form-group', errors.Recidive_Perpetual.hasError ? 'has-error' : '']"
+>
+  <label
+    class="col-sm-2 control-label"
+    for="textInput-modal-markup"
+  >{{$t('fail2ban.Recidive_Perpetual')}}</label>
+  <div class="col-sm-5">
+    <input type="checkbox" v-model="configuration.Recidive_Perpetual" class="form-control">
+    <span
+      v-if="errors.Recidive_Perpetual.hasError"
+      class="help-block"
+    >{{errors.Recidive_Perpetual.message}}</span>
+  </div>
+</div>
+
+<div
+  v-if="configuration.status && configuration.advanced"
+  :class="['form-group', errors.BanLocalNetwork.hasError ? 'has-error' : '']"
+>
+  <label
+    class="col-sm-2 control-label"
+    for="textInput-modal-markup"
+  >{{$t('fail2ban.BanLocalNetwork')}}</label>
+  <div class="col-sm-5">
+    <input type="checkbox" v-model="configuration.BanLocalNetwork" class="form-control">
+    <span
+      v-if="errors.BanLocalNetwork.hasError"
+      class="help-block"
+    >{{errors.BanLocalNetwork.message}}</span>
+  </div>
+</div>
+
+
+
 
         <div class="form-group">
           <label class="col-sm-2 control-label" for="textInput-modal-markup">
@@ -242,7 +278,9 @@ export default {
               mail: true,
               CustomDestemail: [{}],
               IgnoreIP: "",
-              MailJailState: false
+              MailJailState: false,
+              BanLocalNetwork: false,
+              Recidive_Perpetual: false
     //      }
       },
       loaders: false,
@@ -287,11 +325,20 @@ export default {
       MailJailState: {
           haserror: false,
           message:""
+      },
+      BanLocalNetwork: {
+          haserror: false,
+          message:""
+      },
+      Recidive_Perpetual: {
+          haserror: false,
+          message:""
       }
       };
     },
     toggleAdvancedMode() {
       this.configuration.advanced = !this.configuration.advanced;
+      this.$forceUpdate();
     },
     addEmail() {
       this.configuration.CustomDestemail.push({
@@ -339,6 +386,8 @@ export default {
           context.configuration.status = success.configuration.props.status == "enabled";
           context.configuration.mail = success.configuration.props.Mail == "enabled";
           context.configuration.MailJailState = success.configuration.props.MailJailState == "enabled";
+          context.configuration.BanLocalNetwork = success.configuration.props.BanLocalNetwork == "enabled";
+          context.configuration.Recidive_Perpetual = success.configuration.props.Recidive_Perpetual == "enabled";
             var emails = [{}];
             emails = success.configuration.props.CustomDestemail.map(function(i) {
                   return {
@@ -388,6 +437,12 @@ export default {
             ? "enabled"
             : "disabled",
           MailJailState: context.configuration.MailJailState
+            ? "enabled"
+            : "disabled",
+          BanLocalNetwork: context.configuration.MailJailState
+            ? "enabled"
+            : "disabled",
+          Recidive_Perpetual: context.configuration.MailJailState
             ? "enabled"
             : "disabled",
           CustomDestemail:  context.configuration.CustomDestemail.map(function(e) {
