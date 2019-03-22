@@ -161,17 +161,33 @@
          </button>
         </div>
     </div>
+    <div
+      v-if="configuration.status && configuration.mail"
+      :class="['form-group', errors.MailJailState.hasError ? 'has-error' : '']"
+    >
+      <label
+        class="col-sm-2 control-label"
+        for="textInput-modal-markup"
+      >{{$t('fail2ban.MailJailState')}}</label>
+      <div class="col-sm-5">
+        <input type="checkbox" v-model="configuration.MailJailState" class="form-control">
+        <span
+          v-if="errors.MailJailState.hasError"
+          class="help-block"
+        >{{errors.MailJailState.message}}</span>
+      </div>
+    </div>
 
 <!-- advanced -->
 
 <legend class="fields-section-header-pf" aria-expanded="true">
-  <span
+    <span
     :class="['fa fa-angle-right field-section-toggle-pf', configuration.advanced ? 'fa-angle-down' : '']"
-  ></span>
-  <a
+    ></span>
+    <a
     class="field-section-toggle-pf"
     @click="toggleAdvancedMode()"
-  >{{$t('advanced_mode')}}</a>
+    >{{$t('advanced_mode')}}</a>
 </legend>
 
 
@@ -225,7 +241,8 @@ export default {
               status: true,
               mail: true,
               CustomDestemail: [{}],
-              IgnoreIP: ""
+              IgnoreIP: "",
+              MailJailState: false
     //      }
       },
       loaders: false,
@@ -264,6 +281,10 @@ export default {
         message: ""
       },
       IgnoreIP: {
+          haserror: false,
+          message:""
+      },
+      MailJailState: {
           haserror: false,
           message:""
       }
@@ -317,7 +338,7 @@ export default {
           //context.configuration = success.configuration;
           context.configuration.status = success.configuration.props.status == "enabled";
           context.configuration.mail = success.configuration.props.Mail == "enabled";
-//          context.configuration.CustomDestemail = success.configuration.props.CustomDestemail == "enabled";
+          context.configuration.MailJailState = success.configuration.props.MailJailState == "enabled";
             var emails = [{}];
             emails = success.configuration.props.CustomDestemail.map(function(i) {
                   return {
@@ -364,6 +385,9 @@ export default {
           ? "enabled"
           : "disabled",
           Mail: context.configuration.mail
+            ? "enabled"
+            : "disabled",
+          MailJailState: context.configuration.MailJailState
             ? "enabled"
             : "disabled",
           CustomDestemail:  context.configuration.CustomDestemail.map(function(e) {
