@@ -86,13 +86,13 @@
            </label>
            <div v-if="configuration.mail && configuration.status"
                 class="col-sm-5">
-             <input   v-model="a.email" class="form-control">
+             <input  required type="email" v-model="a.email" class="form-control">
              <span v-if="errors.CustomDestemail.hasError" class="help-block">
                {{$t('validation.validation_failed')}}:
                {{$t('validation.'+errors.CustomDestemail.message)}}
              </span>
            </div>
-           <div v-if="i > 0" class="col-sm-2">
+           <div v-if="i >= 0" class="col-sm-2">
              <button @click="removeEmail(a, i)" class="btn btn-default" type="button">
                <span class="fa fa-minus card-icon-def"></span>
              </button>
@@ -328,7 +328,7 @@ export default {
                     email: i
                   };
               });
-          context.configuration.CustomDestemail = emails.length == 0 ? [{}] : emails;
+          context.configuration.CustomDestemail = emails.length == 0 ? [] : emails;
           context.configuration.IgnoreIP = success.configuration.props.IgnoreIP.split(",").join("\n");
           context.configuration.LogLevel = success.configuration.props.LogLevel;
 
