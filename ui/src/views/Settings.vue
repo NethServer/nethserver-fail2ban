@@ -173,6 +173,33 @@
           </div>
         </div>
 
+        <div 
+          v-if="configuration.status && configuration.advanced"
+          :class="['form-group', errors.LogLevel.hasError ? 'has-error' : '']">
+          <label
+            class="col-sm-2 control-label"
+            for="textInput-modal-markup"
+          >{{$t('fail2ban.LogLevel')}}</label>
+          <div class="col-sm-5">
+            <select
+              required
+              type="text"
+              v-model="configuration.LogLevel"
+              class="combobox form-control"
+            >
+              <option value="DEBUG">{{$t('fail2ban.LogLevel_DEBUG')}}</option>
+              <option value="INFO">{{$t('fail2ban.LogLevel_INFO')}}</option>
+              <option value="NOTICE">{{$t('fail2ban.LogLevel_NOTICE')}}</option>
+              <option value="WARNING">{{$t('fail2ban.LogLevel_WARNING')}}</option>
+              <option value="ERROR">{{$t('fail2ban.LogLevel_ERROR')}}</option>
+              <option value="CRITICAL">{{$t('fail2ban.LogLevel_CRITICAL')}}</option>
+            </select>
+            <span v-if="errors.LogLevel.hasError" class="help-block">
+              {{$t('validation.validation_failed')}}:
+              {{$t('validation.'+errors.LogLevel.message)}}
+            </span>
+          </div>
+        </div>
 
         <div class="form-group">
           <label class="col-sm-2 control-label" for="textInput-modal-markup">
@@ -211,7 +238,8 @@ export default {
               IgnoreIP: "",
               MailJailState: false,
               BanLocalNetwork: false,
-              Recidive_Perpetual: false
+              Recidive_Perpetual: false,
+              LogLevel: "INFO"
       },
       loaders: false,
       errors: this.initErrors()
@@ -245,6 +273,10 @@ export default {
           message:""
       },
       BanLocalNetwork: {
+          haserror: false,
+          message:""
+      },
+      LogLevel: {
           haserror: false,
           message:""
       },
@@ -295,6 +327,8 @@ export default {
               });
           context.configuration.CustomDestemail = emails.length == 0 ? [{}] : emails;
           context.configuration.IgnoreIP = success.configuration.props.IgnoreIP.split(",").join("\n");
+          context.configuration.LogLevel = success.configuration.props.LogLevel;
+
           context.view.isLoaded = true;
         },
         function(error) {
@@ -330,7 +364,8 @@ export default {
           }),
           IgnoreIP: context.configuration.IgnoreIP.length > 0
             ? context.configuration.IgnoreIP.split("\n")
-            : []
+            : [],
+          LogLevel: context.configuration.LogLevel
       };
       context.loaders = true;
       context.errors = context.initErrors();
