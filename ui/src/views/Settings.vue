@@ -3,63 +3,13 @@
     <h2>{{$t('settings.title')}}</h2>
     <div v-if="!view.isLoaded" class="spinner spinner-lg"></div>
     <div v-if="view.isLoaded">
-    <doc-info
-          :placement="'top'"
-          :title="$t('docs.fail2ban')"
-          :chapter="'fail2ban'"
-          :section="''"
-          :inline="false"
-    ></doc-info>
-      <!-- <h3>{{$t('settings.traffic_internet')}}</h3>
-      <form class="form-horizontal" v-on:submit.prevent="saveSettings('internet')">
-        <div :class="['form-group', errors.Policy.hasError ? 'has-error' : '']">
-          <label
-            class="col-sm-2 control-label"
-            for="textInput-modal-markup"
-          >{{$t('settings.allowed')}}</label>
-          <div class="col-sm-5">
-            <input type="checkbox" v-model="settings.internet.Policy" class="form-control">
-            <span v-if="errors.Policy.hasError" class="help-block">
-              {{$t('validation.validation_failed')}}:
-              {{$t('validation.'+errors.Policy.message)}}
-            </span>
-          </div>
-        </div>
-      </form>
-
-      <h3>{{$t('settings.external_ping')}}</h3>
-      <form class="form-horizontal" v-on:submit.prevent="saveSettings('ping')">
-        <div :class="['form-group', errors.ExternalPing.hasError ? 'has-error' : '']">
-          <label
-            class="col-sm-2 control-label"
-            for="textInput-modal-markup"
-          >{{$t('settings.allowed')}}</label>
-          <div class="col-sm-5">
-            <input type="checkbox" v-model="settings.ping.ExternalPing" class="form-control">
-            <span v-if="errors.ExternalPing.hasError" class="help-block">
-              {{$t('validation.validation_failed')}}:
-              {{$t('validation.'+errors.ExternalPing.message)}}
-            </span>
-          </div>
-        </div>
-      </form>
-
-      <h3>{{$t('settings.portforward')}}</h3>
-      <form class="form-horizontal" v-on:submit.prevent="saveSettings('pf')">
-        <div :class="['form-group', errors.HairpinNat.hasError ? 'has-error' : '']">
-          <label
-            class="col-sm-2 control-label"
-            for="textInput-modal-markup"
-          >{{$t('settings.enable_hairpinnat')}}</label>
-          <div class="col-sm-5">
-            <input type="checkbox" v-model="settings.pf.HairpinNat" class="form-control">
-            <span v-if="errors.HairpinNat.hasError" class="help-block">
-              {{$t('validation.validation_failed')}}:
-              {{$t('validation.'+errors.HairpinNat.message)}}
-            </span>
-          </div>
-        </div>
-      </form> -->
+        <doc-info
+              :placement="'top'"
+              :title="$t('docs.fail2ban')"
+              :chapter="'fail2ban'"
+              :section="''"
+              :inline="false"
+        ></doc-info>
 
       <h3>{{$t('fail2ban.definition')}}</h3>
       <form class="form-horizontal" v-on:submit.prevent="saveSettings('status')">
@@ -107,7 +57,6 @@
         </div>    
 
         <!-- mail -->
-        
         <div
           v-if="configuration.status"
           :class="['form-group', errors.mail.hasError ? 'has-error' : '']"
@@ -124,107 +73,105 @@
             >{{errors.mail.message}}</span>
           </div>
         </div>
-        
-        
 
         <div
-        v-if="configuration.mail && configuration.status"
-       v-for="(a, i) in configuration.CustomDestemail"
-       v-bind:key="i"
-       :class="['form-group', errors.CustomDestemail.hasError ? 'has-error' : '']"
-     >
-       <label class="col-sm-2 control-label" for="textInput-modal-markup">
-         {{i == 0 ?
-         $t('settings.notify_to') : ''}}
-       </label>
-       <div v-if="configuration.mail && configuration.status"
-            class="col-sm-5">
-         <input   v-model="a.email" class="form-control">
-         <span v-if="errors.CustomDestemail.hasError" class="help-block">
-           {{$t('validation.validation_failed')}}:
-           {{$t('validation.'+errors.CustomDestemail.message)}}
-         </span>
-       </div>
-       <div v-if="i > 0" class="col-sm-2">
-         <button @click="removeEmail(a, i)" class="btn btn-default" type="button">
-           <span class="fa fa-minus card-icon-def"></span>
-         </button>
-       </div>
-     </div>
-     <div   v-if="configuration.mail && configuration.status"
-            class="form-group">
-       <div class="col-sm-2 control-label"></div>
-       <div class="col-sm-5">
-         <button @click="addEmail()" class="btn btn-default" type="button">
-           <span class="fa fa-plus card-icon-def"></span>
-           {{$t('settings.add_email')}}
-         </button>
+            v-if="configuration.mail && configuration.status"
+           v-for="(a, i) in configuration.CustomDestemail"
+           v-bind:key="i"
+           :class="['form-group', errors.CustomDestemail.hasError ? 'has-error' : '']"
+        >
+           <label class="col-sm-2 control-label" for="textInput-modal-markup">
+             {{i == 0 ?
+             $t('fail2ban.notify_to') : ''}}
+           </label>
+           <div v-if="configuration.mail && configuration.status"
+                class="col-sm-5">
+             <input   v-model="a.email" class="form-control">
+             <span v-if="errors.CustomDestemail.hasError" class="help-block">
+               {{$t('validation.validation_failed')}}:
+               {{$t('validation.'+errors.CustomDestemail.message)}}
+             </span>
+           </div>
+           <div v-if="i > 0" class="col-sm-2">
+             <button @click="removeEmail(a, i)" class="btn btn-default" type="button">
+               <span class="fa fa-minus card-icon-def"></span>
+             </button>
+           </div>
         </div>
-    </div>
-    <div
-      v-if="configuration.status && configuration.mail"
-      :class="['form-group', errors.MailJailState.hasError ? 'has-error' : '']"
-    >
-      <label
-        class="col-sm-2 control-label"
-        for="textInput-modal-markup"
-      >{{$t('fail2ban.MailJailState')}}</label>
-      <div class="col-sm-5">
-        <input type="checkbox" v-model="configuration.MailJailState" class="form-control">
-        <span
-          v-if="errors.MailJailState.hasError"
-          class="help-block"
-        >{{errors.MailJailState.message}}</span>
-      </div>
-    </div>
 
-<!-- advanced -->
+         <div   v-if="configuration.mail && configuration.status"
+                class="form-group">
+           <div class="col-sm-2 control-label"></div>
+           <div class="col-sm-5">
+             <button @click="addEmail()" class="btn btn-default" type="button">
+               <span class="fa fa-plus card-icon-def"></span>
+               {{$t('fail2ban.add_email')}}
+             </button>
+            </div>
+        </div>
 
-<legend class="fields-section-header-pf" aria-expanded="true">
-    <span
-    :class="['fa fa-angle-right field-section-toggle-pf', configuration.advanced ? 'fa-angle-down' : '']"
-    ></span>
-    <a
-    class="field-section-toggle-pf"
-    @click="toggleAdvancedMode()"
-    >{{$t('advanced_mode')}}</a>
-</legend>
+        <div
+          v-if="configuration.status && configuration.mail"
+          :class="['form-group', errors.MailJailState.hasError ? 'has-error' : '']"
+        >
+          <label
+            class="col-sm-2 control-label"
+            for="textInput-modal-markup"
+          >{{$t('fail2ban.MailJailState')}}</label>
+          <div class="col-sm-5">
+            <input type="checkbox" v-model="configuration.MailJailState" class="form-control">
+            <span
+              v-if="errors.MailJailState.hasError"
+              class="help-block"
+            >{{errors.MailJailState.message}}</span>
+          </div>
+        </div>
 
-<div
-  v-if="configuration.status && configuration.advanced"
-  :class="['form-group', errors.Recidive_Perpetual.hasError ? 'has-error' : '']"
->
-  <label
-    class="col-sm-2 control-label"
-    for="textInput-modal-markup"
-  >{{$t('fail2ban.Recidive_Perpetual')}}</label>
-  <div class="col-sm-5">
-    <input type="checkbox" v-model="configuration.Recidive_Perpetual" class="form-control">
-    <span
-      v-if="errors.Recidive_Perpetual.hasError"
-      class="help-block"
-    >{{errors.Recidive_Perpetual.message}}</span>
-  </div>
-</div>
+        <!-- advanced -->
 
-<div
-  v-if="configuration.status && configuration.advanced"
-  :class="['form-group', errors.BanLocalNetwork.hasError ? 'has-error' : '']"
->
-  <label
-    class="col-sm-2 control-label"
-    for="textInput-modal-markup"
-  >{{$t('fail2ban.BanLocalNetwork')}}</label>
-  <div class="col-sm-5">
-    <input type="checkbox" v-model="configuration.BanLocalNetwork" class="form-control">
-    <span
-      v-if="errors.BanLocalNetwork.hasError"
-      class="help-block"
-    >{{errors.BanLocalNetwork.message}}</span>
-  </div>
-</div>
+        <legend class="fields-section-header-pf" aria-expanded="true">
+            <span
+            :class="['fa fa-angle-right field-section-toggle-pf', configuration.advanced ? 'fa-angle-down' : '']"
+            ></span>
+            <a
+            class="field-section-toggle-pf"
+            @click="toggleAdvancedMode()"
+            >{{$t('advanced_mode')}}</a>
+        </legend>
 
+        <div
+          v-if="configuration.status && configuration.advanced"
+          :class="['form-group', errors.Recidive_Perpetual.hasError ? 'has-error' : '']"
+        >
+          <label
+            class="col-sm-2 control-label"
+            for="textInput-modal-markup"
+          >{{$t('fail2ban.Recidive_Perpetual')}}</label>
+          <div class="col-sm-5">
+            <input type="checkbox" v-model="configuration.Recidive_Perpetual" class="form-control">
+            <span
+              v-if="errors.Recidive_Perpetual.hasError"
+              class="help-block"
+            >{{errors.Recidive_Perpetual.message}}</span>
+          </div>
+        </div>
 
+        <div
+          v-if="configuration.status && configuration.advanced"
+          :class="['form-group', errors.BanLocalNetwork.hasError ? 'has-error' : '']"
+        >
+          <label
+            class="col-sm-2 control-label"
+            for="textInput-modal-markup"
+          >{{$t('fail2ban.BanLocalNetwork')}}</label>
+          <div class="col-sm-5">
+            <input type="checkbox" v-model="configuration.BanLocalNetwork" class="form-control">
+            <span
+              v-if="errors.BanLocalNetwork.hasError"
+              class="help-block"
+            >{{errors.BanLocalNetwork.message}}</span>
+          </div>
+        </div>
 
 
         <div class="form-group">
@@ -257,23 +204,7 @@ export default {
         isLoaded: false,
         isRoot: false
       },
-      settings: {
-      //   internet: {
-      //     Policy: true
-      //   },
-      //   ping: {
-      //     ExternalPing: true
-      //   },
-      //   pf: {
-      //     HairpinNat: false
-      //   },
-        mac: {
-         MACValidationPolicy: false,
-         MACValidation: false
-        }
-      },
       configuration: {
-    //      props:{
               status: true,
               mail: true,
               CustomDestemail: [{}],
@@ -281,7 +212,6 @@ export default {
               MailJailState: false,
               BanLocalNetwork: false,
               Recidive_Perpetual: false
-    //      }
       },
       loaders: false,
       errors: this.initErrors()
@@ -290,25 +220,13 @@ export default {
   methods: {
     initErrors() {
       return {
-        // Policy: {
-        //   hasError: false,
-        //   message: ""
-        // },
-        // ExternalPing: {
-        //   hasError: false,
-        //   message: ""
-        // },
-        // HairpinNat: {
-        //   hasError: false,
-        //   message: ""
-        // },
-        MACValidationPolicy: {
-          hasError: false,
-          message: ""
-        },
-        status: {
-          hasError: false,
-          message: ""
+      MACValidationPolicy: {
+        hasError: false,
+        message: ""
+      },
+      status: {
+        hasError: false,
+        message: ""
       },
       mail: {
         hasError: false,
@@ -364,25 +282,6 @@ export default {
           } catch (e) {
             console.error(e);
           }
-          // // internet
-          // context.settings.internet.Policy =
-          //   success.settings.Policy == "permissive";
-          // 
-          // // ping
-          // context.settings.ping.ExternalPing =
-          //   success.settings.ExternalPing == "enabled";
-          // 
-          // // port forward
-          // context.settings.pf.HairpinNat =
-          //     success.settings.HairpinNat == "enabled";
-          // 
-          // // mac
-          // context.settings.mac.MACValidationPolicy =
-          //   success.settings.MACValidationPolicy == "accept";
-          // context.settings.MACValidation =
-          //   success.settings.MACValidation == "enabled";
-
-          //context.configuration = success.configuration;
           context.configuration.status = success.configuration.props.status == "enabled";
           context.configuration.mail = success.configuration.props.Mail == "enabled";
           context.configuration.MailJailState = success.configuration.props.MailJailState == "enabled";
@@ -394,10 +293,8 @@ export default {
                     email: i
                   };
               });
-                  context.configuration.CustomDestemail = emails.length == 0 ? [{}] : emails;
-                  context.configuration.IgnoreIP = success.configuration.props.IgnoreIP.split(
-  ","
-).join("\n");
+          context.configuration.CustomDestemail = emails.length == 0 ? [{}] : emails;
+          context.configuration.IgnoreIP = success.configuration.props.IgnoreIP.split(",").join("\n");
           context.view.isLoaded = true;
         },
         function(error) {
@@ -411,23 +308,6 @@ export default {
     },
     saveSettings(type) {
       var context = this;
-      // var settingsObj = {
-      //   action: "settings",
-      //   ExternalPing: context.settings.ping.ExternalPing
-      //     ? "enabled"
-      //     : "disabled",
-      //   HairpinNat: context.settings.pf.HairpinNat
-      //       ? "enabled"
-      //       : "disabled",
-      //   Policy: context.settings.internet.Policy ? "permissive" : "strict",
-      //   MACValidationPolicy: context.configuration.status
-      //     ? "enabled"
-      //     : "disabled",
-      //   MACValidation: context.settings.mac.MACValidation
-      //     ? "enabled"
-      //     : "disabled"
-      // };
-      
       var settingsObj = {
         action: "configuration",
         status: context.configuration.status
@@ -500,9 +380,9 @@ export default {
           } catch (e) {
             console.error(e);
           }
-      }, //
-        false //
-    ); //
+      },
+        false
+    );
     }
   }
 };
