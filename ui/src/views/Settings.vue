@@ -17,7 +17,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('configuration.props.status')}}</label>
+          >{{$t('fail2ban.status')}}</label>
           <div class="col-sm-5">
             <toggle-button
               class="min-toggle"
@@ -46,7 +46,7 @@
         <label
         class="col-sm-2 control-label"
         for="textInput-modal-markup"
-        >{{$t('settings.allow_only')}}</label>
+        >{{$t('fail2ban.IgnoreIP')}}</label>
         <div class="col-sm-5">
             <textarea v-model="configuration.IgnoreIP" class="form-control"></textarea>
             <span v-if="errors.IgnoreIP.hasError" class="help-block">
@@ -201,6 +201,32 @@
           </div>
         </div>
 
+        <!-- slider -->
+        <div v-if="configuration.status && configuration.advanced" :class="['form-group', errors.MaxRetry.hasError ? 'has-error' : '']">
+            <label class="col-sm-2 control-label" for="filter">{{$t('fail2ban.MaxRetry')}}</label>
+            <div class="col-sm-5">
+                <div>{{$t('fail2ban.slider_value')}} {{configuration.MaxRetry}}</div>
+                <vue-slider v-model="configuration.MaxRetry" :min="1" :max="10" :use-keyboard="true" :tooltip="'none'"></vue-slider>
+                <span v-if="errors.MaxRetry.hasError" class="help-block">{{$t('fail2ban.Not_valid_MaxRetry')}}</span>
+            </div>
+        </div>
+        <div v-if="configuration.status && configuration.advanced" :class="['form-group', errors.FindTime.hasError ? 'has-error' : '']">
+            <label class="col-sm-2 control-label" for="filter">{{$t('fail2ban.FindTime')}}</label>
+            <div class="col-sm-5">
+                <div>{{$t('fail2ban.slider_value')}} {{ $t('fail2ban.FindTime_'+configuration.FindTime) }}</div>
+                <vue-slider v-model="configuration.FindTime"  :data="FindTime" :tooltip="'none'"></vue-slider>
+                <span v-if="errors.FindTime.hasError" class="help-block">{{$t('fail2ban.Not_valid_FindTime')}}</span>
+            </div>
+        </div>
+        <div v-if="configuration.status && configuration.advanced" :class="['form-group', errors.BanTime.hasError ? 'has-error' : '']">
+            <label class="col-sm-2 control-label" >{{$t('fail2ban.BanTime')}} </label>
+            <div class="col-sm-5">
+                <div>{{$t('fail2ban.slider_value')}} {{ $t('fail2ban.BanTime_'+configuration.BanTime) }}</div>
+                <vue-slider v-model="configuration.BanTime"  :data="BanTime" :tooltip="'none'"></vue-slider>
+                <span v-if="errors.BanTime.hasError" class="help-block">{{$t('fail2ban.Not_valid_BanTime')}}</span>
+            </div>
+        </div>
+
         <div class="form-group">
           <label class="col-sm-2 control-label" for="textInput-modal-markup">
             <div v-if="loaders" class="spinner spinner-sm form-spinner-loader adjust-top-loader"></div>
@@ -220,16 +246,18 @@ import 'vue-slider-component/theme/default.css'
 
 
 export default {
+  name: "Settings",
   components: {
     VueSlider
   },
-  name: "Settings",
   mounted() {
     this.getSettings();
 
   },
   data() {
     return {
+        FindTime: ['600','900','1800','3600','7200','86400','172800','604800','1209600'],
+        BanTime: ['600','900','1800','3600','7200','86400','172800','604800','1209600'],
       view: {
         isLoaded: false,
         isRoot: false
@@ -242,7 +270,10 @@ export default {
               MailJailState: false,
               BanLocalNetwork: false,
               Recidive_Perpetual: false,
-              LogLevel: "INFO"
+              LogLevel: "INFO",
+              MaxRetry: '3',
+              FindTime: '900',
+              BanTime: '600'
       },
       loaders: false,
       errors: this.initErrors()
@@ -280,6 +311,18 @@ export default {
           message:""
       },
       LogLevel: {
+          haserror: false,
+          message:""
+      },
+      MaxRetry: {
+          haserror: false,
+          message:""
+      },
+      FindTime: {
+          haserror: false,
+          message:""
+      },
+      BanTime: {
           haserror: false,
           message:""
       },
@@ -331,6 +374,9 @@ export default {
           context.configuration.CustomDestemail = emails.length == 0 ? [] : emails;
           context.configuration.IgnoreIP = success.configuration.props.IgnoreIP.split(",").join("\n");
           context.configuration.LogLevel = success.configuration.props.LogLevel;
+          context.configuration.MaxRetry = success.configuration.props.MaxRetry;
+          context.configuration.FindTime = success.configuration.props.FindTime;
+          context.configuration.BanTime = success.configuration.props.BanTime;
 
           context.view.isLoaded = true;
         },
@@ -368,7 +414,10 @@ export default {
           IgnoreIP: context.configuration.IgnoreIP.length > 0
             ? context.configuration.IgnoreIP.split("\n")
             : [],
-          LogLevel: context.configuration.LogLevel
+          LogLevel: context.configuration.LogLevel,
+          MaxRetry: context.configuration.MaxRetry,
+          FindTime: context.configuration.FindTime,
+          BanTime: context.configuration.BanTime
       };
       context.loaders = true;
       context.errors = context.initErrors();
