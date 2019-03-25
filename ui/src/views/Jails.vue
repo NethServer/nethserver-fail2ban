@@ -36,7 +36,7 @@
             <a
             class="field-section-toggle-pf"
             @click="toggleJailMenu('apache')"
-            >{{$t('apache_jails')}}</a>
+            >{{$t('fail2ban.apache_jails')}}</a>
         </legend>
 
         <div
@@ -225,6 +225,50 @@
             >{{errors.ApacheShellshock_status.message}}</span>
           </div>
         </div>
+        <!-- communication_jails -->
+        <legend v-if="configuration.status" class="fields-section-header-pf" aria-expanded="true">
+            <span
+            :class="['fa fa-angle-right field-section-toggle-pf', view.communication ? 'fa-angle-down' : '']"
+            ></span>
+            <a
+            class="field-section-toggle-pf"
+            @click="toggleJailMenu('communication')"
+            >{{$t('fail2ban.communication_jails')}}</a>
+        </legend>
+
+        <div
+          v-if="configuration.status && view.communication"
+          :class="['form-group', errors.AsteriskAuth_status.hasError ? 'has-error' : '']"
+          >
+          <label
+            class="col-sm-2 control-label"
+            for="textInput-modal-markup"
+          >{{$t('fail2ban.AsteriskAuth_status')}}</label>
+          <div class="col-sm-5">
+            <input type="checkbox" v-model="configuration.AsteriskAuth_status" class="form-control">
+            <span
+              v-if="errors.AsteriskAuth_status.hasError"
+              class="help-block"
+            >{{errors.AsteriskAuth_status.message}}</span>
+          </div>
+        </div>
+
+        <div
+          v-if="configuration.status && view.communication"
+          :class="['form-group', errors.EjabberAuth_status.hasError ? 'has-error' : '']"
+          >
+          <label
+            class="col-sm-2 control-label"
+            for="textInput-modal-markup"
+          >{{$t('fail2ban.EjabberAuth_status')}}</label>
+          <div class="col-sm-5">
+            <input type="checkbox" v-model="configuration.EjabberAuth_status" class="form-control">
+            <span
+              v-if="errors.EjabberAuth_status.hasError"
+              class="help-block"
+            >{{errors.EjabberAuth_status.message}}</span>
+          </div>
+        </div>
 
         <div class="form-group">
           <label class="col-sm-2 control-label" for="textInput-modal-markup">
@@ -251,7 +295,8 @@ export default {
     return {
       view: {
         isLoaded: false,
-        apache: false
+        apache: false,
+        communication: false
       },
       configuration: {
               status: true,
@@ -266,6 +311,8 @@ export default {
               ApachePhpMyAdmin_status: "true",
               ApacheScan_status: "true",
               ApacheShellshock_status: "true",
+              AsteriskAuth_status: "true",
+              EjabberAuth_status: "true"
 
       },
       loaders: false,
@@ -322,6 +369,14 @@ export default {
       ApacheShellshock_status: {
         hasError: false,
         message: ""
+      },
+      AsteriskAuth_status: {
+        hasError: false,
+        message: ""
+      },
+      EjabberAuth_status: {
+        hasError: false,
+        message: ""
       }
       };
     },
@@ -357,6 +412,8 @@ export default {
           context.configuration.ApachePhpMyAdmin_status = success.configuration.props.ApachePhpMyAdmin_status;
           context.configuration.ApacheScan_status = success.configuration.props.ApacheScan_status;
           context.configuration.ApacheShellshock_status = success.configuration.props.ApacheShellshock_status;
+          context.configuration.AsteriskAuth_status = success.configuration.props.AsteriskAuth_status;
+          context.configuration.EjabberAuth_status = success.configuration.props.EjabberAuth_status;
           context.view.isLoaded = true;
         },
         function(error) {
@@ -406,6 +463,12 @@ export default {
             ? "true"
             : "false",
           ApacheShellshock_status: context.configuration.ApacheShellshock_status
+            ? "true"
+            : "false",
+          AsteriskAuth_status: context.configuration.ApacheShellshock_status
+            ? "true"
+            : "false",
+          EjabberAuth_status: context.configuration.ApacheShellshock_status
             ? "true"
             : "false"
       };
