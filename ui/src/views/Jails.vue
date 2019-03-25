@@ -467,6 +467,68 @@
           </div>
         </div>
 
+        <!-- security_jails -->
+        <legend v-if="configuration.status" class="fields-section-header-pf" aria-expanded="true">
+            <span
+            :class="['fa fa-angle-right field-section-toggle-pf', view.security ? 'fa-angle-down' : '']"
+            ></span>
+            <a
+            class="field-section-toggle-pf"
+            @click="toggleJailMenu('security')"
+            >{{$t('fail2ban.security_jails')}}</a>
+        </legend>
+
+        <div
+          v-if="configuration.status && view.security"
+          :class="['form-group', errors.HttpdAdmin_status.hasError ? 'has-error' : '']"
+          >
+          <label
+            class="col-sm-2 control-label"
+            for="textInput-modal-markup"
+          >{{$t('fail2ban.HttpdAdmin_status')}}</label>
+          <div class="col-sm-5">
+            <input type="checkbox" v-model="configuration.HttpdAdmin_status" class="form-control">
+            <span
+              v-if="errors.HttpdAdmin_status.hasError"
+              class="help-block"
+            >{{errors.HttpdAdmin_status.message}}</span>
+          </div>
+        </div>
+
+        <div
+          v-if="configuration.status && view.security"
+          :class="['form-group', errors.PamGeneric_status.hasError ? 'has-error' : '']"
+          >
+          <label
+            class="col-sm-2 control-label"
+            for="textInput-modal-markup"
+          >{{$t('fail2ban.PamGeneric_status')}}</label>
+          <div class="col-sm-5">
+            <input type="checkbox" v-model="configuration.PamGeneric_status" class="form-control">
+            <span
+              v-if="errors.PamGeneric_status.hasError"
+              class="help-block"
+            >{{errors.PamGeneric_status.message}}</span>
+          </div>
+        </div>
+
+        <div
+          v-if="configuration.status && view.security"
+          :class="['form-group', errors.Recidive_status.hasError ? 'has-error' : '']"
+          >
+          <label
+            class="col-sm-2 control-label"
+            for="textInput-modal-markup"
+          >{{$t('fail2ban.PamGeneric_status')}}</label>
+          <div class="col-sm-5">
+            <input type="checkbox" v-model="configuration.Recidive_status" class="form-control">
+            <span
+              v-if="errors.Recidive_status.hasError"
+              class="help-block"
+            >{{errors.Recidive_status.message}}</span>
+          </div>
+        </div>
+
         <div class="form-group">
           <label class="col-sm-2 control-label" for="textInput-modal-markup">
             <div v-if="loaders" class="spinner spinner-sm form-spinner-loader adjust-top-loader"></div>
@@ -497,7 +559,8 @@ export default {
         database: false,
         email: false,
         ftp:false,
-        nginx:false
+        nginx:false,
+        security: false
       },
       configuration: {
               status: true,
@@ -522,8 +585,10 @@ export default {
               Sieve_status: "true",
               Vsftpd_status: "true",
               NginxHttpAuth_status: "true",
-              NginxBotSearch_status: "true"
-
+              NginxBotSearch_status: "true",
+              HttpdAdmin_status: "true",
+              PamGeneric_status:"true",
+              Recidive_status: "true"
       },
       loaders: false,
       errors: this.initErrors()
@@ -623,6 +688,18 @@ export default {
       NginxBotSearch_status: {
         hasError: false,
         message: ""
+      },
+      HttpdAdmin_status: {
+        hasError: false,
+        message: ""
+      },
+      PamGeneric_status: {
+        hasError: false,
+        message: ""
+      },
+      Recidive_status: {
+        hasError: false,
+        message: ""
       }
       };
     },
@@ -669,6 +746,9 @@ export default {
           context.configuration.Vsftpd_status = success.configuration.props.Vsftpd_status;
           context.configuration.NginxHttpAuth_status = success.configuration.props.NginxHttpAuth_status;
           context.configuration.NginxBotSearch_status = success.configuration.props.NginxBotSearch_status;
+          context.configuration.HttpdAdmin_status = success.configuration.props.HttpdAdmin_status;
+          context.configuration.PamGeneric_status = success.configuration.props.PamGeneric_status;
+          context.configuration.Recidive_status = success.configuration.props.Recidive_status;
           context.view.isLoaded = true;
         },
         function(error) {
@@ -751,6 +831,15 @@ export default {
             ? "true"
             : "false",
           NginxBotSearch_status: context.configuration.NginxBotSearch_status
+            ? "true"
+            : "false",
+          HttpdAdmin_status: context.configuration.HttpdAdmin_status
+            ? "true"
+            : "false",
+          PamGeneric_status: context.configuration.PamGeneric_status
+            ? "true"
+            : "false",
+          Recidive_status: context.configuration.Recidive_status
             ? "true"
             : "false"
       };
