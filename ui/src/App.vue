@@ -37,6 +37,12 @@
                     <span class="list-group-item-value">{{$t('settings.title')}}</span>
                 </a>
             </router-link>
+            <router-link tag="li" to="/jails" active-class="active" class="list-group-item">
+                <a>
+                    <span class="fa fa-lock"></span>
+                    <span class="list-group-item-value">{{$t('Jails.title')}}</span>
+                </a>
+            </router-link>
             <li class="li-empty"></li>
             <router-link tag="li" to="/logs" active-class="active" class="list-group-item">
                 <a>
