@@ -529,6 +529,51 @@
           </div>
         </div>
 
+        <!-- ssh_jails -->
+        <legend v-if="configuration.status" class="fields-section-header-pf" aria-expanded="true">
+            <span
+            :class="['fa fa-angle-right field-section-toggle-pf', view.ssh ? 'fa-angle-down' : '']"
+            ></span>
+            <a
+            class="field-section-toggle-pf"
+            @click="toggleJailMenu('ssh')"
+            >{{$t('fail2ban.ssh_jails')}}</a>
+        </legend>
+
+        <div
+          v-if="configuration.status && view.ssh"
+          :class="['form-group', errors.Sshd_status.hasError ? 'has-error' : '']"
+          >
+          <label
+            class="col-sm-2 control-label"
+            for="textInput-modal-markup"
+          >{{$t('fail2ban.Sshd_status')}}</label>
+          <div class="col-sm-5">
+            <input type="checkbox" v-model="configuration.Sshd_status" class="form-control">
+            <span
+              v-if="errors.Sshd_status.hasError"
+              class="help-block"
+            >{{errors.Sshd_status.message}}</span>
+          </div>
+        </div>
+
+        <div
+          v-if="configuration.status && view.ssh"
+          :class="['form-group', errors.SshdDdos_status.hasError ? 'has-error' : '']"
+          >
+          <label
+            class="col-sm-2 control-label"
+            for="textInput-modal-markup"
+          >{{$t('fail2ban.SshdDdos_status')}}</label>
+          <div class="col-sm-5">
+            <input type="checkbox" v-model="configuration.SshdDdos_status" class="form-control">
+            <span
+              v-if="errors.SshdDdos_status.hasError"
+              class="help-block"
+            >{{errors.SshdDdos_status.message}}</span>
+          </div>
+        </div>
+
         <div class="form-group">
           <label class="col-sm-2 control-label" for="textInput-modal-markup">
             <div v-if="loaders" class="spinner spinner-sm form-spinner-loader adjust-top-loader"></div>
@@ -560,7 +605,8 @@ export default {
         email: false,
         ftp:false,
         nginx:false,
-        security: false
+        security: false,
+        ssh: false
       },
       configuration: {
               status: true,
@@ -588,7 +634,9 @@ export default {
               NginxBotSearch_status: "true",
               HttpdAdmin_status: "true",
               PamGeneric_status:"true",
-              Recidive_status: "true"
+              Recidive_status: "true",
+              Sshd_status:"true",
+              SshdDdos_status:"true"
       },
       loaders: false,
       errors: this.initErrors()
@@ -700,7 +748,15 @@ export default {
       Recidive_status: {
         hasError: false,
         message: ""
-      }
+      },
+      Sshd_status: {
+        hasError: false,
+        message: ""
+      },
+      SshdDdos_status: {
+        hasError: false,
+        message: ""
+      },
       };
     },
     toggleJailMenu(jail) {
@@ -749,6 +805,8 @@ export default {
           context.configuration.HttpdAdmin_status = success.configuration.props.HttpdAdmin_status;
           context.configuration.PamGeneric_status = success.configuration.props.PamGeneric_status;
           context.configuration.Recidive_status = success.configuration.props.Recidive_status;
+          context.configuration.Sshd_status = success.configuration.props.Sshd_status;
+          context.configuration.SshdDdos_status = success.configuration.props.SshdDdos_status;
           context.view.isLoaded = true;
         },
         function(error) {
@@ -841,7 +899,13 @@ export default {
             : "false",
           Recidive_status: context.configuration.Recidive_status
             ? "true"
-            : "false"
+            : "false",
+          Sshd_status: context.configuration.Sshd_status
+            ? "true"
+            : "false",
+          SshdDdos_status: context.configuration.SshdDdos_status
+            ? "true"
+            : "false",
       };
       context.loaders = true;
       context.errors = context.initErrors();
