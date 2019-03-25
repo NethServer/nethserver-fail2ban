@@ -298,6 +298,102 @@
           </div>
         </div>
 
+        <!-- email_jails -->
+        <legend v-if="configuration.status" class="fields-section-header-pf" aria-expanded="true">
+            <span
+            :class="['fa fa-angle-right field-section-toggle-pf', view.email ? 'fa-angle-down' : '']"
+            ></span>
+            <a
+            class="field-section-toggle-pf"
+            @click="toggleJailMenu('email')"
+            >{{$t('fail2ban.email_jails')}}</a>
+        </legend>
+
+        <div
+          v-if="configuration.status && view.email"
+          :class="['form-group', errors.Dovecot_status.hasError ? 'has-error' : '']"
+          >
+          <label
+            class="col-sm-2 control-label"
+            for="textInput-modal-markup"
+          >{{$t('fail2ban.Dovecot_status')}}</label>
+          <div class="col-sm-5">
+            <input type="checkbox" v-model="configuration.Dovecot_status" class="form-control">
+            <span
+              v-if="errors.Dovecot_status.hasError"
+              class="help-block"
+            >{{errors.Dovecot_status.message}}</span>
+          </div>
+        </div>
+
+        <div
+          v-if="configuration.status && view.email"
+          :class="['form-group', errors.PostfixRbl_status.hasError ? 'has-error' : '']"
+          >
+          <label
+            class="col-sm-2 control-label"
+            for="textInput-modal-markup"
+          >{{$t('fail2ban.PostfixRbl_status')}}</label>
+          <div class="col-sm-5">
+            <input type="checkbox" v-model="configuration.PostfixRbl_status" class="form-control">
+            <span
+              v-if="errors.PostfixRbl_status.hasError"
+              class="help-block"
+            >{{errors.PostfixRbl_status.message}}</span>
+          </div>
+        </div>
+
+        <div
+          v-if="configuration.status && view.email"
+          :class="['form-group', errors.Postfix_status.hasError ? 'has-error' : '']"
+          >
+          <label
+            class="col-sm-2 control-label"
+            for="textInput-modal-markup"
+          >{{$t('fail2ban.Postfix_status')}}</label>
+          <div class="col-sm-5">
+            <input type="checkbox" v-model="configuration.Postfix_status" class="form-control">
+            <span
+              v-if="errors.Postfix_status.hasError"
+              class="help-block"
+            >{{errors.Postfix_status.message}}</span>
+          </div>
+        </div>
+
+        <div
+          v-if="configuration.status && view.email"
+          :class="['form-group', errors.PostfixSaslAbuse_status.hasError ? 'has-error' : '']"
+          >
+          <label
+            class="col-sm-2 control-label"
+            for="textInput-modal-markup"
+          >{{$t('fail2ban.PostfixSaslAbuse_status')}}</label>
+          <div class="col-sm-5">
+            <input type="checkbox" v-model="configuration.PostfixSaslAbuse_status" class="form-control">
+            <span
+              v-if="errors.PostfixSaslAbuse_status.hasError"
+              class="help-block"
+            >{{errors.PostfixSaslAbuse_status.message}}</span>
+          </div>
+        </div>
+
+        <div
+          v-if="configuration.status && view.email"
+          :class="['form-group', errors.Sieve_status.hasError ? 'has-error' : '']"
+          >
+          <label
+            class="col-sm-2 control-label"
+            for="textInput-modal-markup"
+          >{{$t('fail2ban.Sieve_status')}}</label>
+          <div class="col-sm-5">
+            <input type="checkbox" v-model="configuration.Sieve_status" class="form-control">
+            <span
+              v-if="errors.Sieve_status.hasError"
+              class="help-block"
+            >{{errors.Sieve_status.message}}</span>
+          </div>
+        </div>
+
         <div class="form-group">
           <label class="col-sm-2 control-label" for="textInput-modal-markup">
             <div v-if="loaders" class="spinner spinner-sm form-spinner-loader adjust-top-loader"></div>
@@ -324,7 +420,9 @@ export default {
       view: {
         isLoaded: false,
         apache: false,
-        communication: false
+        communication: false,
+        database: false,
+        email: false
       },
       configuration: {
               status: true,
@@ -341,7 +439,12 @@ export default {
               ApacheShellshock_status: "true",
               AsteriskAuth_status: "true",
               EjabberAuth_status: "true",
-              MysqldAuth_status: "true"
+              MysqldAuth_status: "true",
+              Dovecot_status: "true",
+              PostfixRbl_status: "true",
+              Postfix_status: "true",
+              PostfixSaslAbuse_status: "true",
+              Sieve_status: "true"
 
       },
       loaders: false,
@@ -410,6 +513,26 @@ export default {
       MysqldAuth_status: {
         hasError: false,
         message: ""
+      },
+      Dovecot_status: {
+        hasError: false,
+        message: ""
+      },
+      PostfixRbl_status: {
+        hasError: false,
+        message: ""
+      },
+      Postfix_status: {
+        hasError: false,
+        message: ""
+      },
+      PostfixSaslAbuse_status: {
+        hasError: false,
+        message: ""
+      },
+      Sieve_status: {
+        hasError: false,
+        message: ""
       }
       };
     },
@@ -448,6 +571,11 @@ export default {
           context.configuration.AsteriskAuth_status = success.configuration.props.AsteriskAuth_status;
           context.configuration.EjabberAuth_status = success.configuration.props.EjabberAuth_status;
           context.configuration.MysqldAuth_status = success.configuration.props.MysqldAuth_status;
+          context.configuration.Dovecot_status = success.configuration.props.Dovecot_status;
+          context.configuration.PostfixRbl_status = success.configuration.props.PostfixRbl_status;
+          context.configuration.Postfix_status = success.configuration.props.Postfix_status;
+          context.configuration.PostfixSaslAbuse_status = success.configuration.props.PostfixSaslAbuse_status;
+          context.configuration.Sieve_status = success.configuration.props.Sieve_status;
           context.view.isLoaded = true;
         },
         function(error) {
@@ -506,6 +634,21 @@ export default {
             ? "true"
             : "false",
           MysqldAuth_status: context.configuration.MysqldAuth_status
+            ? "true"
+            : "false",
+          Dovecot_status: context.configuration.Dovecot_status
+            ? "true"
+            : "false",
+          PostfixRbl_status: context.configuration.PostfixRbl_status
+            ? "true"
+            : "false",
+          Postfix_status: context.configuration.Postfix_status
+            ? "true"
+            : "false",
+          PostfixSaslAbuse_status: context.configuration.PostfixSaslAbuse_status
+            ? "true"
+            : "false",
+          Sieve_status: context.configuration.Sieve_status
             ? "true"
             : "false"
       };
