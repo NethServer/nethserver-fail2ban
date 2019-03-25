@@ -177,23 +177,6 @@
 
         <div
           v-if="configuration.status && view.apache"
-          :class="['form-group', errors.ApachePhpMyAdmin_status.hasError ? 'has-error' : '']"
-          >
-          <label
-            class="col-sm-2 control-label"
-            for="textInput-modal-markup"
-          >{{$t('fail2ban.ApachePhpMyAdmin_status')}}</label>
-          <div class="col-sm-5">
-            <input type="checkbox" v-model="configuration.ApachePhpMyAdmin_status" class="form-control">
-            <span
-              v-if="errors.ApachePhpMyAdmin_status.hasError"
-              class="help-block"
-            >{{errors.ApachePhpMyAdmin_status.message}}</span>
-          </div>
-        </div>
-
-        <div
-          v-if="configuration.status && view.apache"
           :class="['form-group', errors.ApacheScan_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -602,6 +585,153 @@
           </div>
         </div>
 
+        <!-- webApps_jails -->
+        <legend v-if="configuration.status" class="fields-section-header-pf" aria-expanded="true">
+            <span
+            :class="['fa fa-angle-right field-section-toggle-pf', view.webApps ? 'fa-angle-down' : '']"
+            ></span>
+            <a
+            class="field-section-toggle-pf"
+            @click="toggleJailMenu('webApps')"
+            >{{$t('fail2ban.webApps_jails')}}</a>
+        </legend>
+
+        <div
+          v-if="configuration.status && view.webApps"
+          :class="['form-group', errors.Nextcloud_status.hasError ? 'has-error' : '']"
+          >
+          <label
+            class="col-sm-2 control-label"
+            for="textInput-modal-markup"
+          >{{$t('fail2ban.Nextcloud_status')}}</label>
+          <div class="col-sm-5">
+            <input type="checkbox" v-model="configuration.Nextcloud_status" class="form-control">
+            <span
+              v-if="errors.Nextcloud_status.hasError"
+              class="help-block"
+            >{{errors.Nextcloud_status.message}}</span>
+          </div>
+        </div>
+
+        <div
+          v-if="configuration.status && view.webApps"
+          :class="['form-group', errors.Owncloud_status.hasError ? 'has-error' : '']"
+          >
+          <label
+            class="col-sm-2 control-label"
+            for="textInput-modal-markup"
+          >{{$t('fail2ban.Owncloud_status')}}</label>
+          <div class="col-sm-5">
+            <input type="checkbox" v-model="configuration.Owncloud_status" class="form-control">
+            <span
+              v-if="errors.Owncloud_status.hasError"
+              class="help-block"
+            >{{errors.Owncloud_status.message}}</span>
+          </div>
+        </div>
+
+        <div
+          v-if="configuration.status && view.webApps"
+          :class="['form-group', errors.ApachePhpMyAdmin_status.hasError ? 'has-error' : '']"
+          >
+          <label
+            class="col-sm-2 control-label"
+            for="textInput-modal-markup"
+          >{{$t('fail2ban.ApachePhpMyAdmin_status')}}</label>
+          <div class="col-sm-5">
+            <input type="checkbox" v-model="configuration.ApachePhpMyAdmin_status" class="form-control">
+            <span
+              v-if="errors.ApachePhpMyAdmin_status.hasError"
+              class="help-block"
+            >{{errors.ApachePhpMyAdmin_status.message}}</span>
+          </div>
+        </div>
+
+        <div
+          v-if="configuration.status && view.webApps"
+          :class="['form-group', errors.Roundcube_status.hasError ? 'has-error' : '']"
+          >
+          <label
+            class="col-sm-2 control-label"
+            for="textInput-modal-markup"
+          >{{$t('fail2ban.Roundcube_status')}}</label>
+          <div class="col-sm-5">
+            <input type="checkbox" v-model="configuration.Roundcube_status" class="form-control">
+            <span
+              v-if="errors.Roundcube_status.hasError"
+              class="help-block"
+            >{{errors.Roundcube_status.message}}</span>
+          </div>
+        </div>
+
+        <div
+          v-if="configuration.status && view.webApps"
+          :class="['form-group', errors.Rspamd_status.hasError ? 'has-error' : '']"
+          >
+          <label
+            class="col-sm-2 control-label"
+            for="textInput-modal-markup"
+          >{{$t('fail2ban.Rspamd_status')}}</label>
+          <div class="col-sm-5">
+            <input type="checkbox" v-model="configuration.Rspamd_status" class="form-control">
+            <span
+              v-if="errors.Rspamd_status.hasError"
+              class="help-block"
+            >{{errors.Rspamd_status.message}}</span>
+          </div>
+        </div>
+
+        <div
+          v-if="configuration.status && view.webApps"
+          :class="['form-group', errors.SogoAuth_status.hasError ? 'has-error' : '']"
+          >
+          <label
+            class="col-sm-2 control-label"
+            for="textInput-modal-markup"
+          >{{$t('fail2ban.SogoAuth_status')}}</label>
+          <div class="col-sm-5">
+            <input type="checkbox" v-model="configuration.SogoAuth_status" class="form-control">
+            <span
+              v-if="errors.SogoAuth_status.hasError"
+              class="help-block"
+            >{{errors.SogoAuth_status.message}}</span>
+          </div>
+        </div>
+
+        <div
+          v-if="configuration.status && view.webApps"
+          :class="['form-group', errors.Urbackup_status.hasError ? 'has-error' : '']"
+          >
+          <label
+            class="col-sm-2 control-label"
+            for="textInput-modal-markup"
+          >{{$t('fail2ban.Urbackup_status')}}</label>
+          <div class="col-sm-5">
+            <input type="checkbox" v-model="configuration.Urbackup_status" class="form-control">
+            <span
+              v-if="errors.Urbackup_status.hasError"
+              class="help-block"
+            >{{errors.Urbackup_status.message}}</span>
+          </div>
+        </div>
+
+        <div
+          v-if="configuration.status && view.webApps"
+          :class="['form-group', errors.Webtop_status.hasError ? 'has-error' : '']"
+          >
+          <label
+            class="col-sm-2 control-label"
+            for="textInput-modal-markup"
+          >{{$t('fail2ban.Webtop_status')}}</label>
+          <div class="col-sm-5">
+            <input type="checkbox" v-model="configuration.Webtop_status" class="form-control">
+            <span
+              v-if="errors.Webtop_status.hasError"
+              class="help-block"
+            >{{errors.Webtop_status.message}}</span>
+          </div>
+        </div>
+
         <div class="form-group">
           <label class="col-sm-2 control-label" for="textInput-modal-markup">
             <div v-if="loaders" class="spinner spinner-sm form-spinner-loader adjust-top-loader"></div>
@@ -635,7 +765,8 @@ export default {
         nginx:false,
         security: false,
         ssh: false,
-        vpn:false
+        vpn:false,
+        webApps: false
       },
       configuration: {
               status: true,
@@ -647,7 +778,6 @@ export default {
               ApacheNohome_status: "true",
               ApacheNoscript_status: "true",
               ApacheOverflows_status: "true",
-              ApachePhpMyAdmin_status: "true",
               ApacheScan_status: "true",
               ApacheShellshock_status: "true",
               AsteriskAuth_status: "true",
@@ -666,7 +796,15 @@ export default {
               Recidive_status: "true",
               Sshd_status:"true",
               SshdDdos_status:"true",
-              OpenVpnAuth_status:"true"
+              OpenVpnAuth_status:"true",
+              Nextcloud_status: "true",
+              Owncloud_status: "true",
+              ApachePhpMyAdmin_status: "true",
+              Roundcube_status: "true",
+              Rspamd_status: "true",
+              SogoAuth_status: "true",
+              Urbackup_status: "true",
+              Webtop_status: "true"
       },
       loaders: false,
       errors: this.initErrors()
@@ -708,10 +846,6 @@ export default {
         message: ""
       },
       ApacheOverflows_status: {
-        hasError: false,
-        message: ""
-      },
-      ApachePhpMyAdmin_status: {
         hasError: false,
         message: ""
       },
@@ -791,6 +925,38 @@ export default {
         hasError: false,
         message: ""
       },
+      Nextcloud_status: {
+        hasError: false,
+        message: ""
+      },
+      Owncloud_status: {
+        hasError: false,
+        message: ""
+      },
+      ApachePhpMyAdmin_status: {
+        hasError: false,
+        message: ""
+      },
+      Roundcube_status: {
+        hasError: false,
+        message: ""
+      },
+      Rspamd_status: {
+        hasError: false,
+        message: ""
+      },
+      SogoAuth_status: {
+        hasError: false,
+        message: ""
+      },
+      Urbackup_status: {
+        hasError: false,
+        message: ""
+      },
+      Webtop_status: {
+        hasError: false,
+        message: ""
+      }
       };
     },
     toggleJailMenu(jail) {
@@ -822,7 +988,6 @@ export default {
           context.configuration.ApacheNohome_status = success.configuration.props.ApacheNohome_status;
           context.configuration.ApacheNoscript_status = success.configuration.props.ApacheNoscript_status;
           context.configuration.ApacheOverflows_status = success.configuration.props.ApacheOverflows_status;
-          context.configuration.ApachePhpMyAdmin_status = success.configuration.props.ApachePhpMyAdmin_status;
           context.configuration.ApacheScan_status = success.configuration.props.ApacheScan_status;
           context.configuration.ApacheShellshock_status = success.configuration.props.ApacheShellshock_status;
           context.configuration.AsteriskAuth_status = success.configuration.props.AsteriskAuth_status;
@@ -842,6 +1007,15 @@ export default {
           context.configuration.Sshd_status = success.configuration.props.Sshd_status;
           context.configuration.SshdDdos_status = success.configuration.props.SshdDdos_status;
           context.configuration.OpenVpnAuth_status = success.configuration.props.OpenVpnAuth_status;
+          context.configuration.Nextcloud_status = success.configuration.props.Nextcloud_status;
+          context.configuration.Owncloud_status = success.configuration.props.Owncloud_status;
+          context.configuration.ApachePhpMyAdmin_status = success.configuration.props.ApachePhpMyAdmin_status;
+          context.configuration.Roundcube_status = success.configuration.props.Roundcube_status;
+          context.configuration.Rspamd_status = success.configuration.props.Rspamd_status;
+          context.configuration.SogoAuth_status = success.configuration.props.SogoAuth_status;
+          context.configuration.Urbackup_status = success.configuration.props.Urbackup_status;
+          context.configuration.Webtop_status = success.configuration.props.Webtop_status;
+          
           context.view.isLoaded = true;
         },
         function(error) {
@@ -882,9 +1056,6 @@ export default {
             ? "true"
             : "false",
           ApacheOverflows_status: context.configuration.ApacheOverflows_status
-            ? "true"
-            : "false",
-          ApachePhpMyAdmin_status: context.configuration.ApachePhpMyAdmin_status
             ? "true"
             : "false",
           ApacheScan_status: context.configuration.ApacheScan_status
@@ -944,6 +1115,30 @@ export default {
           OpenVpnAuth_status: context.configuration.OpenVpnAuth_status
             ? "true"
             : "false",
+          Nextcloud_status: context.configuration.Nextcloud_status
+            ? "true"
+            : "false",
+          Owncloud_status: context.configuration.Owncloud_status
+            ? "true"
+            : "false",
+          ApachePhpMyAdmin_status: context.configuration.ApachePhpMyAdmin_status
+            ? "true"
+            : "false",
+          Roundcube_status: context.configuration.Roundcube_status
+            ? "true"
+            : "false",
+          Rspamd_status: context.configuration.Rspamd_status
+            ? "true"
+            : "false",
+          SogoAuth_status: context.configuration.SogoAuth_status
+            ? "true"
+            : "false",
+          Urbackup_status: context.configuration.Urbackup_status
+            ? "true"
+            : "false",
+          Webtop_status: context.configuration.Webtop_status
+            ? "true"
+            : "false"
       };
       context.loaders = true;
       context.errors = context.initErrors();
