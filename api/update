@@ -31,7 +31,29 @@ my $cdb = esmith::ConfigDB->open() || die("Could not open ConfigDB");
 my $data = readInput();
 my $action = $data->{'action'};
 
+
 if ($action eq 'configuration') {
+    foreach my $prop (qw(
+    BanAction
+    BanLocalNetwork
+    BanTime
+    DbPurgeage
+    FindTime
+    LogLevel
+    Mail
+    MailJailState
+    MaxRetry
+    Recidive_Perpetual
+    status
+    )) {
+        $cdb->set_prop('fail2ban', $prop, $data->{$prop});
+    }
+
+     $cdb->set_prop('fail2ban', 'CustomDestemail',join (',',@{$data->{'CustomDestemail'}}));
+     $cdb->set_prop('fail2ban', 'IgnoreIP',join (',',@{$data->{'IgnoreIP'}}));
+
+}
+elsif ($action eq 'jails') {
     foreach my $prop (qw(
     ApacheAuth_status
     ApacheBadbots_status
@@ -45,18 +67,9 @@ if ($action eq 'configuration') {
     ApacheScan_status
     ApacheShellshock_status
     AsteriskAuth_status
-    BanAction
-    BanLocalNetwork
-    BanTime
-    DbPurgeage
     Dovecot_status
     EjabberAuth_status
-    FindTime
     HttpdAdmin_status
-    LogLevel
-    Mail
-    MailJailState
-    MaxRetry
     MysqldAuth_status
     Nextcloud_status
     NginxBotSearch_status
@@ -67,8 +80,6 @@ if ($action eq 'configuration') {
     PostfixRbl_status
     PostfixSaslAbuse_status
     Postfix_status
-    Recidive_MaxRetry
-    Recidive_Perpetual
     Recidive_status
     Roundcube_status
     Rspamd_status
@@ -76,7 +87,6 @@ if ($action eq 'configuration') {
     SogoAuth_status
     SshdDdos_status
     Sshd_status
-    TimedOut
     Urbackup_status
     Vsftpd_status
     Webtop_status
@@ -84,10 +94,6 @@ if ($action eq 'configuration') {
     )) {
         $cdb->set_prop('fail2ban', $prop, $data->{$prop});
     }
-    # json array must be a toString
-    $cdb->set_prop('fail2ban', 'CustomDestemail',join (',', @{$data->{'CustomDestemail'}}));
-    $cdb->set_prop('fail2ban', 'IgnoreIP',join (',', @{$data->{'IgnoreIP'}}));
-
 } else {
     error();
 }
@@ -98,5 +104,5 @@ my $success = esmith::event::event_signal('nethserver-fail2ban-save');
 if($success) {
     success();
 } else {
-    error("EventError", "update_action_failed", 1550763312);
+   error("EventError", "update_action_failed", 1550763312);
 }
