@@ -270,6 +270,34 @@
           </div>
         </div>
 
+        <!-- database_jails -->
+        <legend v-if="configuration.status" class="fields-section-header-pf" aria-expanded="true">
+            <span
+            :class="['fa fa-angle-right field-section-toggle-pf', view.database ? 'fa-angle-down' : '']"
+            ></span>
+            <a
+            class="field-section-toggle-pf"
+            @click="toggleJailMenu('database')"
+            >{{$t('fail2ban.database_jails')}}</a>
+        </legend>
+
+        <div
+          v-if="configuration.status && view.database"
+          :class="['form-group', errors.MysqldAuth_status.hasError ? 'has-error' : '']"
+          >
+          <label
+            class="col-sm-2 control-label"
+            for="textInput-modal-markup"
+          >{{$t('fail2ban.MysqldAuth_status')}}</label>
+          <div class="col-sm-5">
+            <input type="checkbox" v-model="configuration.MysqldAuth_status" class="form-control">
+            <span
+              v-if="errors.MysqldAuth_status.hasError"
+              class="help-block"
+            >{{errors.MysqldAuth_status.message}}</span>
+          </div>
+        </div>
+
         <div class="form-group">
           <label class="col-sm-2 control-label" for="textInput-modal-markup">
             <div v-if="loaders" class="spinner spinner-sm form-spinner-loader adjust-top-loader"></div>
@@ -312,7 +340,8 @@ export default {
               ApacheScan_status: "true",
               ApacheShellshock_status: "true",
               AsteriskAuth_status: "true",
-              EjabberAuth_status: "true"
+              EjabberAuth_status: "true",
+              MysqldAuth_status: "true"
 
       },
       loaders: false,
@@ -377,6 +406,10 @@ export default {
       EjabberAuth_status: {
         hasError: false,
         message: ""
+      },
+      MysqldAuth_status: {
+        hasError: false,
+        message: ""
       }
       };
     },
@@ -414,6 +447,7 @@ export default {
           context.configuration.ApacheShellshock_status = success.configuration.props.ApacheShellshock_status;
           context.configuration.AsteriskAuth_status = success.configuration.props.AsteriskAuth_status;
           context.configuration.EjabberAuth_status = success.configuration.props.EjabberAuth_status;
+          context.configuration.MysqldAuth_status = success.configuration.props.MysqldAuth_status;
           context.view.isLoaded = true;
         },
         function(error) {
@@ -465,10 +499,13 @@ export default {
           ApacheShellshock_status: context.configuration.ApacheShellshock_status
             ? "true"
             : "false",
-          AsteriskAuth_status: context.configuration.ApacheShellshock_status
+          AsteriskAuth_status: context.configuration.AsteriskAuth_status
             ? "true"
             : "false",
-          EjabberAuth_status: context.configuration.ApacheShellshock_status
+          EjabberAuth_status: context.configuration.EjabberAuth_status
+            ? "true"
+            : "false",
+          MysqldAuth_status: context.configuration.MysqldAuth_status
             ? "true"
             : "false"
       };
