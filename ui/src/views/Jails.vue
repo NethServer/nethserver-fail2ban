@@ -574,6 +574,34 @@
           </div>
         </div>
 
+        <!-- vpn_jails -->
+        <legend v-if="configuration.status" class="fields-section-header-pf" aria-expanded="true">
+            <span
+            :class="['fa fa-angle-right field-section-toggle-pf', view.vpn ? 'fa-angle-down' : '']"
+            ></span>
+            <a
+            class="field-section-toggle-pf"
+            @click="toggleJailMenu('vpn')"
+            >{{$t('fail2ban.vpn_jails')}}</a>
+        </legend>
+
+        <div
+          v-if="configuration.status && view.vpn"
+          :class="['form-group', errors.OpenVpnAuth_status.hasError ? 'has-error' : '']"
+          >
+          <label
+            class="col-sm-2 control-label"
+            for="textInput-modal-markup"
+          >{{$t('fail2ban.OpenVpnAuth_status')}}</label>
+          <div class="col-sm-5">
+            <input type="checkbox" v-model="configuration.OpenVpnAuth_status" class="form-control">
+            <span
+              v-if="errors.OpenVpnAuth_status.hasError"
+              class="help-block"
+            >{{errors.OpenVpnAuth_status.message}}</span>
+          </div>
+        </div>
+
         <div class="form-group">
           <label class="col-sm-2 control-label" for="textInput-modal-markup">
             <div v-if="loaders" class="spinner spinner-sm form-spinner-loader adjust-top-loader"></div>
@@ -606,7 +634,8 @@ export default {
         ftp:false,
         nginx:false,
         security: false,
-        ssh: false
+        ssh: false,
+        vpn:false
       },
       configuration: {
               status: true,
@@ -636,7 +665,8 @@ export default {
               PamGeneric_status:"true",
               Recidive_status: "true",
               Sshd_status:"true",
-              SshdDdos_status:"true"
+              SshdDdos_status:"true",
+              OpenVpnAuth_status:"true"
       },
       loaders: false,
       errors: this.initErrors()
@@ -757,6 +787,10 @@ export default {
         hasError: false,
         message: ""
       },
+      OpenVpnAuth_status: {
+        hasError: false,
+        message: ""
+      },
       };
     },
     toggleJailMenu(jail) {
@@ -807,6 +841,7 @@ export default {
           context.configuration.Recidive_status = success.configuration.props.Recidive_status;
           context.configuration.Sshd_status = success.configuration.props.Sshd_status;
           context.configuration.SshdDdos_status = success.configuration.props.SshdDdos_status;
+          context.configuration.OpenVpnAuth_status = success.configuration.props.OpenVpnAuth_status;
           context.view.isLoaded = true;
         },
         function(error) {
@@ -904,6 +939,9 @@ export default {
             ? "true"
             : "false",
           SshdDdos_status: context.configuration.SshdDdos_status
+            ? "true"
+            : "false",
+          OpenVpnAuth_status: context.configuration.OpenVpnAuth_status
             ? "true"
             : "false",
       };
