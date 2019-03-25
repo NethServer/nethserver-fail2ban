@@ -76,6 +76,7 @@ elsif ($cmd eq 'configuration') {
     my %fail2ban = (
             CustomDestemail => \@addresses,
             IgnoreIP => \@IP,
+            ApacheAuth_status => $db->get_prop('fail2ban','ApacheAuth_status'),
             ApacheBadbots_status => $db->get_prop('fail2ban','ApacheBadbots_status'),
             ApacheBotsearch_status => $db->get_prop('fail2ban','ApacheBotsearch_status'),
             ApacheFakegooglebot_status => $db->get_prop('fail2ban','ApacheFakegooglebot_status'),
