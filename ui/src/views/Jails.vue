@@ -394,6 +394,34 @@
           </div>
         </div>
 
+        <!-- ftp_jails -->
+        <legend v-if="configuration.status" class="fields-section-header-pf" aria-expanded="true">
+            <span
+            :class="['fa fa-angle-right field-section-toggle-pf', view.ftp ? 'fa-angle-down' : '']"
+            ></span>
+            <a
+            class="field-section-toggle-pf"
+            @click="toggleJailMenu('ftp')"
+            >{{$t('fail2ban.ftp_jails')}}</a>
+        </legend>
+
+        <div
+          v-if="configuration.status && view.ftp"
+          :class="['form-group', errors.Sieve_status.hasError ? 'has-error' : '']"
+          >
+          <label
+            class="col-sm-2 control-label"
+            for="textInput-modal-markup"
+          >{{$t('fail2ban.Vsftpd_status')}}</label>
+          <div class="col-sm-5">
+            <input type="checkbox" v-model="configuration.Vsftpd_status" class="form-control">
+            <span
+              v-if="errors.Vsftpd_status.hasError"
+              class="help-block"
+            >{{errors.Vsftpd_status.message}}</span>
+          </div>
+
+        </div>
         <div class="form-group">
           <label class="col-sm-2 control-label" for="textInput-modal-markup">
             <div v-if="loaders" class="spinner spinner-sm form-spinner-loader adjust-top-loader"></div>
@@ -422,7 +450,8 @@ export default {
         apache: false,
         communication: false,
         database: false,
-        email: false
+        email: false,
+        ftp:false
       },
       configuration: {
               status: true,
@@ -444,7 +473,8 @@ export default {
               PostfixRbl_status: "true",
               Postfix_status: "true",
               PostfixSaslAbuse_status: "true",
-              Sieve_status: "true"
+              Sieve_status: "true",
+              Vsftpd_status: "true"
 
       },
       loaders: false,
@@ -533,6 +563,10 @@ export default {
       Sieve_status: {
         hasError: false,
         message: ""
+    },
+      Vsftpd_status: {
+        hasError: false,
+        message: ""
       }
       };
     },
@@ -576,6 +610,7 @@ export default {
           context.configuration.Postfix_status = success.configuration.props.Postfix_status;
           context.configuration.PostfixSaslAbuse_status = success.configuration.props.PostfixSaslAbuse_status;
           context.configuration.Sieve_status = success.configuration.props.Sieve_status;
+          context.configuration.Vsftpd_status = success.configuration.props.Vsftpd_status;
           context.view.isLoaded = true;
         },
         function(error) {
@@ -649,6 +684,9 @@ export default {
             ? "true"
             : "false",
           Sieve_status: context.configuration.Sieve_status
+            ? "true"
+            : "false",
+          Vsftpd_status: context.configuration.Vsftpd_status
             ? "true"
             : "false"
       };
