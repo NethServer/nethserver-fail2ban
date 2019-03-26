@@ -75,7 +75,7 @@ $v->declareParameter('Rspamd_status', $v->createValidator()->memberOf('true','fa
 $ipValidator = $v->createValidator()->ipV4Address();
 foreach ($data['IgnoreIP'] as $el) {
     if (!$ipValidator->evaluate($el) ) {
-        $v->addValidationError('LimitAccess', 'not_ip_address');
+        $v->addValidationError('IgnoreIP', 'not_ip_address');
     }
 }
 
