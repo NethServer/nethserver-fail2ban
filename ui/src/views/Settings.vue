@@ -26,7 +26,7 @@
               :color="{checked: '#0088ce', unchecked: '#bbbbbb'}"
               :value="configuration.status"
               :sync="true"
-              @change="toggleSettingsMACValidation()"
+              @change="toggleStatus()"
             />
             <span
               v-if="errors.status.hasError"
@@ -265,8 +265,8 @@ export default {
       configuration: {
               status: true,
               mail: true,
-              CustomDestemail: [{}],
-              IgnoreIP: "",
+              CustomDestemail: [],
+              IgnoreIP: [],
               MailJailState: false,
               BanLocalNetwork: false,
               Recidive_Perpetual: false,
@@ -282,10 +282,6 @@ export default {
   methods: {
     initErrors() {
       return {
-      MACValidationPolicy: {
-        hasError: false,
-        message: ""
-      },
       status: {
         hasError: false,
         message: ""
@@ -386,7 +382,7 @@ export default {
         false
       );
     },
-    toggleSettingsMACValidation() {
+    toggleStatus() {
       this.configuration.status = !this.configuration.status;
     },
     saveSettings(type) {
