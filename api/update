@@ -34,10 +34,8 @@ my $action = $data->{'action'};
 
 if ($action eq 'configuration') {
     foreach my $prop (qw(
-    BanAction
     BanLocalNetwork
     BanTime
-    DbPurgeage
     FindTime
     LogLevel
     Mail
