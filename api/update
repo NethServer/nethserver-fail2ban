@@ -50,6 +50,13 @@ if ($action eq 'configuration') {
      $cdb->set_prop('fail2ban', 'CustomDestemail',join (',',@{$data->{'CustomDestemail'}}));
      $cdb->set_prop('fail2ban', 'IgnoreIP',join (',',@{$data->{'IgnoreIP'}}));
 
+    esmith::event::set_json_log(1);
+    my $success = esmith::event::event_signal('nethserver-fail2ban-save');
+    if($success) {
+        success();
+    } else {
+       error("EventError", "update_action_failed", 1550763312);
+    }
 }
 elsif ($action eq 'jails') {
     foreach my $prop (qw(
@@ -92,15 +99,22 @@ elsif ($action eq 'jails') {
     )) {
         $cdb->set_prop('fail2ban', $prop, $data->{$prop});
     }
+    esmith::event::set_json_log(1);
+    my $success = esmith::event::event_signal('nethserver-fail2ban-save');
+    if($success) {
+        success();
+    } else {
+        error("EventError", "update_action_failed", 1550763312);
+    }
+} 
+elsif ($action eq 'unban') {
+    esmith::event::set_json_log(1);
+    my $success = esmith::event::event_signal('nethserver-fail2banUnBan-save',$data->{'unBanIP'});
+    if($success) {
+        success();
+    } else {
+        error("EventError", "unban_action_failed", 1550763312);
+    }
 } else {
     error();
-}
-
-esmith::event::set_json_log(1);
-
-my $success = esmith::event::event_signal('nethserver-fail2ban-save');
-if($success) {
-    success();
-} else {
-   error("EventError", "update_action_failed", 1550763312);
 }
