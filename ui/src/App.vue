@@ -31,12 +31,20 @@
                 </a>
             </router-link>
             <li class="li-empty"></li>
+            <router-link tag="li" to="/unban" active-class="active" class="list-group-item">
+                <a>
+                    <span class="fa fa-unlock"></span>
+                    <span class="list-group-item-value">{{$t('Unban.title')}}</span>
+                </a>
+            </router-link>
+            <li class="li-empty"></li>
             <router-link tag="li" to="/settings" active-class="active" class="list-group-item">
                 <a>
                     <span class="fa fa-at"></span>
                     <span class="list-group-item-value">{{$t('settings.title')}}</span>
                 </a>
             </router-link>
+            <li class="li-empty"></li>
             <router-link tag="li" to="/jails" active-class="active" class="list-group-item">
                 <a>
                     <span class="fa fa-lock"></span>
