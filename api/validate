@@ -25,6 +25,7 @@ require_once("/usr/libexec/nethserver/api/lib/Helpers.php");
 $data = readInput();
 $v = new LegacyValidator($data);
 
+$v->declareParameter('unBanIP', Validate::IPv4);
 $v->declareParameter('BanLocalNetwork', Validate::SERVICESTATUS);
 $v->declareParameter('LogLevel', $v->createValidator()->memberOf('CRITICAL','ERROR','WARNING','NOTICE','INFO','DEBUG'));
 $v->declareParameter('FindTime', Validate::POSITIVE_INTEGER);
