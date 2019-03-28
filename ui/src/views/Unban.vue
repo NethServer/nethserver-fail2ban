@@ -18,7 +18,8 @@
             class="button btn btn-default button-minimum "
           >
           <span
-  :class="['fa','fa-refresh']"
+  :class="['fa','fa-unlock']"
+  
 ></span>
             {{$t('fail2ban.unban'+' : '+unBanIP)}}
             </button>
@@ -57,7 +58,7 @@ export default {
   methods: {
     initErrors() {
       return {
-      status: {
+      unBanIP: {
         hasError: false,
         message: ""
       }
@@ -99,22 +100,22 @@ export default {
       };
       console.log(type);
       context.loaders = true;
-      context.errors = context.initErrors();
-    //   nethserver.exec(
-    //     ["nethserver-fail2ban/validate"],
-    //     settingsObj,
-    //     null,
-    //     function(success) {
-    //       context.loaders = false;
-    // 
-    //       // notification
-    //       nethserver.notifications.success = context.$i18n.t(
-    //         "fail2ban.settings_updated_ok"
-    //       );
-    //       nethserver.notifications.error = context.$i18n.t(
-    //         "fail2ban.settings_updated_error"
-    //       );
-    // 
+     context.errors = context.initErrors();
+      nethserver.exec(
+        ["nethserver-fail2ban/validate"],
+        settingsObj,
+        null,
+        function(success) {
+          context.loaders = false;
+    
+          // notification
+          nethserver.notifications.success = context.$i18n.t(
+            "fail2ban.settings_updated_ok"
+          );
+          nethserver.notifications.error = context.$i18n.t(
+            "fail2ban.settings_updated_error"
+          );
+    
           // update values
           nethserver.exec(
             ["nethserver-fail2ban/update"],
@@ -130,25 +131,25 @@ export default {
             },
             false
           );
-    //     },
-    //     function(error, data) {
-    //       var errorData = {};
-    //       context.loaders = false;
-    //       context.errors = context.initErrors();
-    // 
-    //       try {
-    //         errorData = JSON.parse(data);
-    //         for (var e in errorData.attributes) {
-    //           var attr = errorData.attributes[e];
-    //           context.errors[attr.parameter].hasError = true;
-    //           context.errors[attr.parameter].message = attr.error;
-    //         }
-    //       } catch (e) {
-    //         console.error(e);
-    //       }
-    //   },
-    //     false
-    // );
+        },
+        function(error, data) {
+          var errorData = {};
+          context.loaders = false;
+          context.errors = context.initErrors();
+    
+          try {
+            errorData = JSON.parse(data);
+            for (var e in errorData.attributes) {
+              var attr = errorData.attributes[e];
+              context.errors[attr.parameter].hasError = true;
+              context.errors[attr.parameter].message = attr.error;
+            }
+          } catch (e) {
+            console.error(e);
+          }
+      },
+        false
+    );
     }
   }
 };
