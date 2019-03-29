@@ -51,12 +51,17 @@ elsif ($cmd eq 'IPList') {
         $data = {"IPList" => {}};
     }
     else {
-          $data = read_json("/var/lib/nethserver/fail2ban/fail2ban.json");
+         $data = read_json("/var/lib/nethserver/fail2ban/fail2ban.json");
+    }
+    my @IP = ();
+    foreach my $k (keys (%$data->{"IPList"})){
+    push @IP, { ip => $k};
     }
 
-    print encode_json($data->{"IPList"});
+    print encode_json (\@IP);
     exit(0);
-}
+    }
+
 
 elsif ($cmd eq 'configuration') {
 
