@@ -23,7 +23,7 @@ import VueI18n from "vue-i18n"
 import Router from 'vue-router'
 import VueToggleButton from 'vue-js-toggle-button';
 import DocInfo from "./directives/DocInfo.vue";
-
+import VueGoodTable from "vue-good-table";
 import App from './App.vue'
 import Dashboard from './views/Dashboard.vue'
 import Settings from './views/Settings.vue'
@@ -32,14 +32,15 @@ import Logs from './views/Logs.vue'
 import About from './views/About.vue'
 import Unban from './views/Unban.vue'
 
-Vue.config.productionTip = false
+import UtilService from "./services/util"
+Vue.mixin(UtilService)
 
+Vue.config.productionTip = false
 Vue.use(VueToggleButton);
 Vue.component('doc-info', DocInfo);
-
+Vue.use(VueGoodTable);
 Vue.use(VueI18n)
 const i18n = new VueI18n();
-
 Vue.use(Router)
 const router = new Router({
     mode: 'hash',
