@@ -3,42 +3,42 @@
     <h2>{{$t('unban.title')}}</h2>
     <div v-if="!view.isLoaded" class="spinner spinner-lg"></div>
 
-<h3>{{$t('list')}}</h3>
+    <h3>{{$t('list')}}</h3>
 
-<vue-good-table
-  v-if="view.isLoaded"
-  :customRowsPerPageDropdown="[25,50,100]"
-  :perPage="25"
-  :columns="columns"
-  :rows="rows"
-  :lineNumbers="false"
-  :defaultSortBy="{field: 'ip', type: 'asc'}"
-  :globalSearch="true"
-  :paginate="true"
-  styleClass="table"
-  :nextText="tableLangsTexts.nextText"
-  :prevText="tableLangsTexts.prevText"
-  :rowsPerPageText="tableLangsTexts.rowsPerPageText"
-  :globalSearchPlaceholder="tableLangsTexts.globalSearchPlaceholder"
-  :ofText="tableLangsTexts.ofText"
->
-  <template slot="table-row" slot-scope="props">
-    <td class="fancy">
-      <strong>{{ props.row.ip }}</strong>
-    </td>
-    <td>
-      <button
-        @click="unban( props.row.ip )"
-        class="btn btn-default button-minimum"
-      >
-        <span
-          :class="['fa', 'fa-unlock', 'span-right-margin']"
-        ></span>
-        {{$t('fail2ban.unBanIP') }}
-      </button>
-    </td>
-  </template>
-</vue-good-table>
+    <vue-good-table
+      v-if="view.isLoaded"
+      :customRowsPerPageDropdown="[25,50,100]"
+      :perPage="25"
+      :columns="columns"
+      :rows="rows"
+      :lineNumbers="false"
+      :defaultSortBy="{field: 'ip', type: 'asc'}"
+      :globalSearch="true"
+      :paginate="true"
+      styleClass="table"
+      :nextText="tableLangsTexts.nextText"
+      :prevText="tableLangsTexts.prevText"
+      :rowsPerPageText="tableLangsTexts.rowsPerPageText"
+      :globalSearchPlaceholder="tableLangsTexts.globalSearchPlaceholder"
+      :ofText="tableLangsTexts.ofText"
+    >
+      <template slot="table-row" slot-scope="props">
+        <td class="fancy">
+          <strong>{{ props.row.ip }}</strong>
+        </td>
+        <td>
+          <button
+            @click="unban( props.row.ip )"
+            class="btn btn-default button-minimum"
+          >
+            <span
+              :class="['fa', 'fa-unlock', 'span-right-margin']"
+            ></span>
+            {{$t('fail2ban.unBanIP') }}
+          </button>
+        </td>
+      </template>
+    </vue-good-table>
   </div>
 </template>
 
@@ -66,6 +66,12 @@ export default {
         label: this.$i18n.t("fail2ban.IP"),
         field: "ip",
         filterable: true
+      },
+      {
+          label: this.$i18n.t("action"),
+          field: "",
+          filterable: true,
+          sortable: false
       }
     ],
     rows: []
@@ -172,15 +178,4 @@ export default {
 </script>
 
 <style>
-
-.button {
-  -webkit-transition-duration: 0.4s; /* Safari */
-  transition-duration: 0.4s;
-  width: 250px;
-}
-
-.button:hover {
-  background-color: #4CAF50; /* Green */
-  color: white;
-}
 </style>
