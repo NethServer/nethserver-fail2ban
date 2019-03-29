@@ -126,10 +126,10 @@ export default {
     
           // notification
           nethserver.notifications.success = context.$i18n.t(
-            "fail2ban.settings_updated_ok"
+            "fail2ban.ip_unlocked_ok"
           );
           nethserver.notifications.error = context.$i18n.t(
-            "fail2ban.settings_updated_error"
+            "fail2ban.ip_unlocked_error"
           );
     
           // update values
