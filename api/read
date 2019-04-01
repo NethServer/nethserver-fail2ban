@@ -35,13 +35,17 @@ my $data;
 
 if ($cmd eq 'TotalBannedIP') {
     if ( ! -f '/var/lib/nethserver/fail2ban/fail2ban.json') { 
-        $data = {"TotalBannedIP" => {}};
+        $data = {"TotalBannedIP" => {},"JailStatus" =>[]};
     }
     else {
           $data = read_json("/var/lib/nethserver/fail2ban/fail2ban.json");
     }
+    # retrieve the all enabled jail by a bash command
+    my $jailStatus=`echo "\$(fail2ban-client status| grep "Jail list:"|sed 's/\`- Jail list:\t//g')"`;
+    $jailStatus=~ s/\s//g;
+    my @jailStatus = split(',',$jailStatus);
 
-    print encode_json($data->{"TotalBannedIP"});
+    print encode_json({"TotalBannedIP" => $data->{"TotalBannedIP"},"JailStatus" => [@jailStatus] });
     exit(0);
 }
 
@@ -54,7 +58,7 @@ elsif ($cmd eq 'IPList') {
          $data = read_json("/var/lib/nethserver/fail2ban/fail2ban.json");
     }
     my @IP = ();
-    foreach my $k (keys (%$data->{"IPList"})){
+    foreach my $k (keys ($data->{"IPList"})){
     push @IP, { ip => $k};
     }
 
