@@ -34,7 +34,7 @@
             <router-link tag="li" to="/unban" active-class="active" class="list-group-item">
                 <a>
                     <span class="fa fa-unlock"></span>
-                    <span class="list-group-item-value">{{$t('Unban.title')}}</span>
+                    <span class="list-group-item-value">{{$t('unban.title')}}</span>
                 </a>
             </router-link>
             <li class="li-empty"></li>
@@ -48,7 +48,7 @@
             <router-link tag="li" to="/jails" active-class="active" class="list-group-item">
                 <a>
                     <span class="fa fa-lock"></span>
-                    <span class="list-group-item-value">{{$t('Jails.title')}}</span>
+                    <span class="list-group-item-value">{{$t('jails.title')}}</span>
                 </a>
             </router-link>
             <li class="li-empty"></li>

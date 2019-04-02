@@ -24,6 +24,7 @@ import Router from 'vue-router'
 import VueToggleButton from 'vue-js-toggle-button';
 import DocInfo from "./directives/DocInfo.vue";
 import VueGoodTable from "vue-good-table";
+
 import App from './App.vue'
 import Dashboard from './views/Dashboard.vue'
 import Settings from './views/Settings.vue'
@@ -39,8 +40,10 @@ Vue.config.productionTip = false
 Vue.use(VueToggleButton);
 Vue.component('doc-info', DocInfo);
 Vue.use(VueGoodTable);
+
 Vue.use(VueI18n)
 const i18n = new VueI18n();
+
 Vue.use(Router)
 const router = new Router({
     mode: 'hash',
@@ -62,29 +65,9 @@ var app = new Vue({
     router,
     render: h => h(App)
 })
-app.$mount('#app') // Start VueJS application
- 
-// 
-// nethserver.fetchTranslatedStrings(function (data) {
-//     i18n.setLocaleMessage('cockpit', data)
-//     i18n.locale = 'cockpit'
-//     app.$mount('#app') // Start VueJS application
-// })
 
-//firewal app
-// configure i18n
-// var langConf = languages.initLang();
-// const i18n = new VueI18n({
-//   locale: langConf.locale,
-//   messages: langConf.messages
-// });
-// moment.locale(langConf.locale);
-// 
-// var ns = new Vue({
-//   router,
-//   i18n,
-//   currentLocale: langConf.locale,
-//   render: function (h) {
-//     return h(App)
-//   }
-// }).$mount('#app')
+nethserver.fetchTranslatedStrings(function (data) {
+    i18n.setLocaleMessage('cockpit', data)
+    i18n.locale = 'cockpit'
+    app.$mount('#app') // Start VueJS application
+})

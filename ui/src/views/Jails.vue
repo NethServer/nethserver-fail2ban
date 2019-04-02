@@ -4,13 +4,13 @@
     <div v-if="!view.isLoaded" class="spinner spinner-lg"></div>
     <div v-if="view.isLoaded">
 
-      <h3>{{$t('fail2ban.definition')}}</h3>
+      <h3>{{$t('jails.configuration')}}</h3>
       <form class="form-horizontal" v-on:submit.prevent="saveSettings('status')">
         <div :class="['form-group', errors.status.hasError ? 'has-error' : '']">
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.status')}}</label>
+          >{{$t('jails.status')}}</label>
           <div class="col-sm-5">
             <toggle-button
               class="min-toggle"
@@ -36,7 +36,7 @@
             <a
             class="field-section-toggle-pf"
             @click="toggleJailMenu('apache')"
-            >{{$t('fail2ban.apache_jails')}}</a>
+            >{{$t('jails.apache_jails')}}</a>
         </legend>
 
         <div
@@ -46,7 +46,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.ApacheAuth_status')}}</label>
+          >{{$t('jails.ApacheAuth_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.ApacheAuth_status" class="form-control">
             <span
@@ -63,7 +63,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.ApacheBadbots_status')}}</label>
+          >{{$t('jails.ApacheBadbots_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.ApacheBadbots_status" class="form-control">
             <span
@@ -80,7 +80,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.ApacheBotsearch_status')}}</label>
+          >{{$t('jails.ApacheBotsearch_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.ApacheBotsearch_status" class="form-control">
             <span
@@ -97,7 +97,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.ApacheFakegooglebot_status')}}</label>
+          >{{$t('jails.ApacheFakegooglebot_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.ApacheFakegooglebot_status" class="form-control">
             <span
@@ -114,7 +114,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.ApacheModsecurity_status')}}</label>
+          >{{$t('jails.ApacheModsecurity_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.ApacheModsecurity_status" class="form-control">
             <span
@@ -131,7 +131,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.ApacheNohome_status')}}</label>
+          >{{$t('jails.ApacheNohome_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.ApacheNohome_status" class="form-control">
             <span
@@ -148,7 +148,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.ApacheNoscript_status')}}</label>
+          >{{$t('jails.ApacheNoscript_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.ApacheNoscript_status" class="form-control">
             <span
@@ -165,7 +165,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.ApacheOverflows_status')}}</label>
+          >{{$t('jails.ApacheOverflows_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.ApacheOverflows_status" class="form-control">
             <span
@@ -182,7 +182,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.ApacheScan_status')}}</label>
+          >{{$t('jails.ApacheScan_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.ApacheScan_status" class="form-control">
             <span
@@ -199,7 +199,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.ApacheShellshock_status')}}</label>
+          >{{$t('jails.ApacheShellshock_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.ApacheShellshock_status" class="form-control">
             <span
@@ -216,7 +216,7 @@
             <a
             class="field-section-toggle-pf"
             @click="toggleJailMenu('communication')"
-            >{{$t('fail2ban.communication_jails')}}</a>
+            >{{$t('jails.communication_jails')}}</a>
         </legend>
 
         <div
@@ -226,7 +226,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.AsteriskAuth_status')}}</label>
+          >{{$t('jails.AsteriskAuth_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.AsteriskAuth_status" class="form-control">
             <span
@@ -243,7 +243,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.EjabberAuth_status')}}</label>
+          >{{$t('jails.EjabberAuth_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.EjabberAuth_status" class="form-control">
             <span
@@ -261,7 +261,7 @@
             <a
             class="field-section-toggle-pf"
             @click="toggleJailMenu('database')"
-            >{{$t('fail2ban.database_jails')}}</a>
+            >{{$t('jails.database_jails')}}</a>
         </legend>
 
         <div
@@ -271,7 +271,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.MysqldAuth_status')}}</label>
+          >{{$t('jails.MysqldAuth_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.MysqldAuth_status" class="form-control">
             <span
@@ -289,7 +289,7 @@
             <a
             class="field-section-toggle-pf"
             @click="toggleJailMenu('email')"
-            >{{$t('fail2ban.email_jails')}}</a>
+            >{{$t('jails.email_jails')}}</a>
         </legend>
 
         <div
@@ -299,7 +299,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.Dovecot_status')}}</label>
+          >{{$t('jails.Dovecot_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.Dovecot_status" class="form-control">
             <span
@@ -316,7 +316,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.PostfixRbl_status')}}</label>
+          >{{$t('jails.PostfixRbl_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.PostfixRbl_status" class="form-control">
             <span
@@ -333,7 +333,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.Postfix_status')}}</label>
+          >{{$t('jails.Postfix_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.Postfix_status" class="form-control">
             <span
@@ -350,7 +350,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.PostfixSaslAbuse_status')}}</label>
+          >{{$t('jails.PostfixSaslAbuse_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.PostfixSaslAbuse_status" class="form-control">
             <span
@@ -367,7 +367,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.Sieve_status')}}</label>
+          >{{$t('jails.Sieve_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.Sieve_status" class="form-control">
             <span
@@ -385,7 +385,7 @@
             <a
             class="field-section-toggle-pf"
             @click="toggleJailMenu('ftp')"
-            >{{$t('fail2ban.ftp_jails')}}</a>
+            >{{$t('jails.ftp_jails')}}</a>
         </legend>
 
         <div
@@ -395,7 +395,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.Vsftpd_status')}}</label>
+          >{{$t('jails.Vsftpd_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.Vsftpd_status" class="form-control">
             <span
@@ -413,7 +413,7 @@
             <a
             class="field-section-toggle-pf"
             @click="toggleJailMenu('nginx')"
-            >{{$t('fail2ban.nginx_jails')}}</a>
+            >{{$t('jails.nginx_jails')}}</a>
         </legend>
 
         <div
@@ -423,7 +423,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.NginxHttpAuth_status')}}</label>
+          >{{$t('jails.NginxHttpAuth_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.NginxHttpAuth_status" class="form-control">
             <span
@@ -440,7 +440,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.NginxBotSearch_status')}}</label>
+          >{{$t('jails.NginxBotSearch_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.NginxBotSearch_status" class="form-control">
             <span
@@ -458,7 +458,7 @@
             <a
             class="field-section-toggle-pf"
             @click="toggleJailMenu('security')"
-            >{{$t('fail2ban.security_jails')}}</a>
+            >{{$t('jails.security_jails')}}</a>
         </legend>
 
         <div
@@ -468,7 +468,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.HttpdAdmin_status')}}</label>
+          >{{$t('jails.HttpdAdmin_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.HttpdAdmin_status" class="form-control">
             <span
@@ -485,7 +485,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.PamGeneric_status')}}</label>
+          >{{$t('jails.PamGeneric_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.PamGeneric_status" class="form-control">
             <span
@@ -502,7 +502,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.PamGeneric_status')}}</label>
+          >{{$t('jails.Recidive_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.Recidive_status" class="form-control">
             <span
@@ -520,7 +520,7 @@
             <a
             class="field-section-toggle-pf"
             @click="toggleJailMenu('ssh')"
-            >{{$t('fail2ban.ssh_jails')}}</a>
+            >{{$t('jails.ssh_jails')}}</a>
         </legend>
 
         <div
@@ -530,7 +530,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.Sshd_status')}}</label>
+          >{{$t('jails.Sshd_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.Sshd_status" class="form-control">
             <span
@@ -547,7 +547,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.SshdDdos_status')}}</label>
+          >{{$t('jails.SshdDdos_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.SshdDdos_status" class="form-control">
             <span
@@ -565,7 +565,7 @@
             <a
             class="field-section-toggle-pf"
             @click="toggleJailMenu('vpn')"
-            >{{$t('fail2ban.vpn_jails')}}</a>
+            >{{$t('jails.vpn_jails')}}</a>
         </legend>
 
         <div
@@ -575,7 +575,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.OpenVpnAuth_status')}}</label>
+          >{{$t('jails.OpenVpnAuth_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.OpenVpnAuth_status" class="form-control">
             <span
@@ -593,7 +593,7 @@
             <a
             class="field-section-toggle-pf"
             @click="toggleJailMenu('webApps')"
-            >{{$t('fail2ban.webApps_jails')}}</a>
+            >{{$t('jails.webApps_jails')}}</a>
         </legend>
 
         <div
@@ -603,7 +603,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.Nextcloud_status')}}</label>
+          >{{$t('jails.Nextcloud_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.Nextcloud_status" class="form-control">
             <span
@@ -620,7 +620,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.Owncloud_status')}}</label>
+          >{{$t('jails.Owncloud_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.Owncloud_status" class="form-control">
             <span
@@ -637,7 +637,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.ApachePhpMyAdmin_status')}}</label>
+          >{{$t('jails.ApachePhpMyAdmin_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.ApachePhpMyAdmin_status" class="form-control">
             <span
@@ -654,7 +654,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.Roundcube_status')}}</label>
+          >{{$t('jails.Roundcube_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.Roundcube_status" class="form-control">
             <span
@@ -671,7 +671,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.Rspamd_status')}}</label>
+          >{{$t('jails.Rspamd_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.Rspamd_status" class="form-control">
             <span
@@ -688,7 +688,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.SogoAuth_status')}}</label>
+          >{{$t('jails.SogoAuth_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.SogoAuth_status" class="form-control">
             <span
@@ -705,7 +705,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.Urbackup_status')}}</label>
+          >{{$t('jails.Urbackup_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.Urbackup_status" class="form-control">
             <span
@@ -722,7 +722,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.Webtop_status')}}</label>
+          >{{$t('jails.Webtop_status')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.Webtop_status" class="form-control">
             <span
@@ -1151,10 +1151,10 @@ export default {
 
           // notification
           nethserver.notifications.success = context.$i18n.t(
-            "fail2ban.settings_updated_ok"
+            "jails.settings_updated_ok"
           );
           nethserver.notifications.error = context.$i18n.t(
-            "fail2ban.settings_updated_error"
+            "jails.settings_updated_error"
           );
 
           // update values

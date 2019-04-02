@@ -34,7 +34,7 @@
             <span
               :class="['fa', 'fa-unlock', 'span-right-margin']"
             ></span>
-            {{$t('fail2ban.unBanIP') }}
+            {{$t('unban.unBanIP') }}
           </button>
         </td>
       </template>
@@ -63,7 +63,7 @@ export default {
       tableLangsTexts: this.tableLangs(),
     columns: [
       {
-        label: this.$i18n.t("fail2ban.IP"),
+        label: this.$i18n.t("unban.BannedIP"),
         field: "ip",
         filterable: true
       },

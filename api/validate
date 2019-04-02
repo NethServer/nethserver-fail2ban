@@ -83,7 +83,7 @@ foreach ($data['IgnoreIP'] as $el) {
 $emailValidator = $v->createValidator()->orValidator($v->createValidator(Validate::EMAIL), $v->createValidator(Validate::EMPTYSTRING));;
 foreach ($data['CustomDestemail'] as $el) {
     if (!$emailValidator->evaluate($el)) {
-        $v->addValidationError('CustomDestemail', 'valid_mail_address');
+        $v->addValidationError('CustomDestemail', 'not_valid_email_address');
     }
 }
 

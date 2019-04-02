@@ -12,4 +12,9 @@ source_file = root/usr/share/nethesis/NethServer/Language/en/NethServer_Module_F
 source_lang = en
 type = PHP_ALT_ARRAY
 
+[nethserver.CockpitFail2ban]
+source_file = ui/public/i18n/language.json
+source_lang = en
+type = KEYVALUEJSON
+
 

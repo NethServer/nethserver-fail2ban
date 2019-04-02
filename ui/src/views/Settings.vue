@@ -3,21 +3,21 @@
     <h2>{{$t('settings.title')}}</h2>
     <div v-if="!view.isLoaded" class="spinner spinner-lg"></div>
     <div v-if="view.isLoaded">
-        <doc-info
+        <!-- <doc-info
               :placement="'top'"
               :title="$t('docs.fail2ban')"
               :chapter="'fail2ban'"
               :section="''"
               :inline="false"
-        ></doc-info>
+        ></doc-info> -->
 
-      <h3>{{$t('fail2ban.definition')}}</h3>
+      <h3>{{$t('settings.configuration')}}</h3>
       <form class="form-horizontal" v-on:submit.prevent="saveSettings('status')">
         <div :class="['form-group', errors.status.hasError ? 'has-error' : '']">
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.status')}}</label>
+          >{{$t('settings.status')}}</label>
           <div class="col-sm-5">
             <toggle-button
               class="min-toggle"
@@ -46,7 +46,7 @@
         <label
         class="col-sm-2 control-label"
         for="textInput-modal-markup"
-        >{{$t('fail2ban.IgnoreIP')}}</label>
+        >{{$t('settings.IgnoreIP')}}</label>
         <div class="col-sm-5">
             <textarea v-model="configuration.IgnoreIP" class="form-control"></textarea>
             <span v-if="errors.IgnoreIP.hasError" class="help-block">
@@ -64,7 +64,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.mail')}}</label>
+          >{{$t('settings.mail')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.mail" class="form-control">
             <span
@@ -82,7 +82,7 @@
         >
            <label class="col-sm-2 control-label" for="textInput-modal-markup">
              {{i == 0 ?
-             $t('fail2ban.notify_to') : ''}}
+             $t('settings.notify_to') : ''}}
            </label>
            <div v-if="configuration.mail && configuration.status"
                 class="col-sm-5">
@@ -105,7 +105,7 @@
            <div class="col-sm-5">
              <button @click="addEmail()" class="btn btn-default" type="button">
                <span class="fa fa-plus card-icon-def"></span>
-               {{$t('fail2ban.add_email')}}
+               {{$t('settings.add_email')}}
              </button>
             </div>
         </div>
@@ -117,7 +117,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.MailJailState')}}</label>
+          >{{$t('settings.MailJailState')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.MailJailState" class="form-control">
             <span
@@ -146,7 +146,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.Recidive_Perpetual')}}</label>
+          >{{$t('settings.Recidive_Perpetual')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.Recidive_Perpetual" class="form-control">
             <span
@@ -163,7 +163,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.BanLocalNetwork')}}</label>
+          >{{$t('settings.BanLocalNetwork')}}</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.BanLocalNetwork" class="form-control">
             <span
@@ -179,7 +179,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('fail2ban.LogLevel')}}</label>
+          >{{$t('settings.LogLevel')}}</label>
           <div class="col-sm-5">
             <select
               required
@@ -187,12 +187,12 @@
               v-model="configuration.LogLevel"
               class="combobox form-control"
             >
-              <option value="DEBUG">{{$t('fail2ban.LogLevel_DEBUG')}}</option>
-              <option value="INFO">{{$t('fail2ban.LogLevel_INFO')}}</option>
-              <option value="NOTICE">{{$t('fail2ban.LogLevel_NOTICE')}}</option>
-              <option value="WARNING">{{$t('fail2ban.LogLevel_WARNING')}}</option>
-              <option value="ERROR">{{$t('fail2ban.LogLevel_ERROR')}}</option>
-              <option value="CRITICAL">{{$t('fail2ban.LogLevel_CRITICAL')}}</option>
+              <option value="DEBUG">{{$t('settings.LogLevel_DEBUG')}}</option>
+              <option value="INFO">{{$t('settings.LogLevel_INFO')}}</option>
+              <option value="NOTICE">{{$t('settings.LogLevel_NOTICE')}}</option>
+              <option value="WARNING">{{$t('settings.LogLevel_WARNING')}}</option>
+              <option value="ERROR">{{$t('settings.LogLevel_ERROR')}}</option>
+              <option value="CRITICAL">{{$t('settings.LogLevel_CRITICAL')}}</option>
             </select>
             <span v-if="errors.LogLevel.hasError" class="help-block">
               {{$t('validation.validation_failed')}}:
@@ -203,27 +203,27 @@
 
         <!-- slider -->
         <div v-if="configuration.status && configuration.advanced" :class="['form-group', errors.MaxRetry.hasError ? 'has-error' : '']">
-            <label class="col-sm-2 control-label" for="filter">{{$t('fail2ban.MaxRetry')}}</label>
+            <label class="col-sm-2 control-label" for="filter">{{$t('settings.MaxRetry')}}</label>
             <div class="col-sm-5">
-                <div>{{$t('fail2ban.slider_value')}} {{configuration.MaxRetry}}</div>
+                <div>{{$t('settings.slider_value')}} {{configuration.MaxRetry}}</div>
                 <vue-slider v-model="configuration.MaxRetry" :min="1" :max="10" :use-keyboard="true" :tooltip="'none'"></vue-slider>
-                <span v-if="errors.MaxRetry.hasError" class="help-block">{{$t('fail2ban.Not_valid_MaxRetry')}}</span>
+                <span v-if="errors.MaxRetry.hasError" class="help-block">{{$t('settings.Not_valid_MaxRetry')}}</span>
             </div>
         </div>
         <div v-if="configuration.status && configuration.advanced" :class="['form-group', errors.FindTime.hasError ? 'has-error' : '']">
-            <label class="col-sm-2 control-label" for="filter">{{$t('fail2ban.FindTime')}}</label>
+            <label class="col-sm-2 control-label" for="filter">{{$t('settings.FindTime')}}</label>
             <div class="col-sm-5">
-                <div>{{$t('fail2ban.slider_value')}} {{ $t('fail2ban.FindTime_'+configuration.FindTime) }}</div>
+                <div>{{$t('settings.slider_value')}} {{ $t('settings.FindTime_'+configuration.FindTime) }}</div>
                 <vue-slider v-model="configuration.FindTime"  :data="FindTime" :tooltip="'none'"></vue-slider>
-                <span v-if="errors.FindTime.hasError" class="help-block">{{$t('fail2ban.Not_valid_FindTime')}}</span>
+                <span v-if="errors.FindTime.hasError" class="help-block">{{$t('settings.Not_valid_FindTime')}}</span>
             </div>
         </div>
         <div v-if="configuration.status && configuration.advanced" :class="['form-group', errors.BanTime.hasError ? 'has-error' : '']">
-            <label class="col-sm-2 control-label" >{{$t('fail2ban.BanTime')}} </label>
+            <label class="col-sm-2 control-label" >{{$t('settings.BanTime')}} </label>
             <div class="col-sm-5">
-                <div>{{$t('fail2ban.slider_value')}} {{ $t('fail2ban.BanTime_'+configuration.BanTime) }}</div>
+                <div>{{$t('settings.slider_value')}} {{ $t('settings.BanTime_'+configuration.BanTime) }}</div>
                 <vue-slider v-model="configuration.BanTime"  :data="BanTime" :tooltip="'none'"></vue-slider>
-                <span v-if="errors.BanTime.hasError" class="help-block">{{$t('fail2ban.Not_valid_BanTime')}}</span>
+                <span v-if="errors.BanTime.hasError" class="help-block">{{$t('settings.Not_valid_BanTime')}}</span>
             </div>
         </div>
 
@@ -426,10 +426,10 @@ export default {
       
           // notification
           nethserver.notifications.success = context.$i18n.t(
-            "fail2ban.settings_updated_ok"
+            "settings.settings_updated_ok"
           );
           nethserver.notifications.error = context.$i18n.t(
-            "fail2ban.settings_updated_error"
+            "settings.settings_updated_error"
           );
 
           // update values

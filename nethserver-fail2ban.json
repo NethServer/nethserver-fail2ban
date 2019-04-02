@@ -15,9 +15,9 @@
         "url": "https://github.com/NethServer/dev/issues"
     },
     "author": {
-        "name": "Edoardo Spadoni, Giacomo Sanchietti, stephane de Labrusse",
+        "name": "stephane de Labrusse",
         "url": "https://github.com/NethServer/nethserver-fail2ban",
-        "email": "edoardo.spadoni@nethesis.it, giacomo.sanchietti@nethesis.it, stephdl@de-labrusse.fr"
+        "email": "stephdl@de-labrusse.fr"
     },
     "icon": "logo.png"
 }
