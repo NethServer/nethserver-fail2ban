@@ -3,7 +3,7 @@
         <h2>{{$t('dashboard.title')}}</h2>
         <div v-if="!view.isLoaded" class="spinner spinner-lg"></div>
         <div v-if="view.isLoaded">
-            <h3 class="col-lg-6">{{$t('fail2ban.number_of_enabled_jail')}}: {{configuration.JailStatus.length}}</h3>
+            <h3 class="col-lg-6">{{$t('fail2ban.number_of_active_jail')}}: {{configuration.JailStatus.length}}</h3>
             <div class="row row-dashboard">
                 <div class="col-lg-8"> 
                     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 resources-panel">
@@ -12,7 +12,7 @@
                                 <h3 class="panel-title">
                                     <span class="icon-header-panel">
                                         <span class="fa fa-check right"></span>
-                                    </span>{{$t('fail2ban.list_enabled_jails')}}
+                                    </span>{{$t('fail2ban.list_active_jails')}}
                                 </h3>
                             </div>
                             <div class="panel-body">
@@ -32,7 +32,7 @@
                                 <h3 class="panel-title">
                                     <span class="icon-header-panel">
                                         <span class="fa pficon-locked right"></span>
-                                    </span>{{$t('fail2ban.statistic_per_jail')}}
+                                    </span>{{$t('fail2ban.number_bans_per_jail')}}
                                 </h3>
                             </div>
                             <div class="panel-body">
@@ -47,15 +47,7 @@
                     </div>
                 </div>
             </div>
-            
-            <h3>{{$t('fail2ban.statistic_per_jail')}}</h3>
-            <div  v-for="(value, Jail) in configuration.TotalBannedIP">
-                div class="row">
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{Jail}}:</div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{value}}</div>
-                <div class="divider"></div>
-            </div>
-        </div> -->
+        </div>
     </div>
 </div>
 </template>
@@ -183,15 +175,4 @@ export default {
 </script>
 
 <style>
-
-.button {
-  -webkit-transition-duration: 0.4s; /* Safari */
-  transition-duration: 0.4s;
-  width: 250px;
-}
-
-.button:hover {
-  background-color: #4CAF50; /* Green */
-  color: white;
-}
 </style>
