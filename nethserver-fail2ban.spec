@@ -4,6 +4,7 @@ Version: 1.1.5
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
+Source1: %{name}-cockpit.tar.gz
 BuildArch: noarch
 URL: http://dev.nethserver.org/projects/nethforge/wiki/%{name}
 BuildRequires: nethserver-devtools
@@ -32,6 +33,14 @@ perl createlinks
 %install
 rm -rf $RPM_BUILD_ROOT
 (cd root   ; find . -depth -print | cpio -dump $RPM_BUILD_ROOT)
+
+mkdir -p %{buildroot}/usr/share/cockpit/%{name}/
+mkdir -p %{buildroot}/usr/share/cockpit/nethserver/applications/
+mkdir -p %{buildroot}/usr/libexec/nethserver/api/%{name}/
+tar xvf %{SOURCE1} -C %{buildroot}/usr/share/cockpit/%{name}/
+cp -a %{name}.json %{buildroot}/usr/share/cockpit/nethserver/applications/
+cp -a api/* %{buildroot}/usr/libexec/nethserver/api/%{name}/
+chmod +x %{buildroot}/usr/libexec/nethserver/api/%{name}/*
 
 %{__mkdir_p} -p $RPM_BUILD_ROOT/var/run/fail2ban
 

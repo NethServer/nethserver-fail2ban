@@ -1,0 +1,23 @@
+{
+    "id": "nethserver-fail2ban",
+    "name": "NethServer Fail2ban",
+    "summary": "Nethserver integration of Fail2ban",
+    "description": "Nethserver integration of Fail2ban",
+    "url": "",
+    "homepage": "https://github.com/NethServer/nethserver-fail2ban",
+    "provides": ["nethserver-fail2ban"],
+    "release": {
+        "version": "1.0.0"
+    },
+    "tags": ["tag1", "tag2", "tag3"],
+    "license": "GPL-3.0",
+    "bugs": {
+        "url": "https://github.com/NethServer/dev/issues"
+    },
+    "author": {
+        "name": "stephane de Labrusse",
+        "url": "https://github.com/NethServer/nethserver-fail2ban",
+        "email": "stephdl@de-labrusse.fr"
+    },
+    "icon": "logo.png"
+}
