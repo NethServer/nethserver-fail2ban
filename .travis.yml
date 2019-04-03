@@ -1,4 +1,11 @@
 ---
+sudo: required
+language: node_js
+node_js:
+  - "8"
+git:
+depth: false
+
 language: ruby
 services:
     - docker
@@ -20,10 +27,17 @@ env:
         -e TRAVIS_REPO_SLUG
         -e TRAVIS_TAG
         -e NSVER
-        -e VERSIONS_PACK
-        -e STAGES_PACK
-        -e UPLOAD_DEST
+        -e ENDPOINTS_PACK
         "
+before_install:
+    - sudo apt-get install -y npm python-setuptools
+    - sudo npm config set ca ""
+    - sudo npm conf set strict-ssl false
+    - sudo easy_install pip
+    - sudo pip install transifex-client
+
+install:
+- ./prep-sources
 
 script: >
     docker run -ti --name makerpms ${EVARS}
