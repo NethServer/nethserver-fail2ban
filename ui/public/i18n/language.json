@@ -121,7 +121,8 @@
         "title": "Dashboard",
         "list_active_jails": "List all active jails",
         "number_of_active_jail": "Number of active jails",
-        "number_bans_per_jail": "Number of bans per jail"
+        "number_bans_per_jail": "Number of bans per jail",
+        "empty_piechart_label": "Empty data"
     },
     "validation":{
         "validation_failed": "Validation failed",
