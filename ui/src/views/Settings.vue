@@ -379,7 +379,7 @@ export default {
         function(error) {
           console.error(error);
         },
-        false
+        true //sudo
       );
     },
     toggleStatus() {
@@ -445,7 +445,7 @@ export default {
             function(error, data) {
               console.error(error, data);
             },
-            false
+            true //sudo
           );
         },
         function(error, data) {
@@ -464,7 +464,7 @@ export default {
             console.error(e);
           }
       },
-        false
+        true // sudo
     );
     }
   }
