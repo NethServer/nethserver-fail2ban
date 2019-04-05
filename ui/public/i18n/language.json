@@ -134,6 +134,11 @@
         "valid_memberOf_CRITICAL, ERROR, WARNING, NOTICE, INFO, DEBUG": "Must be a member of CRITICAL, ERROR, WARNING, NOTICE, INFO, DEBUG"
     },
     "docs":{
-        "fail2ban": "Fail2ban"
+        "fail2ban": "Fail2ban",
+        "more_info_about": "More Information about ",
+        "IgnoreIP": "All IP in this list will never be banned by Fail2ban (One IP per line)",
+        "MailJailState": "All relative events to the jail (start or stop), will be notified to root and other recipients",
+        "FindTime": "When fail2ban starts, the service looks for attackers in the logs for this time interval",
+        "LogLevel": "The DEBUG level could generate huge log size and fill your disk space"
     }
 }

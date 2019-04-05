@@ -3,14 +3,14 @@
     <h2>{{$t('settings.title')}}</h2>
     <div v-if="!view.isLoaded" class="spinner spinner-lg"></div>
     <div v-if="view.isLoaded">
-        <!-- <doc-info
+        <doc-info
               :placement="'top'"
               :title="$t('docs.fail2ban')"
               :chapter="'fail2ban'"
               :section="''"
               :inline="false"
-        ></doc-info> -->
-
+              :lang="'en'"
+        ></doc-info>
       <h3>{{$t('settings.configuration')}}</h3>
       <form class="form-horizontal" v-on:submit.prevent="saveSettings('status')">
         <div :class="['form-group', errors.status.hasError ? 'has-error' : '']">
@@ -34,11 +34,7 @@
             >{{errors.status.message}}</span>
           </div>
         </div>
-        
-        
-        
         <!-- IgnoreIP -->
-        
         <div
         v-if="configuration.status"
         :class="['form-group', errors.IgnoreIP.hasError ? 'has-error' : '']"
@@ -46,7 +42,14 @@
         <label
         class="col-sm-2 control-label"
         for="textInput-modal-markup"
-        >{{$t('settings.IgnoreIP')}}</label>
+        >{{$t('settings.IgnoreIP')}}
+        <doc-info
+          :placement="'top'"
+          :title="$t('settings.IgnoreIP')"
+          :chapter="'IgnoreIP'"
+          :inline="true"
+        ></doc-info>
+        </label>
         <div class="col-sm-5">
             <textarea v-model="configuration.IgnoreIP" class="form-control"></textarea>
             <span v-if="errors.IgnoreIP.hasError" class="help-block">
@@ -55,7 +58,6 @@
             </span>
         </div>
         </div>    
-
         <!-- mail -->
         <div
           v-if="configuration.status"
@@ -117,7 +119,14 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('settings.MailJailState')}}</label>
+          >{{$t('settings.MailJailState')}}
+          <doc-info
+            :placement="'top'"
+            :title="$t('settings.MailJailState')"
+            :chapter="'MailJailState'"
+            :inline="true"
+          ></doc-info>
+          </label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.MailJailState" class="form-control">
             <span
@@ -179,7 +188,14 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('settings.LogLevel')}}</label>
+          >{{$t('settings.LogLevel')}}
+          <doc-info
+            :placement="'top'"
+            :title="$t('settings.LogLevel')"
+            :chapter="'LogLevel'"
+            :inline="true"
+          ></doc-info>
+          </label>
           <div class="col-sm-5">
             <select
               required
@@ -200,28 +216,34 @@
             </span>
           </div>
         </div>
-
         <!-- slider -->
         <div v-if="configuration.status && configuration.advanced" :class="['form-group', errors.MaxRetry.hasError ? 'has-error' : '']">
             <label class="col-sm-2 control-label" for="filter">{{$t('settings.MaxRetry')}}</label>
             <div class="col-sm-5">
-                <div>{{$t('settings.slider_value')}} {{configuration.MaxRetry}}</div>
+                <div>{{configuration.MaxRetry}}</div>
                 <vue-slider v-model="configuration.MaxRetry" :min="1" :max="10" :use-keyboard="true" :tooltip="'none'"></vue-slider>
                 <span v-if="errors.MaxRetry.hasError" class="help-block">{{$t('settings.Not_valid_MaxRetry')}}</span>
             </div>
         </div>
         <div v-if="configuration.status && configuration.advanced" :class="['form-group', errors.FindTime.hasError ? 'has-error' : '']">
-            <label class="col-sm-2 control-label" for="filter">{{$t('settings.FindTime')}}</label>
+            <label class="col-sm-2 control-label" for="filter">{{$t('settings.FindTime')}}
+                <doc-info
+                  :placement="'top'"
+                  :title="$t('settings.FindTime')"
+                  :chapter="'FindTime'"
+                  :inline="true"
+                ></doc-info>
+            </label>
             <div class="col-sm-5">
-                <div>{{$t('settings.slider_value')}} {{ $t('settings.FindTime_'+configuration.FindTime) }}</div>
+                <div>{{ $t('settings.FindTime_'+configuration.FindTime) }}</div>
                 <vue-slider v-model="configuration.FindTime"  :data="FindTime" :tooltip="'none'"></vue-slider>
                 <span v-if="errors.FindTime.hasError" class="help-block">{{$t('settings.Not_valid_FindTime')}}</span>
             </div>
         </div>
         <div v-if="configuration.status && configuration.advanced" :class="['form-group', errors.BanTime.hasError ? 'has-error' : '']">
-            <label class="col-sm-2 control-label" >{{$t('settings.BanTime')}} </label>
+            <label class="col-sm-2 control-label" >{{$t('settings.BanTime')}}</label>
             <div class="col-sm-5">
-                <div>{{$t('settings.slider_value')}} {{ $t('settings.BanTime_'+configuration.BanTime) }}</div>
+                <div>{{ $t('settings.BanTime_'+configuration.BanTime) }}</div>
                 <vue-slider v-model="configuration.BanTime"  :data="BanTime" :tooltip="'none'"></vue-slider>
                 <span v-if="errors.BanTime.hasError" class="help-block">{{$t('settings.Not_valid_BanTime')}}</span>
             </div>
