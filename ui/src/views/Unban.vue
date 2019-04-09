@@ -1,63 +1,66 @@
 <template>
-  <div>
-    <h2>{{$t('unban.title')}}</h2>
-    <div v-if="!view.isLoaded" class="spinner spinner-lg"></div>
-
-    <h3>{{$t('list')}}</h3>
-
-    <vue-good-table
-      v-if="view.isLoaded"
-      :customRowsPerPageDropdown="[25,50,100]"
-      :perPage="25"
-      :columns="columns"
-      :rows="rows"
-      :lineNumbers="false"
-      :defaultSortBy="{field: 'ip', type: 'asc'}"
-      :globalSearch="true"
-      :paginate="true"
-      styleClass="table"
-      :nextText="tableLangsTexts.nextText"
-      :prevText="tableLangsTexts.prevText"
-      :rowsPerPageText="tableLangsTexts.rowsPerPageText"
-      :globalSearchPlaceholder="tableLangsTexts.globalSearchPlaceholder"
-      :ofText="tableLangsTexts.ofText"
-    >
-      <template slot="table-row" slot-scope="props">
-        <td class="fancy">
-          <strong>{{ props.row.ip }}</strong>
-        </td>
-        <td>
-          <button
-            @click="unban( props.row.ip )"
-            class="btn btn-default button-minimum"
-          >
-            <span
-              :class="['fa', 'fa-unlock', 'span-right-margin']"
-            ></span>
-            {{$t('unban.unBanIP') }}
-          </button>
-        </td>
-      </template>
-    </vue-good-table>
-  </div>
+    <div>
+        <h2>{{$t('unban.title')}}</h2>
+        <div v-if="!view.isLoaded" class="spinner spinner-lg"></div>
+        <div v-if="view.isLoaded">
+            <div v-if="JailStatus.length > 0">
+              <h3>{{$t('list')}}</h3>
+                <vue-good-table
+                v-if="view.isLoaded"
+                :customRowsPerPageDropdown="[25,50,100]"
+                :perPage="25"
+                :columns="columns"
+                :rows="rows"
+                :lineNumbers="false"
+                :defaultSortBy="{field: 'ip', type: 'asc'}"
+                :globalSearch="true"
+                :paginate="true"
+                styleClass="table"
+                :nextText="tableLangsTexts.nextText"
+                :prevText="tableLangsTexts.prevText"
+                :rowsPerPageText="tableLangsTexts.rowsPerPageText"
+                :globalSearchPlaceholder="tableLangsTexts.globalSearchPlaceholder"
+                :ofText="tableLangsTexts.ofText"
+                >
+                <template slot="table-row" slot-scope="props">
+                    <td class="fancy">
+                        <strong>{{ props.row.ip }}</strong>
+                    </td>
+                    <td>
+                        <button
+                        @click="unban( props.row.ip )"
+                        class="btn btn-default button-minimum"
+                        >
+                        <span
+                        :class="['fa', 'fa-unlock', 'span-right-margin']"
+                        ></span>
+                        {{$t('unban.unBanIP') }}
+                    </button>
+                    </td>
+                </template>
+                </vue-good-table>
+            </div>
+            <div v-else>
+                <h3>{{$t('unban.Fail2ban_is_probably_down')}}</h3>
+                <div class="divider"></div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
-
 export default {
   name: "Unban",
   mounted() {
     this.getBanned();
-
   },
   data() {
     return {
       view: {
         isLoaded: false,
       },
-      configuration:{
-          IPList: ""
-      },
+      IPList: [],
+      JailStatus: [],
       loaders: false,
       errors: this.initErrors(),
       tableLangsTexts: this.tableLangs(),
@@ -102,17 +105,22 @@ export default {
           } catch (e) {
             console.error(e);
           }
-          context.rows = success;
-          context.view.isLoaded = true;
+          context.rows = success.IPList;
+          
+        var jails = [{}];
+        jails = success.JailStatus.map(function(i) {
+            return {
+                email: i
+            };
+        });
+        context.JailStatus = jails.length == 0 ? [] : jails; 
+        context.view.isLoaded = true;
         },
         function(error) {
           console.error(error);
         },
         true //sudo
       );
-    },
-    toggleStatus() {
-      this.configuration.status = !this.configuration.status;
     },
     unban(type) {
       var context = this;
@@ -132,10 +140,10 @@ export default {
     
           // notification
           nethserver.notifications.success = context.$i18n.t(
-            "fail2ban.ip_unlocked_ok"
+            "unban.ip_unlocked_ok"
           );
           nethserver.notifications.error = context.$i18n.t(
-            "fail2ban.ip_unlocked_error"
+            "unban.ip_unlocked_error"
           );
     
           // update values
@@ -178,4 +186,7 @@ export default {
 </script>
 
 <style>
+.divider {
+    border-top: 1px solid #d1d1d1;
+}
 </style>

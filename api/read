@@ -63,7 +63,7 @@ if ($cmd eq 'statistic') {
 
 elsif ($cmd eq 'IPList') {
     if ( ! -f '/var/lib/nethserver/fail2ban/fail2ban.json') {
-        $data = {"IPList" => {}};
+        $data = {"IPList" => []};
     }
     else {
          $data = read_json("/var/lib/nethserver/fail2ban/fail2ban.json");
@@ -73,9 +73,16 @@ elsif ($cmd eq 'IPList') {
     push @IP, { ip => $k};
     }
 
-    print encode_json (\@IP);
+    # retrieve the all enabled jail by a bash command
+    # we want to know if fail2ban is running
+    my $jailStatus=`echo "\$(fail2ban-client status| grep "Jail list:"|sed 's/\`- Jail list:\t//g')"`;
+    $jailStatus=~ s/\s//g;
+    my @jailStatus = split(',',$jailStatus);
+
+    print encode_json ({"IPList"=> [@IP],"JailStatus" => [@jailStatus]});
     exit(0);
-}
+    }
+
 
 
 elsif ($cmd eq 'configuration') {
