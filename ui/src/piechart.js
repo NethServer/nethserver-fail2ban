@@ -28,10 +28,18 @@ export default function generatePieChart(bindto, data) {
     pieChartRightConfig.data = data
     pieChartRightConfig.data.expand = false
     pieChartRightConfig.data.type = 'pie'
-    pieChartRightConfig.color={ pattern:[ $.pfPaletteColors.red,$.pfPaletteColors.blue,$.pfPaletteColors.orange, $.pfPaletteColors.green]};// '#9467bd', '#c5b0d5', '#8c564b', '#c49c94', '#e377c2', '#f7b6d2', '#7f7f7f', '#c7c7c7', '#bcbd22', '#dbdb8d', '#17becf', '#9edae5']};
+    pieChartRightConfig.color={ pattern:[ $.pfPaletteColors.red,
+        $.pfPaletteColors.blue,$.pfPaletteColors.orange,
+        $.pfPaletteColors.green, $.pfPaletteColors.gold,
+        $.pfPaletteColors.purple]};
+    pieChartRightConfig.legend = {
+            show: true,
+            position: 'top'
+    }
     pieChartRightConfig.size = {
-        width: 250,
-        height: 250
-      };
+        width: 400,
+        height: 400
+      }
+    ;
     return c3.generate(pieChartRightConfig)
 }

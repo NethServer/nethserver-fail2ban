@@ -120,9 +120,11 @@
     "dashboard":{
         "title": "Dashboard",
         "list_active_jails": "List all active jails",
-        "number_of_active_jail": "Number of active jails",
-        "number_bans_per_jail": "Number of bans per jail",
-        "empty_piechart_label": "Empty data"
+        "number_of_active_jail": "Active jails",
+        "number_bans_per_jail": "Statistics of banned IP per jail",
+        "empty_piechart_label": "Empty data",
+        "number_of_enabled_jails": "Enabled jails",
+        "number_total_of_bans":"Total number of banned IP"
     },
     "validation":{
         "validation_failed": "Validation failed",

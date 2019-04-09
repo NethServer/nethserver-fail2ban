@@ -26,16 +26,16 @@ require "/usr/libexec/nethserver/api/lib/auth_functions.pl";
 use warnings;
 use strict;
 use JSON;
-use esmith::db;
-my $db = esmith::db->open("configuration");
+use esmith::ConfigDB;
 
+my $db = esmith::ConfigDB->open_ro;
 my $input = readInput();
 my $cmd = $input->{'action'} || '';
 my $data;
 my %ret;
 
-if ($cmd eq 'Statistic') {
-    if ( ! -f '/var/lib/nethserver/fail2ban/fail2ban.json') { 
+if ($cmd eq 'statistic') {
+    if ( ! -f '/var/lib/nethserver/fail2ban/fail2ban.json') {
         $data = {"TotalBannedIP" => {},"JailStatus" =>[]};
     }
     else {
@@ -46,10 +46,20 @@ if ($cmd eq 'Statistic') {
     $jailStatus=~ s/\s//g;
     my @jailStatus = split(',',$jailStatus);
 
-    print encode_json({"TotalBannedIP" => $data->{"TotalBannedIP"},"JailStatus" => [@jailStatus] });
+   # count the number of enabled jail
+   my @count = ();
+   my $fail2ban = $db->get('fail2ban');
+   my %fail2ban = $fail2ban->props();
+   foreach my $jail ( keys (%fail2ban)) {
+       next if ($jail !~ /_status/); #find jail status
+       my $true = $db->get_prop('fail2ban',$jail) || 'false'; 
+       next if ($true ne 'true'); # if not true, then next one 
+       push @count, $jail;
+   }
+
+    print encode_json({"TotalBannedIP" => $data->{"TotalBannedIP"},"JailStatus" => [@jailStatus],"JailEnabled" => scalar @count });
     exit(0);
 }
-
 
 elsif ($cmd eq 'IPList') {
     if ( ! -f '/var/lib/nethserver/fail2ban/fail2ban.json') {
@@ -65,7 +75,7 @@ elsif ($cmd eq 'IPList') {
 
     print encode_json (\@IP);
     exit(0);
-    }
+}
 
 
 elsif ($cmd eq 'configuration') {
