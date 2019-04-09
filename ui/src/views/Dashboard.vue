@@ -28,9 +28,17 @@
                                 </h3>
                             </div>
                             <div class="panel-body">
+                                <div v-if="configuration.JailStatus.length >0" >
+                                    
                                 <div  v-for="jail in configuration.JailStatus">
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">{{jail}}</div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div v-else> 
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">{{$t('dashboard.Fail2ban_is_probably_down')}}</div>
                                     </div>
                                 </div>
                             </div>
@@ -132,6 +140,9 @@ export default {
 .empty-piechart .fa {
   font-size: 92px;
   color: #bbbbbb;
+}
+.pficon-on-running {
+    margin-right: 2px;
 }
 .divider {
     border-top: 1px solid #d1d1d1;

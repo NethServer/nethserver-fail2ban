@@ -127,7 +127,9 @@
         "number_bans_per_jail": "Statistics of banned IP per jail",
         "empty_piechart_label": "Empty data",
         "number_of_enabled_jails": "Enabled jails",
-        "number_total_of_bans":"Total number of banned IP"
+        "number_total_of_bans":"Total number of banned IP",
+        "Fail2ban_is_probably_down": "Fail2ban is probably stopped, please check the logs"
+
     },
     "validation":{
         "validation_failed": "Validation failed",
