@@ -1,0 +1,155 @@
+#!/usr/bin/perl
+
+#
+# Copyright (C) 2019 Nethesis S.r.l.
+# http://www.nethesis.it - nethserver@nethesis.it
+#
+# This script is part of NethServer.
+#
+# NethServer is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License,
+# or any later version.
+#
+# NethServer is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with NethServer.  If not, see COPYING.
+#
+
+require "/usr/libexec/nethserver/api/lib/helper_functions.pl";
+require "/usr/libexec/nethserver/api/lib/auth_functions.pl";
+
+use warnings;
+use strict;
+use JSON;
+use esmith::ConfigDB;
+
+my $db = esmith::ConfigDB->open_ro;
+my $input = readInput();
+my $cmd = $input->{'action'} || '';
+my $data;
+my %ret;
+
+if ($cmd eq 'statistic') {
+    if ( ! -f '/var/lib/nethserver/fail2ban/fail2ban.json') {
+        $data = {"TotalBannedIP" => {},"JailStatus" =>[]};
+    }
+    else {
+          $data = read_json("/var/lib/nethserver/fail2ban/fail2ban.json");
+    }
+    # retrieve the all enabled jail by a bash command
+    my $jailStatus=`echo "\$(fail2ban-client status| grep "Jail list:"|sed 's/\`- Jail list:\t//g')"`;
+    $jailStatus=~ s/\s//g;
+    my @jailStatus = split(',',$jailStatus);
+
+   # count the number of enabled jail
+   my @count = ();
+   my $fail2ban = $db->get('fail2ban');
+   my %fail2ban = $fail2ban->props();
+   foreach my $jail ( keys (%fail2ban)) {
+       next if ($jail !~ /_status/); #find jail status
+       my $true = $db->get_prop('fail2ban',$jail) || 'false'; 
+       next if ($true ne 'true'); # if not true, then next one 
+       push @count, $jail;
+   }
+
+    print encode_json({"TotalBannedIP" => $data->{"TotalBannedIP"},"JailStatus" => [@jailStatus],"JailEnabled" => scalar @count });
+    exit(0);
+}
+
+elsif ($cmd eq 'IPList') {
+    if ( ! -f '/var/lib/nethserver/fail2ban/fail2ban.json') {
+        $data = {"IPList" => []};
+    }
+    else {
+         $data = read_json("/var/lib/nethserver/fail2ban/fail2ban.json");
+    }
+    my @IP = ();
+    foreach my $k (keys ($data->{"IPList"})){
+    push @IP, { ip => $k};
+    }
+
+    # retrieve the all enabled jail by a bash command
+    # we want to know if fail2ban is running
+    my $jailStatus=`echo "\$(fail2ban-client status| grep "Jail list:"|sed 's/\`- Jail list:\t//g')"`;
+    $jailStatus=~ s/\s//g;
+    my @jailStatus = split(',',$jailStatus);
+
+    print encode_json ({"IPList"=> [@IP],"JailStatus" => [@jailStatus]});
+    exit(0);
+    }
+
+
+
+elsif ($cmd eq 'configuration') {
+
+
+    my @addresses = ();
+    my $email_address = $db->get_prop('fail2ban', 'CustomDestemail');
+    if ($email_address) {
+        @addresses = split(",",$email_address);
+    }
+
+    my %fail2ban = (
+            CustomDestemail => \@addresses,
+            IgnoreIP => $db->get_prop('fail2ban','IgnoreIP'),
+            ApacheAuth_status => $db->get_prop('fail2ban','ApacheAuth_status'),
+            ApacheBadbots_status => $db->get_prop('fail2ban','ApacheBadbots_status'),
+            ApacheBotsearch_status => $db->get_prop('fail2ban','ApacheBotsearch_status'),
+            ApacheFakegooglebot_status => $db->get_prop('fail2ban','ApacheFakegooglebot_status'),
+            ApacheModsecurity_status => $db->get_prop('fail2ban','ApacheModsecurity_status'),
+            ApacheNohome_status => $db->get_prop('fail2ban','ApacheNohome_status'),
+            ApacheNoscript_status => $db->get_prop('fail2ban','ApacheNoscript_status'),
+            ApacheOverflows_status => $db->get_prop('fail2ban','ApacheOverflows_status'),
+            ApachePhpMyAdmin_status => $db->get_prop('fail2ban','ApachePhpMyAdmin_status'),
+            ApacheScan_status => $db->get_prop('fail2ban','ApacheScan_status'),
+            ApacheShellshock_status => $db->get_prop('fail2ban','ApacheShellshock_status'),
+            AsteriskAuth_status => $db->get_prop('fail2ban','AsteriskAuth_status'),
+            BanAction => $db->get_prop('fail2ban','BanAction'),
+            BanLocalNetwork => $db->get_prop('fail2ban','BanLocalNetwork'),
+            BanTime => $db->get_prop('fail2ban','BanTime'),
+            DbPurgeage => $db->get_prop('fail2ban','DbPurgeage'),
+            Dovecot_status => $db->get_prop('fail2ban','Dovecot_status'),
+            EjabberAuth_status => $db->get_prop('fail2ban','EjabberAuth_status'),
+            FindTime => $db->get_prop('fail2ban','FindTime'),
+            HttpdAdmin_status => $db->get_prop('fail2ban','HttpdAdmin_status'),
+            LogLevel => $db->get_prop('fail2ban','LogLevel'),
+            Mail => $db->get_prop('fail2ban','Mail'),
+            MailJailState => $db->get_prop('fail2ban','MailJailState'),
+            MaxRetry => $db->get_prop('fail2ban','MaxRetry'),
+            MysqldAuth_status => $db->get_prop('fail2ban','MysqldAuth_status'),
+            Nextcloud_status => $db->get_prop('fail2ban','Nextcloud_status'),
+            NginxBotSearch_status => $db->get_prop('fail2ban','NginxBotSearch_status'),
+            NginxHttpAuth_status => $db->get_prop('fail2ban','NginxHttpAuth_status'),
+            OpenVpnAuth_status => $db->get_prop('fail2ban','OpenVpnAuth_status'),
+            Owncloud_status => $db->get_prop('fail2ban','Owncloud_status'),
+            PamGeneric_status => $db->get_prop('fail2ban','PamGeneric_status'),
+            PostfixRbl_status => $db->get_prop('fail2ban','PostfixRbl_status'),
+            PostfixSaslAbuse_status => $db->get_prop('fail2ban','PostfixSaslAbuse_status'),
+            Postfix_status => $db->get_prop('fail2ban','Postfix_status'),
+            Recidive_Perpetual => $db->get_prop('fail2ban','Recidive_Perpetual'),
+            Recidive_status => $db->get_prop('fail2ban','Recidive_status'),
+            Roundcube_status => $db->get_prop('fail2ban','Roundcube_status'),
+            Rspamd_status => $db->get_prop('fail2ban','Rspamd_status'),
+            Sieve_status => $db->get_prop('fail2ban','Sieve_status'),
+            SogoAuth_status => $db->get_prop('fail2ban','SogoAuth_status'),
+            SshdDdos_status => $db->get_prop('fail2ban','SshdDdos_status'),
+            Sshd_status => $db->get_prop('fail2ban','Sshd_status'),
+            TimedOut => $db->get_prop('fail2ban','TimedOut'),
+            Urbackup_status => $db->get_prop('fail2ban','Urbackup_status'),
+            Vsftpd_status => $db->get_prop('fail2ban','Vsftpd_status'),
+            Webtop_status => $db->get_prop('fail2ban','Webtop_status'),
+            status => $db->get_prop('fail2ban','status')
+            );
+
+    $ret{'configuration'}{'props'} = \%fail2ban;
+    print encode_json(\%ret);
+    exit (0);
+}
+else {
+    error();
+}

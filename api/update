@@ -1,0 +1,120 @@
+#!/usr/bin/perl
+
+#
+# Copyright (C) 2019 Nethesis S.r.l.
+# http://www.nethesis.it - nethserver@nethesis.it
+#
+# This script is part of NethServer.
+#
+# NethServer is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License,
+# or any later version.
+#
+# NethServer is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with NethServer.  If not, see COPYING.
+#
+
+use strict;
+use esmith::ConfigDB;
+use esmith::event;
+use JSON;
+
+require '/usr/libexec/nethserver/api/lib/helper_functions.pl';
+
+my $cdb = esmith::ConfigDB->open() || die("Could not open ConfigDB");
+my $data = readInput();
+my $action = $data->{'action'};
+
+
+if ($action eq 'configuration') {
+    foreach my $prop (qw(
+    BanLocalNetwork
+    BanTime
+    FindTime
+    LogLevel
+    Mail
+    MailJailState
+    MaxRetry
+    Recidive_Perpetual
+    status
+    )) {
+        $cdb->set_prop('fail2ban', $prop, $data->{$prop});
+    }
+
+     $cdb->set_prop('fail2ban', 'CustomDestemail',join (',',@{$data->{'CustomDestemail'}}));
+     $cdb->set_prop('fail2ban', 'IgnoreIP',join (',',@{$data->{'IgnoreIP'}}));
+
+    esmith::event::set_json_log(1);
+    my $success = esmith::event::event_signal('nethserver-fail2ban-save');
+    if($success) {
+        success();
+    } else {
+       error("EventError", "update_action_failed", 1550763312);
+    }
+}
+elsif ($action eq 'jails') {
+    foreach my $prop (qw(
+    ApacheAuth_status
+    ApacheBadbots_status
+    ApacheBotsearch_status
+    ApacheFakegooglebot_status
+    ApacheModsecurity_status
+    ApacheNohome_status
+    ApacheNoscript_status
+    ApacheOverflows_status
+    ApachePhpMyAdmin_status
+    ApacheScan_status
+    ApacheShellshock_status
+    AsteriskAuth_status
+    Dovecot_status
+    EjabberAuth_status
+    HttpdAdmin_status
+    MysqldAuth_status
+    Nextcloud_status
+    NginxBotSearch_status
+    NginxHttpAuth_status
+    OpenVpnAuth_status
+    Owncloud_status
+    PamGeneric_status
+    PostfixRbl_status
+    PostfixSaslAbuse_status
+    Postfix_status
+    Recidive_status
+    Roundcube_status
+    Rspamd_status
+    Sieve_status
+    SogoAuth_status
+    SshdDdos_status
+    Sshd_status
+    Urbackup_status
+    Vsftpd_status
+    Webtop_status
+    status
+    )) {
+        $cdb->set_prop('fail2ban', $prop, $data->{$prop});
+    }
+    esmith::event::set_json_log(1);
+    my $success = esmith::event::event_signal('nethserver-fail2ban-save');
+    if($success) {
+        success();
+    } else {
+        error("EventError", "update_action_failed", 1550763312);
+    }
+} 
+elsif ($action eq 'unban') {
+    esmith::event::set_json_log(1);
+    my $success = esmith::event::event_signal('nethserver-fail2banUnBan-save',$data->{'unBanIP'});
+    if($success) {
+        success();
+    } else {
+        error("EventError", "unban_action_failed", 1550763312);
+    }
+} else {
+    error();
+}
