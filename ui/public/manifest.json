@@ -1,11 +1,4 @@
 {
     "version": 0,
-    "priority": 10,
-    "menu": {
-        "index": {
-            "label": "NethServer Fail2ban",
-            "order": 40
-        }
-    },
-    "content-security-policy": "default-src 'self' 'unsafe-inline' 'unsafe-eval'"
+    "content-security-policy": "style-src 'self' 'unsafe-inline'"
 }
