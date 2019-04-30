@@ -1,6 +1,6 @@
 {
     "id": "nethserver-fail2ban",
-    "name": "NethServer Fail2ban",
+    "name": "Fail2ban",
     "summary": "Nethserver integration of Fail2ban",
     "description": "Nethserver integration of Fail2ban",
     "url": "",
