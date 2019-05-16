@@ -30,7 +30,7 @@ binmode STDOUT, ":utf8";
 
 my ($action,$ip,$jail) = @ARGV;
 my $jsonFile = '/var/lib/nethserver/fail2ban/fail2ban.json';
-my $json;
+my $json ='{"TotalBannedIP": {},"IPList": {},"IPDebug": {}}';
 
 #write to logs
 sub log2messages
@@ -61,9 +61,12 @@ if ( -f $jsonFile )    {
     open my $fh, "<", $jsonFile;
     $json = <$fh>;
     close $fh;
-}
-else {
-    $json ='{"TotalBannedIP": {},"IPList": {},"IPDebug": {}}';
+
+    #Json validation
+    unless (eval {decode_json($json)}) {
+        unlink $jsonFile;
+        $json ='{"TotalBannedIP": {},"IPList": {},"IPDebug": {}}';
+    }
 }
 
 my $data = decode_json($json);
