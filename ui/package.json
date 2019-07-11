@@ -9,7 +9,7 @@
     "watch": "vue-cli-service build --watch"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "c3": "^0.6.13",
     "vue": "^2.6.6",
     "vue-good-table": "^1.21.0",
