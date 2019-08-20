@@ -21,7 +21,6 @@
 #
 
 require "/usr/libexec/nethserver/api/lib/helper_functions.pl";
-require "/usr/libexec/nethserver/api/lib/auth_functions.pl";
 
 use warnings;
 use strict;
@@ -33,6 +32,22 @@ my $input = readInput();
 my $cmd = $input->{'action'} || '';
 my $data;
 my %ret;
+
+sub read_json
+{
+    my $file = shift || return undef;
+    return undef if (! -e $file);
+
+    my $json;
+    {
+        local $/; #Enable 'slurp' mode
+        open my $fh, "<", $file or return undef;
+        $json = <$fh>;
+        close $fh;
+    }
+
+    return decode_json($json);
+}
 
 if ($cmd eq 'statistic') {
     if ( ! -f '/var/lib/nethserver/fail2ban/fail2ban.json') {
