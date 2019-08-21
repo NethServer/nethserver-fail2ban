@@ -20,15 +20,14 @@
 # along with NethServer.  If not, see COPYING.
 #
 
-require "/usr/libexec/nethserver/api/lib/helper_functions.pl";
-
 use warnings;
 use strict;
 use JSON;
 use esmith::ConfigDB;
+use NethServer::ApiTools;
 
 my $db = esmith::ConfigDB->open_ro;
-my $input = readInput();
+my $input = NethServer::ApiTools::readInput();
 my $cmd = $input->{'action'} || '';
 my $data;
 my %ret;
@@ -166,5 +165,5 @@ elsif ($cmd eq 'configuration') {
     exit (0);
 }
 else {
-    error();
+    NethServer::ApiTools::error();
 }
