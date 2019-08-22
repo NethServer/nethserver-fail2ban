@@ -24,4 +24,4 @@ if [[ $IP == '' ]]; then
     exit 0
 fi
 
-/usr/bin/fail2ban-unban $IP > /dev/null
+/usr/libexec/nethserver/shorewall-nethserver allow $IP > /dev/null

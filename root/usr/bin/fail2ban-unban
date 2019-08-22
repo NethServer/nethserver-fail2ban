@@ -34,4 +34,4 @@ do
 done
 
 #Allow the IP in shorewall, this script could be used as a wrapper
-/usr/sbin/shorewall allow $1 2> /dev/null
+/usr/libexec/nethserver/shorewall-nethserver allow $1 2> /dev/null
