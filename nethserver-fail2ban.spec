@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 Name: nethserver-fail2ban
-Version: 1.1.7
+Version: 1.1.8
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -62,6 +62,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_nseventsdir}/%{name}-update
 
 %changelog
+* Tue Aug 27 2019 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.1.8-1
+- Fail2ban: IP are unbanned but still listed in json database - Bug NethServer/dev#5808
+
 * Tue May 28 2019 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.1.7-1
 - fail2ban not banning when fail2ban.json is corrupt - Bug NethServer/dev#5759
 
