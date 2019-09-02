@@ -29,6 +29,7 @@ NethServer configuration for fail2ban
 %build
 %{makedocs}
 perl createlinks
+sed -i 's/_RELEASE_/%{version}/' %{name}.json
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -114,7 +115,7 @@ rm -rf $RPM_BUILD_ROOT
 - Code from dnutan
 
 * Fri May 25 2018 Stephane de Labrusse <stephdl@de-labrusse.fr> - 1.0.2-1
-- Fail2ban dies if ban/unban is impossible. 
+- Fail2ban dies if ban/unban is impossible.
 - IP Key suppression and unban if ban counter is > 2
 
 * Tue May 15 2018 Stephane de Labrusse <stephdl@de-labrusse.fr> - 1.0.1-1
