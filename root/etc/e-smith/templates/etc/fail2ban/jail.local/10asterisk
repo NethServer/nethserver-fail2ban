@@ -5,6 +5,7 @@ return "\n#asterisk is not used on this server" unless (( -f '/var/log/asterisk/
 my $AsteriskAuth_status = $fail2ban{AsteriskAuth_status} || 'true';
 my $TCPPorts = $asterisk{TCPPorts} || '5060,6061';
 my $maxretry = $fail2ban{Asterisk_MaxRetry} || $fail2ban{MaxRetry}*2 || '6';
+my $action = (($fail2ban{Mail} || 'enabled') eq 'enabled') ? '%(action_mw)s' : '%(action_)s';
 
 $OUT .= qq (
 [asterisk]
@@ -12,11 +13,13 @@ enabled  = $AsteriskAuth_status
 port     = $TCPPorts
 logpath  = /var/log/asterisk/full
 maxretry = $maxretry
+action = $action
 
 [asterisk_nethserver]
 enabled  = $AsteriskAuth_status
 port     = $TCPPorts
 logpath  = /var/log/asterisk/full
 maxretry = $maxretry
+action = $action
 );
 }
