@@ -24,11 +24,9 @@ use strict;
 use esmith::ConfigDB;
 use esmith::event;
 use JSON;
-
-require '/usr/libexec/nethserver/api/lib/helper_functions.pl';
-
+use NethServer::ApiTools;
+my $data = NethServer::ApiTools::readInput();
 my $cdb = esmith::ConfigDB->open() || die("Could not open ConfigDB");
-my $data = readInput();
 my $action = $data->{'action'};
 
 
@@ -53,9 +51,9 @@ if ($action eq 'configuration') {
     esmith::event::set_json_log(1);
     my $success = esmith::event::event_signal('nethserver-fail2ban-save');
     if($success) {
-        success();
+        NethServer::ApiTools::success();
     } else {
-       error("EventError", "update_action_failed", 1550763312);
+       NethServer::ApiTools::error("EventError", "update_action_failed", 1550763312);
     }
 }
 elsif ($action eq 'jails') {
@@ -102,19 +100,19 @@ elsif ($action eq 'jails') {
     esmith::event::set_json_log(1);
     my $success = esmith::event::event_signal('nethserver-fail2ban-save');
     if($success) {
-        success();
+        NethServer::ApiTools::success();
     } else {
-        error("EventError", "update_action_failed", 1550763312);
+        NethServer::ApiTools::error("EventError", "update_action_failed", 1550763312);
     }
 } 
 elsif ($action eq 'unban') {
     esmith::event::set_json_log(1);
     my $success = esmith::event::event_signal('nethserver-fail2banUnBan-save',$data->{'unBanIP'});
     if($success) {
-        success();
+        NethServer::ApiTools::success();
     } else {
-        error("EventError", "unban_action_failed", 1550763312);
+        NethServer::ApiTools::error("EventError", "unban_action_failed", 1550763312);
     }
 } else {
-    error();
+    NethServer::ApiTools::error();
 }

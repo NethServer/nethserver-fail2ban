@@ -1,0 +1,12 @@
+#
+# API delegation for fail2ban
+#
+
+Cmnd_Alias NSAPI_NETHSERVER_FAIL2BAN = \
+    /usr/libexec/nethserver/api/nethserver-fail2ban/read, \
+    /usr/libexec/nethserver/api/nethserver-fail2ban/update, \
+    /usr/libexec/nethserver/api/nethserver-fail2ban/validate
+
+# server-manager does not require a tty
+Defaults!NSAPI_NETHSERVER_FAIL2BAN !requiretty
+
