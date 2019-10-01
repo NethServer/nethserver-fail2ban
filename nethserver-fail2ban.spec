@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 Name: nethserver-fail2ban
-Version: 1.1.10
+Version: 1.2.0
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -64,6 +64,10 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_nseventsdir}/%{name}-update
 
 %changelog
+* Tue Oct 01 2019 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.2.0-1
+- Fail2ban: asterisk jail is always sending email - Bug NethServer/dev#5829
+- Fail2ban: unknow sip  login not banned (asterisk) - Bug NethServer/dev#5849
+
 * Mon Sep 16 2019 Stephane de Labrusse <stephdl@de-labrusse.fr> - 1.1.10-1
 - Fail2ban: asterisk jail is always sending email - Bug NethServer/dev#5829
 
