@@ -33,5 +33,10 @@ do
     /usr/bin/fail2ban-client set $j  unbanip $1 2> /dev/null
 done
 
-#Allow the IP in shorewall, this script could be used as a wrapper
-/usr/libexec/nethserver/shorewall-nethserver allow $1 2> /dev/null
+# retrieve the set of ipset, then unban th ip in all set
+SET=$(ipset -L -name)
+for s in $SET
+do
+    ipset del $s $1 -exist
+done
+

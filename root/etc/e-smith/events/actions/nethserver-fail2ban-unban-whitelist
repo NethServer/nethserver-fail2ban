@@ -28,6 +28,9 @@ my $IPList = $db->get_prop('fail2ban','IgnoreIP') || '';
 
 exit 0 if ($IPList eq '');
 
-foreach (split (',',$IPList)) {
-    system("/usr/libexec/nethserver/shorewall-nethserver allow $_");
+foreach my $ip (split (',',$IPList)) {
+    # Unban from all set of ipset
+    foreach my $s (split ("\n", `ipset -L -name`)) {
+        system("ipset del $s $ip -exist");
+    }
 }
