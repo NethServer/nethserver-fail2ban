@@ -8,7 +8,7 @@ Source1: %{name}-cockpit.tar.gz
 BuildArch: noarch
 URL: http://dev.nethserver.org/projects/nethforge/wiki/%{name}
 BuildRequires: nethserver-devtools
-Requires: fail2ban fail2ban-shorewall perl-Email-Valid
+Requires: fail2ban perl-Email-Valid
 #AutoReq: no
 
 %description
@@ -51,7 +51,7 @@ chmod +x %{buildroot}/usr/libexec/nethserver/api/%{name}/*
   --file /usr/bin/fail2ban-unban 'attr(0750,root,root)' \
   --file /usr/libexec/nethserver/fail2ban-listban 'attr(0755,root,root)' \
   --file /usr/libexec/nethserver/fail2ban-listip 'attr(0755,root,root)' \
-  --file /usr/libexec/nethserver/shorewall-nethserver 'attr(0750,root,root)' \
+  --file /usr/libexec/nethserver/fail2ban_statistics 'attr(0750,root,root)' \
   --file /etc/sudoers.d/50_nsapi_nethserver_fail2ban 'attr(0440,root,root)' \
 $RPM_BUILD_ROOT > e-smith-%{version}-filelist
 

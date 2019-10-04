@@ -1,0 +1,70 @@
+#!/usr/bin/perl
+#
+# Copyright (C) 2019 Nethesis S.r.l.
+# http://www.nethesis.it - nethserver@nethesis.it
+#
+# This script is part of NethServer.
+#
+# NethServer is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License,
+# or any later version.
+#
+# NethServer is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with NethServer.  If not, see COPYING.
+#
+
+# Make statistic of the number of bans
+
+use utf8;
+use JSON;
+
+my ($action,$ip,$jail) = @ARGV;
+my $jsonFile = '/var/lib/nethserver/fail2ban/fail2ban.json';
+my $json ='{"TotalBannedIP": {}}';
+
+#encode Json file
+sub encodeJSON {
+      $data = shift;
+      umask 022;
+      open my $fh, ">", $jsonFile;
+      print $fh encode_json($data);
+      close $fh;
+}
+
+if ( ! -d '/var/lib/nethserver/fail2ban') {
+      umask 022;
+      mkdir '/var/lib/nethserver/fail2ban';
+}
+
+
+#decode Json
+if ( -f $jsonFile )    {
+    open my $fh, "<", $jsonFile;
+    $json = <$fh>;
+    close $fh;
+
+    #Json validation
+    unless (eval {decode_json($json)}) {
+        unlink $jsonFile;
+        $json ='{"TotalBannedIP": {}}';
+    }
+}
+
+my $data = decode_json($json);
+
+if ($action eq 'drop') {
+
+    # Retrieve the statistic counter
+    my $counterStat = $data->{'TotalBannedIP'}{$jail} || 0;
+    $counterStat++;
+    $data->{'TotalBannedIP'}->{$jail}= $counterStat;
+
+    # Encode jsonFile
+    encodeJSON ($data);
+}

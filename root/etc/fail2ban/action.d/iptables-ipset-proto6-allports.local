@@ -1,0 +1,5 @@
+[Definition]
+
+# Ban and update statistic of fail2ban 
+actionban = ipset add f2b-<name> <ip> timeout <bantime> -exist
+            /usr/libexec/nethserver/fail2ban_statistics  drop <ip> <name>
