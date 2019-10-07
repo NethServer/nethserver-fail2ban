@@ -24,19 +24,4 @@ if [[ $IP == '' ]]; then
     exit 0
 fi
 
-#Retrieve the jail list
-JAILS=$(fail2ban-client status | grep " Jail list:" | sed 's/`- Jail list://g' | sed 's/,//g')
-
-for j in $JAILS
-do
-    /usr/bin/fail2ban-client set $j unbanip $IP 2> /dev/null
-done
-
-# retrieve the sets of ipset, then unban the ip if the name start by 'f2b-'
-SET=$(ipset -L -name)
-for s in $SET
-do
-    if [[ $s =~ /^f2b-/ ]]; then
-        ipset del $s $IP -exist
-    fi
-done
+/usr/bin/fail2ban-unban $IP
