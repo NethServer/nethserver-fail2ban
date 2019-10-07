@@ -31,6 +31,7 @@ exit 0 if ($IPList eq '');
 foreach my $ip (split (',',$IPList)) {
     # Unban from all set of ipset
     foreach my $s (split ("\n", `ipset -L -name`)) {
+        next if ($s !~ m/^f2b-/);
         system("ipset del $s $ip -exist");
     }
 }

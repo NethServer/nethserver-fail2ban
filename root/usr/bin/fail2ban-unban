@@ -33,10 +33,11 @@ do
     /usr/bin/fail2ban-client set $j  unbanip $1 2> /dev/null
 done
 
-# retrieve the set of ipset, then unban th ip in all set
+# retrieve the set of ipset, then unban the ip in all set
 SET=$(ipset -L -name)
 for s in $SET
 do
-    ipset del $s $1 -exist
+    if [[ $s =~ ^f2b- ]]; then
+        ipset del $s $1 -exist
+    fi
 done
-
