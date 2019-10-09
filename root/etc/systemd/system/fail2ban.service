@@ -1,0 +1,17 @@
+[Unit]
+Description=Fail2Ban Service
+Documentation=man:fail2ban(1)
+After=shorewall.service
+BindsTo=shorewall.service
+
+[Service]
+Type=forking
+ExecStartPre=/sbin/e-smith/expand-template /etc/fail2ban/jail.local
+ExecStart=/usr/bin/fail2ban-client -x start
+ExecStop=/usr/bin/fail2ban-client stop
+ExecReload=/usr/bin/fail2ban-client reload
+PIDFile=/var/run/fail2ban/fail2ban.pid
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
