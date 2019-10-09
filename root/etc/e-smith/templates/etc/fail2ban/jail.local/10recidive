@@ -3,7 +3,6 @@ return "\n#recidive not used on this server"
            unless (-f '/var/log/fail2ban.log');
 
 my $status   = $fail2ban{Recidive_status} || 'true';
-my $action   = $fail2ban{Recidive_banaction} || $fail2ban{BanAction};
 my $bantime  = $fail2ban{BanTime}*336 || '604800';
 my $perpetual  = $fail2ban{Recidive_Perpetual} || 'disabled';
 $bantime  = '-1' if ($perpetual eq 'enabled');
@@ -14,8 +13,8 @@ $OUT .= qq (
 [recidive]
 enabled   = $status
 logpath   = /var/log/fail2ban.log
+banaction = iptables-ipset-proto6-allports
 maxretry  = $maxretry
-banaction = $action
 bantime   = $bantime
 findtime  = $findtime
 );

@@ -5,7 +5,7 @@ findtime  = {($fail2ban{FindTime} || '900');}
 maxretry = {($fail2ban{MaxRetry} || '3');}
 usedns = yes
 
-banaction = {($fail2ban{BanAction} || 'iptables-ipset-proto6-allports');}
+banaction = iptables-ipset-proto6-allports
 
 sender = no-reply@{$SystemName.'.'.$DomainName}
 {

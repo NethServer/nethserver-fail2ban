@@ -128,7 +128,6 @@ elsif ($cmd eq 'configuration') {
             ApacheScan_status => $db->get_prop('fail2ban','ApacheScan_status'),
             ApacheShellshock_status => $db->get_prop('fail2ban','ApacheShellshock_status'),
             AsteriskAuth_status => $db->get_prop('fail2ban','AsteriskAuth_status'),
-            BanAction => $db->get_prop('fail2ban','BanAction'),
             BanLocalNetwork => $db->get_prop('fail2ban','BanLocalNetwork'),
             BanTime => $db->get_prop('fail2ban','BanTime'),
             DbPurgeage => $db->get_prop('fail2ban','DbPurgeage'),

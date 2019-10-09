@@ -1,9 +1,8 @@
 {
-    # Migrate BanAction to iptables-ipset-proto6-allports
+    # remove BanAction 
     use esmith::ConfigDB;
-    my $db = esmith::ConfigDB->open;
 
-    my $BanAction = $db->get_prop('fail2ban','BanAction') || '';
-    $db->set_prop('fail2ban','BanAction','iptables-ipset-proto6-allports') if ($BanAction eq 'shorewall-nethserver');
+    my $db = esmith::ConfigDB->open;
+    $db->get_prop_and_delete('fail2ban', 'BanAction');
     '';
 }
