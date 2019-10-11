@@ -6,7 +6,7 @@ my $status   = $fail2ban{Recidive_status} || 'true';
 my $bantime  = $fail2ban{BanTime}*336 || '604800';
 my $perpetual  = $fail2ban{Recidive_Perpetual} || 'disabled';
 $bantime  = '-1' if ($perpetual eq 'enabled');
-my $findtime = $fail2ban{FindTime}*94 || '86400';
+my $findtime = '86400';
 my $maxretry = $fail2ban{Recidive_MaxRetry} || $fail2ban{MaxRetry}*2 || '6';
 
 $OUT .= qq (
