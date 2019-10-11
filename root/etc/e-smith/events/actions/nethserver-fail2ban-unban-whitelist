@@ -29,5 +29,5 @@ my $IPList = $db->get_prop('fail2ban','IgnoreIP') || '';
 exit 0 if ($IPList eq '');
 
 foreach (split (',',$IPList)) {
-    system("/usr/libexec/nethserver/shorewall-nethserver allow $_");
+    system("/usr/bin/fail2ban-unban $_");
 }
