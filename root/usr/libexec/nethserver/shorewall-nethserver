@@ -108,10 +108,8 @@ elsif ($action eq 'allow') {
 
     # the counter is decreased after each unban
     # If <= 0, then unban and delete key, last ban is over
-    # If >= 2, something wrong occured, then delete key and unban
     # For recidive always unban and delete key
     if (($counterIP <= '0') ||
-        ($counterIP >= '2') ||
         ($jail eq 'recidive')) {
 
         delete $data->{'IPList'}->{$ip};
