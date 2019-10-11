@@ -16,11 +16,5 @@ port     = $port
 logpath  = \%(sshd_log)s
 maxretry = $maxretry
 
-[sshd-ddos]
-enabled  = $sshd_ddos
-port     = $port
-logpath  = \%(sshd_log)s
-maxretry = $maxretry
-
 )
 }
