@@ -37,5 +37,4 @@ done
 
 echo ''
 echo "List of all banned IP: "
-/usr/sbin/shorewall show dynamic | grep 'DROP' | awk -F ' ' '{print $8}'
-
+/usr/libexec/nethserver/fail2ban-listip
