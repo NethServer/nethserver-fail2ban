@@ -9,38 +9,51 @@ event_actions($event,
 templates2events("/etc/fail2ban/fail2ban.local", $event);
 templates2events('/etc/fail2ban/action.d/sendmail-common.local', $event);
 templates2events('/etc/sudoers', $event);
+templates2events('/etc/fail2ban/jail.local', $event);
+templates2events('/etc/fail2ban/filter.d/urbackup-auth.conf', $event);
+
+
+
+
+
+# nethserver-firewall-base-save
+my $event = 'nethserver-firewall-base-save';
+templates2events('/etc/shorewall/initdone', $event);
+templates2events('/etc/shorewall/blrules', $event);
+templates2events('/etc/fail2ban/jail.local', $event);
+templates2events('/etc/fail2ban/filter.d/urbackup-auth.conf', $event);
 
 #Action to unbanIP
 my $event = 'nethserver-fail2banUnBan-save';
-event_actions($event,
-    'fail2ban-unban' => '10');
+event_actions($event, 'fail2ban-unban' => '10');
 
-#Action for nethserver-fail2ban-save
+# nethserver-fail2ban-save
 my $event = 'nethserver-fail2ban-save';
 event_actions($event,
     'nethserver-fail2ban-unban-whitelist' => '10');
 templates2events("/etc/fail2ban/fail2ban.local", $event);
 templates2events('/etc/fail2ban/action.d/sendmail-common.local', $event);
+templates2events('/etc/fail2ban/jail.local', $event);
 
-#templates to expand
-foreach my $event (qw ( nethserver-fail2ban-update
+# expand urbackup filter
+foreach my $event (qw ( 
                         nethserver-fail2ban-save
                         nethserver-urbackup-save
                         nethserver-urbackup-update
                     )) {
-    templates2events('/etc/fail2ban/filter.d/urbackup-auth.conf', $event);
+                      templates2events('/etc/fail2ban/filter.d/urbackup-auth.conf', $event);
 }
 
-# services to launch on event
-# /etc/fail2ban/jail.local is expanded by systemd before fail2ban restart
-foreach my $event (qw ( runlevel-adjust
+# Fail2ban services restart
+foreach my $event (qw ( nethserver-firewall-base-save
                         nethserver-fail2ban-save
                         nethserver-urbackup-save
                         nethserver-urbackup-update
                     )) {
-event_services($event,
-    'fail2ban'=> 'restart');
+    event_services($event,'fail2ban'=> 'restart');
 }
 
+# trusted-networks-modify
 my $event = 'trusted-networks-modify';
 event_services($event, 'fail2ban' => 'restart');
+templates2events('/etc/fail2ban/jail.local', $event);
