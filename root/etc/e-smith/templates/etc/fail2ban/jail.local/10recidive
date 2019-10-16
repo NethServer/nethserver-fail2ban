@@ -14,7 +14,7 @@ $OUT .= qq (
 enabled   = $status
 logpath   = /var/log/fail2ban.log
 maxretry  = $maxretry
-banaction = shorewall-nethserver
+banaction = shorewall-ipset-proto6
 bantime   = $bantime
 findtime  = $findtime
 );

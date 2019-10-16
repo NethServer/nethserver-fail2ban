@@ -8,14 +8,14 @@ $OUT .= qq(
 
 [pam-generic]
 enabled   = $status
-banaction = shorewall-nethserver
+banaction = shorewall-ipset-proto6
 maxretry  = $maxretry
 logpath   = \%(syslog_authpriv)s
 backend   = \%(syslog_backend)s
 
 [pam-generic-nethserver]
 enabled   = $status
-banaction = shorewall-nethserver
+banaction = shorewall-ipset-proto6
 maxretry  = $maxretry
 logpath   = /var/log/secure
 )

@@ -5,7 +5,7 @@ findtime  = {($fail2ban{FindTime} || '900');}
 maxretry = {($fail2ban{MaxRetry} || '3');}
 usedns = yes
 
-banaction = shorewall-nethserver
+banaction = shorewall-ipset-proto6
 
 sender = no-reply@{$SystemName.'.'.$DomainName}
 {
