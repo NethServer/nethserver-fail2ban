@@ -48,6 +48,11 @@ sub read_json
     return decode_json($json);
 }
 
+sub uniq {
+  my %seen;
+  return grep { !$seen{$_}++ } @_;
+}
+
 if ($cmd eq 'statistic') {
     if ( ! -f '/var/lib/nethserver/fail2ban/fail2ban.json') {
         $data = {"TotalBannedIP" => {},"JailStatus" =>[]};
@@ -76,15 +81,17 @@ if ($cmd eq 'statistic') {
 }
 
 elsif ($cmd eq 'IPList') {
-    if ( ! -f '/var/lib/nethserver/fail2ban/fail2ban.json') {
-        $data = {"IPList" => []};
-    }
-    else {
-         $data = read_json("/var/lib/nethserver/fail2ban/fail2ban.json");
-    }
+    
     my @IP = ();
-    foreach my $k (keys ($data->{"IPList"})){
-    push @IP, { ip => $k};
+    my $IP = '';
+    
+    foreach my $set (split ("\n", `ipset -L -name`)) {
+        next if ($set !~ m/^f2b-/);
+        $IP .= `ipset -L $set -exist| grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}"`;
+    }
+    
+    foreach my $i (uniq (split ("\n", $IP))){
+        push @IP, { ip => $i};
     }
 
     # retrieve the all enabled jail by a bash command
@@ -95,9 +102,7 @@ elsif ($cmd eq 'IPList') {
 
     print encode_json ({"IPList"=> [@IP],"JailStatus" => [@jailStatus]});
     exit(0);
-    }
-
-
+}
 
 elsif ($cmd eq 'configuration') {
 
@@ -123,7 +128,6 @@ elsif ($cmd eq 'configuration') {
             ApacheScan_status => $db->get_prop('fail2ban','ApacheScan_status'),
             ApacheShellshock_status => $db->get_prop('fail2ban','ApacheShellshock_status'),
             AsteriskAuth_status => $db->get_prop('fail2ban','AsteriskAuth_status'),
-            BanAction => $db->get_prop('fail2ban','BanAction'),
             BanLocalNetwork => $db->get_prop('fail2ban','BanLocalNetwork'),
             BanTime => $db->get_prop('fail2ban','BanTime'),
             DbPurgeage => $db->get_prop('fail2ban','DbPurgeage'),
