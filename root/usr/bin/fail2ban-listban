@@ -24,15 +24,13 @@ echo "If you want more information on a jail, do : fail2ban-client status {JailN
 echo ""
 echo "Status of Jails"
 echo "---------------"
-#List jails
-JAILS=$(fail2ban-client status | grep " Jail list:" | sed 's/`- Jail list://g' | sed 's/,//g')
-
-for j in $JAILS
+for j in $(ipset -L -name | grep '^f2b' | cut -d'-' -f2-)
 do
+    status=$(fail2ban-client status $j)
     echo " $j Jail enabled
-    - Currently banned: $(fail2ban-client status $j | grep " Currently banned:" | sed 's/   |- Currently banned:\t//g') \
-    - Total banned after service start: $(fail2ban-client status $j | grep " Total banned:" | sed 's/   |- Total banned:\t//g')"
-    echo "    - Banned IP: $(fail2ban-client status $j | grep " Banned IP list:" | sed 's/   `- Banned IP list:\t//g')"
+    - Currently banned: $(echo "$status" | grep " Currently banned:" | sed 's/   |- Currently banned:\t//g') \
+    - Total banned after service start: $(echo "$status"| grep " Total banned:" | sed 's/   |- Total banned:\t//g')"
+    echo "    - Banned IP: $(echo "$status" | grep " Banned IP list:" | sed 's/   `- Banned IP list:\t//g')"
 done
 
 echo ''
