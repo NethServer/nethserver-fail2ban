@@ -73,7 +73,7 @@ export default {
           context.view.logsLoaded = true;
           context.logsContent = error;
         },
-        false
+        true
       );
     }
   }
