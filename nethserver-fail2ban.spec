@@ -32,6 +32,10 @@ NethServer configuration for fail2ban
 perl createlinks
 sed -i 's/_RELEASE_/%{version}/' %{name}.json
 
+# move Fail2Ban library
+mkdir -p root%{perl_vendorlib}
+mv -v lib/perl/NethServer root%{perl_vendorlib}
+
 %install
 rm -rf $RPM_BUILD_ROOT
 (cd root   ; find . -depth -print | cpio -dump $RPM_BUILD_ROOT)
