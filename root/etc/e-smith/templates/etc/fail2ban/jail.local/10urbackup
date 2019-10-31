@@ -1,15 +1,14 @@
 {
-return "\n#urbackup not installed on this server" unless (-f '/var/log/urbackup.log');
+    use NethServer::Fail2Ban;
+    my $port = $httpd{TCPPorts} || '80,443';
+    my $maxretry = $fail2ban{Urbackup_MaxRetry} || $fail2ban{MaxRetry} || '3';
+    return ("\n#Urbackup not used on this server\n") if (! NethServer::Fail2Ban::listUrbackupJails());
 
-my $Urbackup_status = $fail2ban{Urbackup_status} || 'true';
-my $TCPPorts = ${'urbackup-server'}{TCPPorts} || '55413,55414';
-my $maxretry = $fail2ban{Urbackup_MaxRetry} || $fail2ban{MaxRetry} || '3';
-
-$OUT .= qq(
-[urbackup-auth]
-enabled  = $Urbackup_status
-port     = $TCPPorts
-logpath  = /var/log/httpd/ssl_access_log
-maxretry = $maxretry
-);
+    foreach (NethServer::Fail2Ban::listUrbackupJails()) {
+        $OUT .= "\n[$_]\n";
+        $OUT .= "enabled = true\n";
+        $OUT .= "port = $port\n";
+        $OUT .= "logpath = /var/log/httpd/ssl_access_log\n";
+        $OUT .= "maxretry = $maxretry\n\n";
+    }
 }

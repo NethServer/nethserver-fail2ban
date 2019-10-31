@@ -1,23 +1,14 @@
 {
-return "\n#Pam jail  not used on this server" unless ( -f '/var/log/secure');
+    use NethServer::Fail2Ban;
+    my $maxretry = $fail2ban{PamGeneric_MaxRetry} || $fail2ban{MaxRetry}*2 || '6';
+    return ("\n#pamgeneric not used on this server\n") if (! NethServer::Fail2Ban::listPamGenericJails());
 
-my $status = $fail2ban{PamGeneric_status} || 'true';
-my $maxretry = $fail2ban{PamGeneric_MaxRetry} || $fail2ban{MaxRetry}*2 || '6';
-
-$OUT .= qq(
-
-[pam-generic]
-enabled   = $status
-banaction = shorewall-ipset-proto6
-maxretry  = $maxretry
-logpath   = \%(syslog_authpriv)s
-backend   = \%(syslog_backend)s
-
-[pam-generic-nethserver]
-enabled   = $status
-banaction = shorewall-ipset-proto6
-maxretry  = $maxretry
-logpath   = /var/log/secure
-)
+    foreach (NethServer::Fail2Ban::listPamGenericJails()) {
+        $OUT .= "\n[$_]\n";
+        $OUT .= "enabled = true\n";
+        $OUT .= "logpath = /var/log/secure\n";
+        $OUT .= "banaction = shorewall-ipset-proto6\n";
+        $OUT .= "backend   = \%(syslog_backend)s\n";
+        $OUT .= "maxretry = $maxretry\n\n";
+    }
 }
-

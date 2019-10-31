@@ -1,25 +1,18 @@
 {
-my $asterisk = $asterisk{status} || 'disabled';
-return "\n#asterisk is not used on this server" unless (( -f '/var/log/asterisk/full' ) && ($asterisk eq 'enabled'));
+    use NethServer::Fail2Ban;
+    my $port = $asterisk{TCPPorts} || '5060,6061';
+    my $maxretry = $fail2ban{Asterisk_MaxRetry} || $fail2ban{MaxRetry}*2 || '6';
+    my $action = (($fail2ban{Mail} || 'enabled') eq 'enabled') ? '%(action_mw)s' : '%(action_)s';
+    return ("\n#asterisk not used on this server\n") if (! NethServer::Fail2Ban::listAsteriskJails());
 
-my $AsteriskAuth_status = $fail2ban{AsteriskAuth_status} || 'true';
-my $TCPPorts = $asterisk{TCPPorts} || '5060,6061';
-my $maxretry = $fail2ban{Asterisk_MaxRetry} || $fail2ban{MaxRetry}*2 || '6';
-my $action = (($fail2ban{Mail} || 'enabled') eq 'enabled') ? '%(action_mw)s' : '%(action_)s';
+    foreach (NethServer::Fail2Ban::listAsteriskJails()) {
+        $OUT .= "\n[$_]\n";
+        $OUT .= "enabled = true\n";
+        $OUT .= "port = $port\n";
+        $OUT .= "logpath = /var/log/asterisk/full\n";
+        $OUT .= "maxretry = $maxretry\n";
+        $OUT .= "action = $action\n\n"
 
-$OUT .= qq (
-[asterisk]
-enabled  = $AsteriskAuth_status
-port     = $TCPPorts
-logpath  = /var/log/asterisk/full
-maxretry = $maxretry
-action = $action
+    }
 
-[asterisk_nethserver]
-enabled  = $AsteriskAuth_status
-port     = $TCPPorts
-logpath  = /var/log/asterisk/full
-maxretry = $maxretry
-action = $action
-);
 }

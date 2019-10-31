@@ -25,3 +25,5 @@ sender = no-reply@{$SystemName.'.'.$DomainName}
 }
 
 action = {(($fail2ban{Mail} || 'enabled') eq 'enabled') ? '%(action_mw)s' : '%(action_)s' }
+
+

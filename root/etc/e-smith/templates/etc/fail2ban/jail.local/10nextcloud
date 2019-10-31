@@ -1,15 +1,14 @@
 {
-return "\n#nextcloud not installed on this server" unless (-f '/var/lib/nethserver/nextcloud/nextcloud.log');
+    use NethServer::Fail2Ban;
+    my $port = $httpd{TCPPorts} || '80,443';
+    my $maxretry = $fail2ban{Nextcloud_MaxRetry} || $fail2ban{MaxRetry} || '3';
+    return ("\n#nextcloud not used on this server\n") if (! NethServer::Fail2Ban::listNextcloudAuthJails());
 
-my $Nextcloud_status = $fail2ban{Nextcloud_status} || 'true';
-my $TCPPorts = $httpd{TCPPorts} || '80,443';
-my $maxretry = $fail2ban{Nextcloud_MaxRetry} || $fail2ban{MaxRetry} || '3';
-
-$OUT .= qq(
-[nextcloud-auth]
-enabled  = $Nextcloud_status
-port     = $TCPPorts
-logpath  = /var/lib/nethserver/nextcloud/nextcloud.log
-maxretry = $maxretry
-)
+    foreach (NethServer::Fail2Ban::listNextcloudAuthJails()) {
+        $OUT .= "\n[$_]\n";
+        $OUT .= "enabled = true\n";
+        $OUT .= "port = $port\n";
+        $OUT .= "logpath = /var/lib/nethserver/nextcloud/nextcloud.log\n";
+        $OUT .= "maxretry = $maxretry\n\n";
+    }
 }

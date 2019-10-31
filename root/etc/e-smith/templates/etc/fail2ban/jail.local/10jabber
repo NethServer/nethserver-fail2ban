@@ -1,16 +1,14 @@
 {
-my $ejabber = $ejabberd{status} || 'disabled';
-return "\n#ejabberd is not used on this server" unless ($ejabber eq 'enabled' && (-f '/var/log/ejabberd/ejabberd.log'));
+    use NethServer::Fail2Ban;
+    my $port = $ejabberd{TCPPorts} || '5222,5223,5280';
+    my $maxretry = $fail2ban{Ejabber_MaxRetry} || $fail2ban{MaxRetry} || '3';
+    return ("\n#ejabberd not used on this server\n") if (!NethServer::Fail2Ban::listEjabberAuthJails());
 
-my $EjabberAuth_status = $fail2ban{EjabberAuth_status} || 'true';
-my $TCPPorts = $ejabberd{TCPPorts} || '5222,5223,5280';
-my $maxretry = $fail2ban{Ejabber_MaxRetry} || $fail2ban{MaxRetry} || '3';
-
-$OUT .= qq (
-[ejabberd-auth]
-enabled = $EjabberAuth_status
-port    = $TCPPorts
-logpath = /var/log/ejabberd/ejabberd.log
-maxretry = $maxretry
-);
+    foreach (NethServer::Fail2Ban::listEjabberAuthJails()) {
+        $OUT .= "\n[$_]\n";
+        $OUT .= "enabled = true\n";
+        $OUT .= "port = $port\n";
+        $OUT .= "logpath = /var/log/ejabberd/ejabberd.log\n";
+        $OUT .= "maxretry = $maxretry\n\n";
+    }
 }

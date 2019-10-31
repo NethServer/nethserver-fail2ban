@@ -1,16 +1,14 @@
 {
-my $mysql = $mysqld{status} || 'disabled';
-return "\n#mysqld not used on this server" unless (($mysql eq 'enabled') && (-f '/var/log/mariadb/mariadb.log'));
+    use NethServer::Fail2Ban;
+    my $port = $mysqld{TCPPort} || '3306';
+    my $maxretry = $fail2ban{Mysqld_MaxRetry} || $fail2ban{MaxRetry} || '3';
+    return ("\n#mysql not used on this server\n") if (! NethServer::Fail2Ban::listMysqldAuthJails());
 
-my $MysqldAuth_status = $fail2ban{MysqldAuth_status} || 'true';
-my $TCPPort = $mysqld{TCPPort} || '3306';
-my $MysqldAuth_maxretry = $fail2ban{Mysqld_MaxRetry} || $fail2ban{MaxRetry} || '3';
-
-$OUT .= qq (
-[mysqld-auth]
-enabled  = $MysqldAuth_status
-port     = $TCPPort
-logpath  = /var/log/mariadb/mariadb.log
-maxretry = $MysqldAuth_maxretry
-);
+    foreach (NethServer::Fail2Ban::listMysqldAuthJails()) {
+        $OUT .= "\n[$_]\n";
+        $OUT .= "enabled = true\n";
+        $OUT .= "port = $port\n";
+        $OUT .= "logpath = /var/log/mariadb/mariadb.log\n";
+        $OUT .= "maxretry = $maxretry\n\n";
+    }
 }

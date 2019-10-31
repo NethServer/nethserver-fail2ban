@@ -1,23 +1,14 @@
 {
-my $nginx = $nginx{status} || 'disabled';
-return "\n#nginx not used on this server" unless ($nginx eq 'enabled' && ( -f '/var/log/nginx/error.log'));
+    use NethServer::Fail2Ban;
+    return ("\n#nginx not used on this server\n") if (! NethServer::Fail2Ban::listNginxHttpAuthJails());
+    my $port = $nginx{TCPPorts} || '80,443';
+    my $maxretry = $fail2ban{Nginx_MaxRetry} || $fail2ban{MaxRetry} || '3';
 
-my $NginxHttpAuth_status = $fail2ban{NginxHttpAuth_status} || 'true';
-my $TCPPorts = $nginx{TCPPorts} || '80,443';
-my $NginxBotSearch_status = $fail2ban{NginxBotSearch_status} || 'true';
-my $NginxBotSearch_maxretry = $fail2ban{Nginx_MaxRetry} || $fail2ban{MaxRetry} || '3';
-
-$OUT .= qq (
-[nginx-http-auth]
-enabled = $NginxHttpAuth_status
-port    = $TCPPorts
-logpath = \%(nginx_error_log)s
-maxretry = $NginxBotSearch_maxretry
-
-[nginx-botsearch]
-enabled  = $NginxBotSearch_status
-port     = $TCPPorts
-logpath  = \%(nginx_error_log)s
-maxretry = $NginxBotSearch_maxretry
-);
+    foreach (NethServer::Fail2Ban::listNginxHttpAuthJails()) {
+        $OUT .= "\n[$_]\n";
+        $OUT .= "enabled = true\n";
+        $OUT .= "port = $port\n";
+        $OUT .= "logpath = \%(nginx_error_log)s\n";
+        $OUT .= "maxretry = $maxretry\n\n";
+    }
 }
