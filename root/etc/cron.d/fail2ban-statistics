@@ -1,0 +1,3 @@
+# save all the bans of the day to the json statistics
+
+45 23 * * * root /usr/libexec/nethserver/fail2ban-statistics
