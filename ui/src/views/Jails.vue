@@ -46,7 +46,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.ApacheAuth_status')}}</label>
+          >Apache-auth</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.ApacheAuth_status" class="form-control">
             <span
@@ -63,7 +63,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.ApacheBadbots_status')}}</label>
+          >Apache-badbots</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.ApacheBadbots_status" class="form-control">
             <span
@@ -80,7 +80,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.ApacheBotsearch_status')}}</label>
+          >Apache-botsearch</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.ApacheBotsearch_status" class="form-control">
             <span
@@ -97,7 +97,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.ApacheFakegooglebot_status')}}</label>
+          >Apache-fakegooglebot</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.ApacheFakegooglebot_status" class="form-control">
             <span
@@ -114,7 +114,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.ApacheModsecurity_status')}}</label>
+          >Apache-modsecurity</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.ApacheModsecurity_status" class="form-control">
             <span
@@ -131,7 +131,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.ApacheNohome_status')}}</label>
+          >Apache-nohome</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.ApacheNohome_status" class="form-control">
             <span
@@ -148,7 +148,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.ApacheNoscript_status')}}</label>
+          >Apcache-noscript</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.ApacheNoscript_status" class="form-control">
             <span
@@ -165,7 +165,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.ApacheOverflows_status')}}</label>
+          >Apache-overflows</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.ApacheOverflows_status" class="form-control">
             <span
@@ -182,7 +182,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.ApacheScan_status')}}</label>
+          >Apache-scan</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.ApacheScan_status" class="form-control">
             <span
@@ -199,7 +199,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.ApacheShellshock_status')}}</label>
+          >Apache-shellshock</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.ApacheShellshock_status" class="form-control">
             <span
@@ -226,7 +226,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.AsteriskAuth_status')}}</label>
+          >Asterisk-auth</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.AsteriskAuth_status" class="form-control">
             <span
@@ -243,7 +243,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.EjabberAuth_status')}}</label>
+          >Ejjaber-auth</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.EjabberAuth_status" class="form-control">
             <span
@@ -271,7 +271,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.MysqldAuth_status')}}</label>
+          >Mysqld-auth</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.MysqldAuth_status" class="form-control">
             <span
@@ -299,7 +299,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.Dovecot_status')}}</label>
+          >Dovecot</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.Dovecot_status" class="form-control">
             <span
@@ -316,7 +316,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.PostfixRbl_status')}}</label>
+          >Postfix-rbl</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.PostfixRbl_status" class="form-control">
             <span
@@ -333,7 +333,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.Postfix_status')}}</label>
+          >Postfix</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.Postfix_status" class="form-control">
             <span
@@ -350,7 +350,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.PostfixSaslAbuse_status')}}</label>
+          >Postfix-sasl-abuse</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.PostfixSaslAbuse_status" class="form-control">
             <span
@@ -367,7 +367,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.Sieve_status')}}</label>
+          >Sieve</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.Sieve_status" class="form-control">
             <span
@@ -395,7 +395,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.Vsftpd_status')}}</label>
+          >Vsftpd</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.Vsftpd_status" class="form-control">
             <span
@@ -423,7 +423,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.NginxHttpAuth_status')}}</label>
+          >Nginx-http-auth</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.NginxHttpAuth_status" class="form-control">
             <span
@@ -440,7 +440,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.NginxBotSearch_status')}}</label>
+          >Nginx-botsearch</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.NginxBotSearch_status" class="form-control">
             <span
@@ -468,7 +468,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.HttpdAdmin_status')}}</label>
+          >Httpd-admin</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.HttpdAdmin_status" class="form-control">
             <span
@@ -485,7 +485,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.PamGeneric_status')}}</label>
+          >Pam-generic</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.PamGeneric_status" class="form-control">
             <span
@@ -502,7 +502,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.Recidive_status')}}</label>
+          >Recidive</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.Recidive_status" class="form-control">
             <span
@@ -530,7 +530,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.Sshd_status')}}</label>
+          >Sshd</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.Sshd_status" class="form-control">
             <span
@@ -547,7 +547,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.SshdDdos_status')}}</label>
+          >Sshd-ddos</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.SshdDdos_status" class="form-control">
             <span
@@ -575,7 +575,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.OpenVpnAuth_status')}}</label>
+          >Openvpn</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.OpenVpnAuth_status" class="form-control">
             <span
@@ -603,7 +603,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.Nextcloud_status')}}</label>
+          >Nextcloud</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.Nextcloud_status" class="form-control">
             <span
@@ -620,7 +620,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.Owncloud_status')}}</label>
+          >Owncloud</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.Owncloud_status" class="form-control">
             <span
@@ -637,7 +637,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.ApachePhpMyAdmin_status')}}</label>
+          >phpMyAdmin</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.ApachePhpMyAdmin_status" class="form-control">
             <span
@@ -654,7 +654,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.Roundcube_status')}}</label>
+          >Roundcubemail</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.Roundcube_status" class="form-control">
             <span
@@ -671,7 +671,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.Rspamd_status')}}</label>
+          >Rspamd</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.Rspamd_status" class="form-control">
             <span
@@ -688,7 +688,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.SogoAuth_status')}}</label>
+          >SOGo</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.SogoAuth_status" class="form-control">
             <span
@@ -705,7 +705,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.Urbackup_status')}}</label>
+          >Urbackup</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.Urbackup_status" class="form-control">
             <span
@@ -722,7 +722,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('jails.Webtop_status')}}</label>
+          >Webtop</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.Webtop_status" class="form-control">
             <span
