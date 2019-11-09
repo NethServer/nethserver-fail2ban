@@ -420,10 +420,10 @@ export default {
           MailJailState: context.configuration.MailJailState
             ? "enabled"
             : "disabled",
-          BanLocalNetwork: context.configuration.MailJailState
+          BanLocalNetwork: context.configuration.BanLocalNetwork
             ? "enabled"
             : "disabled",
-          Recidive_Perpetual: context.configuration.MailJailState
+          Recidive_Perpetual: context.configuration.Recidive_Perpetual
             ? "enabled"
             : "disabled",
           CustomDestemail:  context.configuration.CustomDestemail.map(function(e) {
