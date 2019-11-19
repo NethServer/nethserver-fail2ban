@@ -37,7 +37,7 @@ class  Fail2BanSettings extends \Nethgui\Controller\AbstractController
     $this->declareParameter('ApacheShellshock_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'ApacheShellshock_status'));
     $this->declareParameter('ApachePhpMyAdmin_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'ApachePhpMyAdmin_status'));
     $this->declareParameter('Dovecot_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'Dovecot_status'));
-    $this->declareParameter('EjabberAuth_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'EjabberAuth_status'));
+    $this->declareParameter('EjabberdAuth_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'EjabberdAuth_status'));
     $this->declareParameter('HttpdAdmin_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'HttpdAdmin_status'));
     $this->declareParameter('MysqldAuth_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'MysqldAuth_status'));
     $this->declareParameter('Nextcloud_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'Nextcloud_status'));

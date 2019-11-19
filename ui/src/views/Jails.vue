@@ -238,18 +238,18 @@
 
         <div
           v-if="configuration.status && view.communication"
-          :class="['form-group', errors.EjabberAuth_status.hasError ? 'has-error' : '']"
+          :class="['form-group', errors.EjabberdAuth_status.hasError ? 'has-error' : '']"
           >
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >Ejjaber-auth</label>
+          >ejabberd-auth</label>
           <div class="col-sm-5">
-            <input type="checkbox" v-model="configuration.EjabberAuth_status" class="form-control">
+            <input type="checkbox" v-model="configuration.EjabberdAuth_status" class="form-control">
             <span
-              v-if="errors.EjabberAuth_status.hasError"
+              v-if="errors.EjabberdAuth_status.hasError"
               class="help-block"
-            >{{errors.EjabberAuth_status.message}}</span>
+            >{{errors.EjabberdAuth_status.message}}</span>
           </div>
         </div>
 
@@ -781,7 +781,7 @@ export default {
               ApacheScan_status: "true",
               ApacheShellshock_status: "true",
               AsteriskAuth_status: "true",
-              EjabberAuth_status: "true",
+              EjabberdAuth_status: "true",
               MysqldAuth_status: "true",
               Dovecot_status: "true",
               PostfixRbl_status: "true",
@@ -861,7 +861,7 @@ export default {
         hasError: false,
         message: ""
       },
-      EjabberAuth_status: {
+      EjabberdAuth_status: {
         hasError: false,
         message: ""
       },
@@ -991,7 +991,7 @@ export default {
           context.configuration.ApacheScan_status = success.configuration.props.ApacheScan_status == "true";
           context.configuration.ApacheShellshock_status = success.configuration.props.ApacheShellshock_status == "true";
           context.configuration.AsteriskAuth_status = success.configuration.props.AsteriskAuth_status == "true";
-          context.configuration.EjabberAuth_status = success.configuration.props.EjabberAuth_status == "true";
+          context.configuration.EjabberdAuth_status = success.configuration.props.EjabberdAuth_status == "true";
           context.configuration.MysqldAuth_status = success.configuration.props.MysqldAuth_status == "true";
           context.configuration.Dovecot_status = success.configuration.props.Dovecot_status == "true";
           context.configuration.PostfixRbl_status = success.configuration.props.PostfixRbl_status == "true";
@@ -1067,7 +1067,7 @@ export default {
           AsteriskAuth_status: context.configuration.AsteriskAuth_status
             ? "true"
             : "false",
-          EjabberAuth_status: context.configuration.EjabberAuth_status
+          EjabberdAuth_status: context.configuration.EjabberdAuth_status
             ? "true"
             : "false",
           MysqldAuth_status: context.configuration.MysqldAuth_status

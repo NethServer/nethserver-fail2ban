@@ -106,7 +106,7 @@ All available props to store in the fail2ban key of the esmith API
       "ApacheFakegooglebot_status": "true",
       "MysqldAuth_status": "true",
       "ApacheBotsearch_status": "true",
-      "EjabberAuth_status": "true",
+      "EjabberdAuth_status": "true",
       "SshdDdos_status": "true",
       "Dovecot_status": "true",
       "ApacheModsecurity_status": "true",
@@ -195,7 +195,7 @@ Invocation example:
 - `Jails`
 
 ```bash
-echo '{"action":"jails","status":"enabled","ApacheAuth_status":"true","ApacheBadbots_status":"true","ApacheBotsearch_status":"true","ApacheFakegooglebot_status":"true","ApacheModsecurity_status":"true","ApacheNohome_status":"true","ApacheNoscript_status":"true","ApacheOverflows_status":"true","ApacheScan_status":"true","ApacheShellshock_status":"true","AsteriskAuth_status":"true","EjabberAuth_status":"true","MysqldAuth_status":"true","Dovecot_status":"true","PostfixRbl_status":"true","Postfix_status":"true","PostfixSaslAbuse_status":"true","Sieve_status":"true","Vsftpd_status":"true","NginxHttpAuth_status":"true","NginxBotSearch_status":"true","HttpdAdmin_status":"true","PamGeneric_status":"true","Recidive_status":"true","Sshd_status":"true","SshdDdos_status":"true","OpenVpnAuth_status":"true","Nextcloud_status":"true","Owncloud_status":"true","ApachePhpMyAdmin_status":"true","Roundcube_status":"true","Rspamd_status":"true","SogoAuth_status":"true","Urbackup_status":"true","Webtop_status":"true"}' | /usr/bin/sudo /usr/libexec/nethserver/api/nethserver-fail2ban/validate | jq
+echo '{"action":"jails","status":"enabled","ApacheAuth_status":"true","ApacheBadbots_status":"true","ApacheBotsearch_status":"true","ApacheFakegooglebot_status":"true","ApacheModsecurity_status":"true","ApacheNohome_status":"true","ApacheNoscript_status":"true","ApacheOverflows_status":"true","ApacheScan_status":"true","ApacheShellshock_status":"true","AsteriskAuth_status":"true","EjabberdAuth_status":"true","MysqldAuth_status":"true","Dovecot_status":"true","PostfixRbl_status":"true","Postfix_status":"true","PostfixSaslAbuse_status":"true","Sieve_status":"true","Vsftpd_status":"true","NginxHttpAuth_status":"true","NginxBotSearch_status":"true","HttpdAdmin_status":"true","PamGeneric_status":"true","Recidive_status":"true","Sshd_status":"true","SshdDdos_status":"true","OpenVpnAuth_status":"true","Nextcloud_status":"true","Owncloud_status":"true","ApachePhpMyAdmin_status":"true","Roundcube_status":"true","Rspamd_status":"true","SogoAuth_status":"true","Urbackup_status":"true","Webtop_status":"true"}' | /usr/bin/sudo /usr/libexec/nethserver/api/nethserver-fail2ban/validate | jq
 ```
 
 - `configuration`

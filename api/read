@@ -128,7 +128,7 @@ elsif ($cmd eq 'configuration') {
             BanTime => $db->get_prop('fail2ban','BanTime'),
             DbPurgeage => $db->get_prop('fail2ban','DbPurgeage'),
             Dovecot_status => $db->get_prop('fail2ban','Dovecot_status'),
-            EjabberAuth_status => $db->get_prop('fail2ban','EjabberAuth_status'),
+            EjabberdAuth_status => $db->get_prop('fail2ban','EjabberdAuth_status'),
             FindTime => $db->get_prop('fail2ban','FindTime'),
             HttpdAdmin_status => $db->get_prop('fail2ban','HttpdAdmin_status'),
             LogLevel => $db->get_prop('fail2ban','LogLevel'),

@@ -81,7 +81,7 @@ echo $view->panel()
             ->insert( $view->fieldset(NULL, $view::FIELDSET_EXPANDABLE)->setAttribute('template', $T('CommunicationStatus_label'))
                 ->insert( $view->elementList()
                     ->insert($view->checkBox('AsteriskAuth_status', 'true')->setAttribute('uncheckedValue', 'false'))
-                    ->insert($view->checkBox('EjabberAuth_status', 'true')->setAttribute('uncheckedValue', 'false'))
+                    ->insert($view->checkBox('EjabberdAuth_status', 'true')->setAttribute('uncheckedValue', 'false'))
                 )
             )
 

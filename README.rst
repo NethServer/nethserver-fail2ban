@@ -18,7 +18,7 @@ You can set custom values for the MaxRetry property of each jail, once removed y
 
     Apache_MaxRetry=
     Dovecot_MaxRetry=
-    Ejabber_MaxRetry=
+    Ejabberd_MaxRetry=
     HttpdAdmin_MaxRetry=
     Mysqld_MaxRetry=
     Nextcloud_MaxRetry=

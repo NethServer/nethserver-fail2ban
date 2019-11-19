@@ -71,7 +71,7 @@ elsif ($action eq 'jails') {
     ApacheShellshock_status
     AsteriskAuth_status
     Dovecot_status
-    EjabberAuth_status
+    EjabberdAuth_status
     HttpdAdmin_status
     MysqldAuth_status
     Nextcloud_status
