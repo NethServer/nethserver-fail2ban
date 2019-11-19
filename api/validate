@@ -66,7 +66,7 @@ switch ($data['action']) {
         $v->declareParameter('ApacheShellshock_status', $v->createValidator()->memberOf('true','false'));
         $v->declareParameter('ApachePhpMyAdmin_status', $v->createValidator()->memberOf('true','false'));
         $v->declareParameter('Dovecot_status', $v->createValidator()->memberOf('true','false'));
-        $v->declareParameter('EjabberAuth_status', $v->createValidator()->memberOf('true','false'));
+        $v->declareParameter('EjabberdAuth_status', $v->createValidator()->memberOf('true','false'));
         $v->declareParameter('HttpdAdmin_status', $v->createValidator()->memberOf('true','false'));
         $v->declareParameter('MysqldAuth_status', $v->createValidator()->memberOf('true','false'));
         $v->declareParameter('Nextcloud_status', $v->createValidator()->memberOf('true','false'));
