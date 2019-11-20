@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-# Copyright (C) 2018 Nethesis S.r.l.
+# Copyright (C) 2019 Nethesis S.r.l.
 # http://www.nethesis.it - nethserver@nethesis.it
 #
 # This script is part of NethServer.
@@ -17,11 +17,10 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with NethServer.  If not, see COPYING.
-#
-# the purpose is to count how many time the IP is banned by different jails
-# if the counter is not equal to zero, then a jail is still active and the 
-# IP is not allowed. This is due to the bad implementation of shorewall in fail2ban
-# https://github.com/fail2ban/fail2ban/issues/2031
+
+
+# Count how many time the IP is banned by different jails.
+# This script is invoked also by a cron job.
 
 use utf8;
 use JSON;
@@ -44,6 +43,8 @@ if ( ! -d '/var/lib/nethserver/fail2ban') {
 }
 
 
+my $data = {TotalBannedIP => {}};
+
 #decode Json
 if ( -f $jsonFile ) {
     open my $fh, "<", $jsonFile;
@@ -51,13 +52,11 @@ if ( -f $jsonFile ) {
     close $fh;
 
     #Json validation
-    unless (eval {decode_json($json)}) {
-        unlink $jsonFile;
-        $json ='{"TotalBannedIP": {},"IPList": {},"IPDebug": {}}';
+    eval {
+        $data = decode_json($json);
+        1;
     }
 }
-# retrieve the stats of bans
-my $data = decode_json($json);
 
 # retrieve the number of ban of the day (a cronjob runs it)
 open(FH, "/usr/bin/sqlite3 -list  /var/lib/fail2ban/fail2ban.sqlite3 \"select jail, count(*) as count from bans  WHERE date(datetime(timeofban , 'unixepoch')) = date('now') group by jail;\"|");
