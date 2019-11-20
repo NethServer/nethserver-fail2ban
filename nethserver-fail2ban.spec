@@ -18,12 +18,6 @@ NethServer configuration for fail2ban
 %prep
 %setup
 
-%pre
-#With NS7 < RC4 firewalld was not disabled
-#with the stable version, it could be removed
-/usr/bin/systemctl stop firewalld >/dev/null 2>&1
-/usr/bin/systemctl disable firewalld >/dev/null 2>&1
-
 %post
 %preun
 
