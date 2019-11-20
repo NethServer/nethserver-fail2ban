@@ -32,34 +32,13 @@ my $cmd = $input->{'action'} || '';
 my $data;
 my %ret;
 
-sub read_json
-{
-    my $file = shift || return undef;
-    return undef if (! -e $file);
-
-    my $json;
-    {
-        local $/; #Enable 'slurp' mode
-        open my $fh, "<", $file or return undef;
-        $json = <$fh>;
-        close $fh;
-    }
-
-    return decode_json($json);
-}
-
 sub uniq {
   my %seen;
   return grep { !$seen{$_}++ } @_;
 }
 
 if ($cmd eq 'statistic') {
-    if ( ! -f '/var/lib/nethserver/fail2ban/fail2ban.json') {
-        $data = {"TotalBannedIP" => {},"JailStatus" =>[]};
-    }
-    else {
-          $data = read_json("/var/lib/nethserver/fail2ban/fail2ban.json");
-    }
+    $data = NethServer::ApiTools::safe_decode_json(`/usr/libexec/nethserver/fail2ban-status`);
     # retrieve the all enabled jail by a bash command
     my $jailStatus=`echo "\$(fail2ban-client status| grep "Jail list:"|sed 's/\`- Jail list:\t//g')"`;
     $jailStatus=~ s/\s//g;
