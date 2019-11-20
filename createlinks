@@ -13,8 +13,6 @@ templates2events('/etc/sudoers', $event);
 # nethserver-firewall-base-save
 my $event = 'nethserver-firewall-base-save';
 templates2events('/etc/fail2ban/jail.local', $event);
-templates2events('/etc/shorewall/initdone', $event);
-templates2events('/etc/shorewall/blrules', $event);
 
 #Action to unbanIP
 my $event = 'nethserver-fail2banUnBan-save';
