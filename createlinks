@@ -15,7 +15,6 @@ my $event = 'nethserver-firewall-base-save';
 templates2events('/etc/fail2ban/jail.local', $event);
 templates2events('/etc/shorewall/initdone', $event);
 templates2events('/etc/shorewall/blrules', $event);
-templates2events('/etc/fail2ban/filter.d/urbackup-auth.conf', $event);
 
 #Action to unbanIP
 my $event = 'nethserver-fail2banUnBan-save';
@@ -28,19 +27,8 @@ event_actions($event,
     'nethserver-fail2ban-shorewall-event' => '90');
 templates2events('/etc/fail2ban/action.d/sendmail-common.local', $event);
 
-# expand urbackup filter
-foreach my $event (qw (
-                        nethserver-urbackup-save
-                        nethserver-urbackup-update
-                    )) {
-                      templates2events('/etc/fail2ban/filter.d/urbackup-auth.conf', $event);
-}
-
 # Fail2ban services restart
-foreach my $event (qw ( nethserver-firewall-base-save
-                        nethserver-urbackup-save
-                        nethserver-urbackup-update
-                    )) {
+foreach my $event (qw ( nethserver-firewall-base-save )) {
     event_services($event,'fail2ban'=> 'restart');
 }
 
