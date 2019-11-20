@@ -31,8 +31,3 @@ templates2events('/etc/fail2ban/action.d/sendmail-common.local', $event);
 foreach my $event (qw ( nethserver-firewall-base-save )) {
     event_services($event,'fail2ban'=> 'restart');
 }
-
-# trusted-networks-modify
-my $event = 'trusted-networks-modify';
-event_services($event, 'fail2ban' => 'restart');
-templates2events('/etc/fail2ban/jail.local', $event);
