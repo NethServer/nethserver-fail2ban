@@ -7,11 +7,18 @@ usedns = yes
 
 banaction = shorewall-ipset-proto6
 
-sender = no-reply@{$SystemName.'.'.$DomainName}
 {
     use Email::Valid;
+    my @customemail;
 
-    my @customemail = 'root@'.$SystemName.'.'.$DomainName;
+    my $sender = $root{'SenderAddress'} || 'no-reply@'.$SystemName.'.'.$DomainName;
+    $OUT .= "sender = $sender\n";
+
+    if ($root{'EmailAddress'} eq '') {
+        @customemail = 'root@'.$SystemName.'.'.$DomainName;
+    } else {
+        @customemail = split(",",$root{'EmailAddress'});
+    }
 
     foreach my $email (split(/,/, ($fail2ban{CustomDestemail} || ''))) {
     push @customemail , $email if (Email::Valid->address($email));

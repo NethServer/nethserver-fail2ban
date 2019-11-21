@@ -18,12 +18,6 @@ NethServer configuration for fail2ban
 %prep
 %setup
 
-%pre
-#With NS7 < RC4 firewalld was not disabled
-#with the stable version, it could be removed
-/usr/bin/systemctl stop firewalld >/dev/null 2>&1
-/usr/bin/systemctl disable firewalld >/dev/null 2>&1
-
 %post
 %preun
 
@@ -53,7 +47,6 @@ chmod +x %{buildroot}/usr/libexec/nethserver/api/%{name}/*
 %{genfilelist} %{buildroot} \
   --file /usr/libexec/nethserver/fail2ban-status 'attr(0755,root,root)' \
   --file /usr/bin/fail2ban-listban 'attr(0750,root,root)' \
-  --file /usr/bin/fail2ban-unban 'attr(0750,root,root)' \
   --file /usr/libexec/nethserver/fail2ban-listban 'attr(0755,root,root)' \
   --file /usr/libexec/nethserver/fail2ban-listip 'attr(0755,root,root)' \
   --file /usr/libexec/nethserver/fail2ban-statistics 'attr(0750,root,root)' \
@@ -67,6 +60,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %doc COPYING
 %dir %{_nseventsdir}/%{name}-update
+%config(noreplace) /etc/fail2ban/filter.d/urbackup-auth.conf
 
 %changelog
 * Tue Oct 01 2019 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.2.0-1

@@ -27,7 +27,7 @@ NethServer::Fail2ban -- utility functions for fail2ban
 =cut
 
 =head1 DESCRIPTION
-TODO
+Fail2Ban library used to list active jails.
 =cut
 
 =head1 USAGE
