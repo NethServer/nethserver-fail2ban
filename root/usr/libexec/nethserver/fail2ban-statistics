@@ -1,0 +1,82 @@
+#!/usr/bin/perl
+#
+# Copyright (C) 2019 Nethesis S.r.l.
+# http://www.nethesis.it - nethserver@nethesis.it
+#
+# This script is part of NethServer.
+#
+# NethServer is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License,
+# or any later version.
+#
+# NethServer is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with NethServer.  If not, see COPYING.
+
+
+# Count how many time the IP is banned by different jails.
+# This script is invoked also by a cron job.
+
+use utf8;
+use JSON;
+binmode STDOUT, ":utf8";
+
+my $jsonFile = '/var/lib/nethserver/fail2ban/fail2ban.json';
+
+#encode Json file
+sub encodeJSON {
+      $data = shift;
+      umask 022;
+      open my $fh, ">", $jsonFile;
+      print $fh encode_json($data);
+      close $fh;
+}
+
+if ( ! -d '/var/lib/nethserver/fail2ban') {
+      umask 022;
+      mkdir '/var/lib/nethserver/fail2ban';
+}
+
+
+my $data = {TotalBannedIP => {}};
+
+#decode Json
+if ( -f $jsonFile ) {
+    open my $fh, "<", $jsonFile;
+    $json = <$fh>;
+    close $fh;
+
+    #Json validation
+    eval {
+        $data = decode_json($json);
+        1;
+    }
+}
+
+# retrieve the number of ban of the day (a cronjob runs it)
+open(FH, "/usr/bin/sqlite3 -list  /var/lib/fail2ban/fail2ban.sqlite3 \"select jail, count(*) as count from bans  WHERE date(datetime(timeofban , 'unixepoch')) = date('now') group by jail;\"|");
+my %jails =();
+while (<FH>) {
+    chomp;
+    my ($jail,$ban) = split('\|');
+    $jails{$jail} = $ban;
+}
+close(FH);
+
+foreach $key (keys %jails) {
+    my $counterStat = $data->{'TotalBannedIP'}{$key} || 0;
+    $counterStat = $counterStat + $jails{$key};
+    $data->{'TotalBannedIP'}->{$key} = $counterStat;
+}
+
+# we do not need anymore this
+# (old version of fail2ban)
+delete $data->{'IPList'};
+delete $data->{'IPDebug'};
+
+encodeJSON ($data);

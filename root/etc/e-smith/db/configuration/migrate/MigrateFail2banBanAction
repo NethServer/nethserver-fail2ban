@@ -1,9 +1,8 @@
 {
-    #Leave BanAction shorewall to shorewall-nethserver
+    # Delete BanAction we support only shorewall-nethserver
     use esmith::ConfigDB;
     my $db = esmith::ConfigDB->open;
 
-    my $BanAction = $db->get_prop('fail2ban','BanAction')|| '';
-    $db->set_prop('fail2ban','BanAction','shorewall-nethserver') if ($BanAction eq 'shorewall');
+    $db->get_prop_and_delete('fail2ban','BanAction');
     '';
 }

@@ -1,24 +1,14 @@
 {
-my $dovecot = $dovecot{status} || 'disabled';
-return "\n#dovecot not used on this server" unless (($dovecot eq 'enabled') && (-f '/var/log/imap'));
+    use NethServer::Fail2Ban;
+    my $port = $dovecot{TCPPorts} || '110,143,4190,993,995';
+    my $maxretry = $fail2ban{Dovecot_MaxRetry} || $fail2ban{MaxRetry} || '3';
+    return ("\n#dovecot not used on this server\n") if (! NethServer::Fail2Ban::listDovecotJails());
 
-my $Dovecot_status = $fail2ban{Dovecot_status} || 'true';
-my $TCPPorts = $dovecot{TCPPorts} || '110,143,4190,993,995';
-my $maxretry = $fail2ban{Dovecot_MaxRetry} || $fail2ban{MaxRetry} || '3';
-
-$OUT .= qq (
-[dovecot]
-enabled  = $Dovecot_status
-port     = $TCPPorts
-logpath  = \%(dovecot_log)s
-backend  = \%(dovecot_backend)s
-maxretry = $maxretry
-
-[dovecot-nethserver]
-enabled  = $Dovecot_status
-port     = $TCPPorts
-logpath  = /var/log/imap
-maxretry = $maxretry
-
-);
+    foreach (NethServer::Fail2Ban::listDovecotJails()) {
+        $OUT .= "\n[$_]\n";
+        $OUT .= "enabled = true\n";
+        $OUT .= "port = $port\n";
+        $OUT .= "logpath = /var/log/imap\n";
+        $OUT .= "maxretry = $maxretry\n\n";
+    }
 }

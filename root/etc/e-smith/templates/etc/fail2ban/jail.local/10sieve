@@ -1,17 +1,15 @@
 {
-my $sieve = $dovecot{status} || 'disabled';
-return "\n#sieve not used on this server" unless (($sieve eq 'enabled') && (-f '/var/log/imap'));
+    use NethServer::Fail2Ban;
+    my $port = $postfix{TCPPorts} || '25,465,587';
+    my $maxretry = $fail2ban{Sieve_MaxRetry} || $fail2ban{MaxRetry} || '3';
+    return ("\n#Sieve not used on this server\n") if (! NethServer::Fail2Ban::listSieveJails());
 
-my $Sieve_status = $fail2ban{Sieve_status} || 'true';
-my $TCPPorts = $postfix{TCPPorts} || '25,465,587';
-my $maxretry = $fail2ban{Sieve_MaxRetry} || $fail2ban{MaxRetry} || '3';
-
-$OUT .= qq (
-[sieve]
-enabled  = $Sieve_status
-port     = $TCPPorts
-logpath  = \%(dovecot_log)s
-backend  = \%(dovecot_backend)s
-maxretry = $maxretry
-);
+    foreach (NethServer::Fail2Ban::listSieveJails()) {
+        $OUT .= "\n[$_]\n";
+        $OUT .= "enabled = true\n";
+        $OUT .= "port = $port\n";
+        $OUT .= "logpath = \%(dovecot_log)s\n";
+        $OUT .= "backend  = \%(dovecot_backend)s\n";
+        $OUT .= "maxretry = $maxretry\n\n";
+    }
 }

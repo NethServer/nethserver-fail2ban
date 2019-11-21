@@ -1,15 +1,14 @@
 {
-return "\n#roundcubemail not installed on this server" unless (-f '/var/log/roundcubemail/errors.log');
+    use NethServer::Fail2Ban;
+    my $port = $httpd{TCPPorts} || '80,443';
+    my $maxretry = $fail2ban{Roundcube_MaxRetry} || $fail2ban{MaxRetry} || '3';
+    return ("\n#Roundcubemail not used on this server\n") if (! NethServer::Fail2Ban::listRoundcubeJails());
 
-my $Roundcube_status = $fail2ban{Roundcube_status} || 'true';
-my $TCPPorts = $httpd{TCPPorts} || '80,443';
-my $maxretry = $fail2ban{Roundcube_MaxRetry} || $fail2ban{MaxRetry} || '3';
-
-$OUT .= qq(
-[roundcube-auth]
-enabled  = $Roundcube_status
-port     = $TCPPorts
-logpath  = /var/log/roundcubemail/errors.log
-maxretry = $maxretry
-);
+    foreach (NethServer::Fail2Ban::listRoundcubeJails()) {
+        $OUT .= "\n[$_]\n";
+        $OUT .= "enabled = true\n";
+        $OUT .= "port = $port\n";
+        $OUT .= "logpath = /var/log/roundcubemail/errors.log\n";
+        $OUT .= "maxretry = $maxretry\n\n";
+    }
 }

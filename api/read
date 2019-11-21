@@ -32,29 +32,13 @@ my $cmd = $input->{'action'} || '';
 my $data;
 my %ret;
 
-sub read_json
-{
-    my $file = shift || return undef;
-    return undef if (! -e $file);
-
-    my $json;
-    {
-        local $/; #Enable 'slurp' mode
-        open my $fh, "<", $file or return undef;
-        $json = <$fh>;
-        close $fh;
-    }
-
-    return decode_json($json);
+sub uniq {
+  my %seen;
+  return grep { !$seen{$_}++ } @_;
 }
 
 if ($cmd eq 'statistic') {
-    if ( ! -f '/var/lib/nethserver/fail2ban/fail2ban.json') {
-        $data = {"TotalBannedIP" => {},"JailStatus" =>[]};
-    }
-    else {
-          $data = read_json("/var/lib/nethserver/fail2ban/fail2ban.json");
-    }
+    $data = NethServer::ApiTools::safe_decode_json(`/usr/libexec/nethserver/fail2ban-status`);
     # retrieve the all enabled jail by a bash command
     my $jailStatus=`echo "\$(fail2ban-client status| grep "Jail list:"|sed 's/\`- Jail list:\t//g')"`;
     $jailStatus=~ s/\s//g;
@@ -76,28 +60,24 @@ if ($cmd eq 'statistic') {
 }
 
 elsif ($cmd eq 'IPList') {
-    if ( ! -f '/var/lib/nethserver/fail2ban/fail2ban.json') {
-        $data = {"IPList" => []};
-    }
-    else {
-         $data = read_json("/var/lib/nethserver/fail2ban/fail2ban.json");
-    }
+    
     my @IP = ();
-    foreach my $k (keys ($data->{"IPList"})){
-    push @IP, { ip => $k};
+    my $IP = '';
+    my @jailStatus;
+    
+    foreach my $set (split ("\n", `ipset -L -name`)) {
+        next if ($set !~ m/^f2b-/);
+        push(@jailStatus, substr($set, 4));
+        $IP .= `ipset -L $set -exist| grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}"`;
     }
-
-    # retrieve the all enabled jail by a bash command
-    # we want to know if fail2ban is running
-    my $jailStatus=`echo "\$(fail2ban-client status| grep "Jail list:"|sed 's/\`- Jail list:\t//g')"`;
-    $jailStatus=~ s/\s//g;
-    my @jailStatus = split(',',$jailStatus);
+    
+    foreach my $i (uniq (split ("\n", $IP))){
+        push @IP, { ip => $i};
+    }
 
     print encode_json ({"IPList"=> [@IP],"JailStatus" => [@jailStatus]});
     exit(0);
-    }
-
-
+}
 
 elsif ($cmd eq 'configuration') {
 
@@ -123,7 +103,6 @@ elsif ($cmd eq 'configuration') {
             ApacheScan_status => $db->get_prop('fail2ban','ApacheScan_status'),
             ApacheShellshock_status => $db->get_prop('fail2ban','ApacheShellshock_status'),
             AsteriskAuth_status => $db->get_prop('fail2ban','AsteriskAuth_status'),
-            BanAction => $db->get_prop('fail2ban','BanAction'),
             BanLocalNetwork => $db->get_prop('fail2ban','BanLocalNetwork'),
             BanTime => $db->get_prop('fail2ban','BanTime'),
             DbPurgeage => $db->get_prop('fail2ban','DbPurgeage'),

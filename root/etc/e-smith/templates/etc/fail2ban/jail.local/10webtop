@@ -1,15 +1,14 @@
 {
-return "\n#webtop is not used on this server" unless ( -f '/var/lib/tomcats/webtop/logs/localhost_access_log.txt' );
+    use NethServer::Fail2Ban;
+    my $port = $httpd{TCPPorts} || '80,443';
+    my $maxretry = $fail2ban{Webtop_MaxRetry} || $fail2ban{MaxRetry} || '3';
+    return ("\n#Webtop not used on this server\n") if (! NethServer::Fail2Ban::listWebtopJails());
 
-my $Webtop_status = $fail2ban{Webtop_status} || 'true';
-my $TCPPorts = $httpd{TCPPorts} || '80,443';
-my $maxretry = $fail2ban{Webtop_MaxRetry} || $fail2ban{MaxRetry} || '3';
-
-$OUT .= qq (
-[webtop]
-enabled  = $Webtop_status
-port     = $TCPPorts
-logpath  = /var/lib/tomcats/webtop/logs/localhost_access_log.txt
-maxretry = $maxretry
-);
+    foreach (NethServer::Fail2Ban::listWebtopJails()) {
+        $OUT .= "\n[$_]\n";
+        $OUT .= "enabled = true\n";
+        $OUT .= "port = $port\n";
+        $OUT .= "logpath = //var/lib/tomcats/webtop/logs/localhost_access_log.txt\n";
+        $OUT .= "maxretry = $maxretry\n\n";
+    }
 }

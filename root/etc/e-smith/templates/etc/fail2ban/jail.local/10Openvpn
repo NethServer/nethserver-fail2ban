@@ -1,17 +1,14 @@
 {
-return "\n#openvpn is not used on this server" unless (-f '/var/log/openvpn/openvpn.log');
+    use NethServer::Fail2Ban;
+    my $port = ${'openvpn@host-to-net'}{UDPPort} || '1194';
+    my $maxretry = $fail2ban{OpenVpn_MaxRetry} || $fail2ban{MaxRetry} || '3';
+    return ("\n#openvpn not used on this server\n") if (! NethServer::Fail2Ban::listOpenVpnAuthJails());
 
-my $OpenVpnAuth_status = $fail2ban{OpenVpnAuth_status} || 'true';
-my $UDPPort = ${'openvpn@host-to-net'}{UDPPort} || '1194';
-my $maxretry = $fail2ban{OpenVpn_MaxRetry} || $fail2ban{MaxRetry} || '3';
-
-$OUT .= qq (
-[openvpn]
-enabled  = $OpenVpnAuth_status
-port     = $UDPPort
-protocol = udp
-filter   = openvpn
-logpath  = /var/log/openvpn/openvpn.log
-maxretry = $maxretry
-);
+    foreach (NethServer::Fail2Ban::listOpenVpnAuthJails()) {
+        $OUT .= "\n[$_]\n";
+        $OUT .= "enabled = true\n";
+        $OUT .= "port = $port\n";
+        $OUT .= "logpath = /var/log/openvpn/openvpn.log\n";
+        $OUT .= "maxretry = $maxretry\n\n";
+    }
 }

@@ -1,52 +1,22 @@
 {
-my $postfix = $postfix{status} || 'disabled';
-return "\n#postfix not used on this server"
-                   unless (-f '/var/log/maillog');
+    use NethServer::Fail2Ban;
+    return ("\n#postfix not used on this server\n") if (! NethServer::Fail2Ban::listPostfixJails());
+    my $port = $postfix{TCPPorts}|| '25,465,587';
+    my $maxretry = $fail2ban{Postfix_MaxRetry} || $fail2ban{MaxRetry} || '3';
+    my $postfixSaslAbuseMaxRetry = $fail2ban{PostfixSaslAbuse_MaxRetry} || $maxretry*33 || '100';
+    my $ignoreipSaslAbuse = $localAccess.','.($fail2ban{PostfixSaslAbuse_IgnoreIP}||'');
+    $ignoreipSaslAbuse =~ s/,/ /g;
 
-my $postfixstatus = $fail2ban{Postfix_status} || 'true';
-my $postfixtcp = $postfix{TCPPorts}|| '25,465,587';
-my $postfixrblstatus = $fail2ban{PostfixRbl_status} || 'true';
-my $postfixretry = $fail2ban{Postfix_MaxRetry} || $fail2ban{MaxRetry} || '3';
-
-my $postfixSaslAbuse = $fail2ban{PostfixSaslAbuse_status} || 'true';
-my $postfixSaslAbuseMaxRetry = $fail2ban{PostfixSaslAbuse_MaxRetry} || $postfixretry*33 || '100';
-my $ignoreipSaslAbuse = $localAccess.','.($fail2ban{PostfixSaslAbuse_IgnoreIP}||'');
-$ignoreipSaslAbuse =~ s/,/ /g;
-
-$OUT .= qq (
-[postfix]
-enabled  = $postfixstatus
-port     = $postfixtcp
-logpath  = \%(postfix_log)s
-backend  = \%(postfix_backend)s
-maxretry = $postfixretry
-
-
-[postfix-rbl]
-enabled  = $postfixrblstatus
-port     = $postfixtcp
-logpath  = \%(postfix_log)s
-backend  = \%(postfix_backend)s
-maxretry = $postfixretry
-
-[postfix-ddos]
-enabled  = $postfixstatus
-port     = $postfixtcp
-logpath  = /var/log/maillog
-maxretry = $postfixretry
-
-[postfix-sasl]
-enabled  = $postfixstatus
-port     = $postfixtcp
-logpath  = /var/log/maillog
-maxretry = $postfixretry
-
-[postfix-sasl-abuse]
-enabled  = $postfixSaslAbuse
-port     = $postfixtcp
-logpath  = /var/log/maillog
-maxretry = $postfixSaslAbuseMaxRetry
-ignoreip = $ignoreipSaslAbuse
-
-);
+    foreach (NethServer::Fail2Ban::listPostfixJails()) {
+        $OUT .= "\n[$_]\n";
+        $OUT .= "enabled = true\n";
+        $OUT .= "port = $port\n";
+        $OUT .= "logpath = /var/log/maillog\n";
+        if ( $_ eq 'postfix-sasl-abuse') {
+            $OUT .= "maxretry = $postfixSaslAbuseMaxRetry\n";
+            $OUT .= "ignoreip = $ignoreipSaslAbuse\n\n";
+        } else {
+            $OUT .= "maxretry = $maxretry\n\n";
+        }
+    }
 }

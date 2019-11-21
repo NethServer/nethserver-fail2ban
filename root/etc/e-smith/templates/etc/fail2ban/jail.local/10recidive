@@ -1,22 +1,19 @@
 {
-return "\n#recidive not used on this server"
-           unless (-f '/var/log/fail2ban.log');
+    use NethServer::Fail2Ban;
+    my $bantime  = $fail2ban{BanTime}*336 || '604800';
+    my $perpetual  = $fail2ban{Recidive_Perpetual} || 'disabled';
+    $bantime  = '0' if ($perpetual eq 'enabled');
+    my $findtime = '86400';
+    my $maxretry = $fail2ban{Recidive_MaxRetry} || $fail2ban{MaxRetry}*2 || '6';
+    return ("\n#recidive not used on this server\n") if (! NethServer::Fail2Ban::listRecidiveJails());
 
-my $status   = $fail2ban{Recidive_status} || 'true';
-my $action   = $fail2ban{Recidive_banaction} || $fail2ban{BanAction};
-my $bantime  = $fail2ban{BanTime}*336 || '604800';
-my $perpetual  = $fail2ban{Recidive_Perpetual} || 'disabled';
-$bantime  = '-1' if ($perpetual eq 'enabled');
-my $findtime = $fail2ban{FindTime}*94 || '86400';
-my $maxretry = $fail2ban{Recidive_MaxRetry} || $fail2ban{MaxRetry}*2 || '6';
-
-$OUT .= qq (
-[recidive]
-enabled   = $status
-logpath   = /var/log/fail2ban.log
-maxretry  = $maxretry
-banaction = $action
-bantime   = $bantime
-findtime  = $findtime
-);
+    foreach (NethServer::Fail2Ban::listRecidiveJails()) {
+        $OUT .= "\n[$_]\n";
+        $OUT .= "enabled = true\n";
+        $OUT .= "logpath = /var/log/fail2ban.log\n";
+        $OUT .= "banaction = shorewall-ipset-proto6\n";
+        $OUT .= "bantime   = $bantime\n";
+        $OUT .= "findtime  = $findtime\n";
+        $OUT .= "maxretry = $maxretry\n\n";
+    }
 }

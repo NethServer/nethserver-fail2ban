@@ -8,7 +8,8 @@ Source1: %{name}-cockpit.tar.gz
 BuildArch: noarch
 URL: http://dev.nethserver.org/projects/nethforge/wiki/%{name}
 BuildRequires: nethserver-devtools
-Requires: fail2ban fail2ban-shorewall perl-Email-Valid
+Requires: fail2ban >= 0.10.4
+Requires: fail2ban-shorewall perl-Email-Valid
 #AutoReq: no
 
 %description
@@ -17,12 +18,6 @@ NethServer configuration for fail2ban
 %prep
 %setup
 
-%pre
-#With NS7 < RC4 firewalld was not disabled
-#with the stable version, it could be removed
-/usr/bin/systemctl stop firewalld >/dev/null 2>&1
-/usr/bin/systemctl disable firewalld >/dev/null 2>&1
-
 %post
 %preun
 
@@ -30,6 +25,10 @@ NethServer configuration for fail2ban
 %{makedocs}
 perl createlinks
 sed -i 's/_RELEASE_/%{version}/' %{name}.json
+
+# move Fail2Ban library
+mkdir -p root%{perl_vendorlib}
+mv -v lib/perl/NethServer root%{perl_vendorlib}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -48,10 +47,9 @@ chmod +x %{buildroot}/usr/libexec/nethserver/api/%{name}/*
 %{genfilelist} %{buildroot} \
   --file /usr/libexec/nethserver/fail2ban-status 'attr(0755,root,root)' \
   --file /usr/bin/fail2ban-listban 'attr(0750,root,root)' \
-  --file /usr/bin/fail2ban-unban 'attr(0750,root,root)' \
   --file /usr/libexec/nethserver/fail2ban-listban 'attr(0755,root,root)' \
   --file /usr/libexec/nethserver/fail2ban-listip 'attr(0755,root,root)' \
-  --file /usr/libexec/nethserver/shorewall-nethserver 'attr(0750,root,root)' \
+  --file /usr/libexec/nethserver/fail2ban-statistics 'attr(0750,root,root)' \
   --file /etc/sudoers.d/50_nsapi_nethserver_fail2ban 'attr(0440,root,root)' \
 $RPM_BUILD_ROOT > e-smith-%{version}-filelist
 
@@ -62,6 +60,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %doc COPYING
 %dir %{_nseventsdir}/%{name}-update
+%config(noreplace) /etc/fail2ban/filter.d/urbackup-auth.conf
 
 %changelog
 * Tue Nov 12 2019 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.2.1-1

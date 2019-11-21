@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (C) 2018 Nethesis S.r.l.
+# Copyright (C) 2019 Nethesis S.r.l.
 # http://www.nethesis.it - nethserver@nethesis.it
 #
 # This script is part of NethServer.
@@ -24,4 +24,4 @@ if [[ $IP == '' ]]; then
     exit 0
 fi
 
-/usr/libexec/nethserver/shorewall-nethserver allow $IP > /dev/null
+/usr/bin/fail2ban-client unban $IP > /dev/null

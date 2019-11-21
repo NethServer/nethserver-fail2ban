@@ -1,15 +1,14 @@
 {
-return "\n#sogo is not used on this server" unless ( -f '/var/log/sogo/sogo.log' );
+    use NethServer::Fail2Ban;
+    my $port = $httpd{TCPPorts} || '80,443';
+    my $maxretry = $fail2ban{Sogo_MaxRetry} || $fail2ban{MaxRetry} || '3';
+    return ("\n#SOGo not used on this server\n") if (! NethServer::Fail2Ban::listSogoJails());
 
-my $SogoAuth_status = $fail2ban{SogoAuth_status} || 'true';
-my $TCPPorts = $httpd{TCPPorts} || '80,443';
-my $maxretry = $fail2ban{Sogo_MaxRetry} || $fail2ban{MaxRetry} || '3';
-
-$OUT .= qq (
-[sogo-auth]
-enabled  = $SogoAuth_status
-port     = $TCPPorts
-logpath  = /var/log/sogo/sogo.log
-maxretry = $maxretry
-);
+    foreach (NethServer::Fail2Ban::listSogoJails()) {
+        $OUT .= "\n[$_]\n";
+        $OUT .= "enabled = true\n";
+        $OUT .= "port = $port\n";
+        $OUT .= "logpath = /var/log/sogo/sogo.log\n";
+        $OUT .= "maxretry = $maxretry\n\n";
+    }
 }

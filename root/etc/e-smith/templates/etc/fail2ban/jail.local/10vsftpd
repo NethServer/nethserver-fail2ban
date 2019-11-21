@@ -1,17 +1,14 @@
 {
-my $ftp = $vsftpd{status} || 'disabled';
-return "\n#vsftpd not used on this server"
-           unless (($ftp eq 'enabled') && (-f '/var/log/vsftpd.log'));
+    use NethServer::Fail2Ban;
+    my $port = $vsftpd{TCPPort} || '21';
+    my $maxretry = $fail2ban{Vsftpd_MaxRetry} || $fail2ban{MaxRetry} || '3';
+    return ("\n#Vsftpd not used on this server\n") if (! NethServer::Fail2Ban::listVsftpdJails());
 
-my $Vsftpd_status = $fail2ban{Vsftpd_status} || 'true';
-my $TCPPort = $vsftpd{TCPPort} || '21';
-my $maxretry = $fail2ban{Vsftpd_MaxRetry} || $fail2ban{MaxRetry} || '3';
-
-$OUT .= qq (
-[vsftpd]
-enabled  = $Vsftpd_status
-port     = $TCPPort
-logpath  = /var/log/vsftpd.log
-maxretry = $maxretry
-);
+    foreach (NethServer::Fail2Ban::listVsftpdJails()) {
+        $OUT .= "\n[$_]\n";
+        $OUT .= "enabled = true\n";
+        $OUT .= "port = $port\n";
+        $OUT .= "logpath = /var/log/vsftpd.log\n";
+        $OUT .= "maxretry = $maxretry\n\n";
+    }
 }
