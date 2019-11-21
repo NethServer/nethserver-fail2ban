@@ -63,21 +63,17 @@ elsif ($cmd eq 'IPList') {
     
     my @IP = ();
     my $IP = '';
+    my @jailStatus;
     
     foreach my $set (split ("\n", `ipset -L -name`)) {
         next if ($set !~ m/^f2b-/);
+        push(@jailStatus, substr($set, 4));
         $IP .= `ipset -L $set -exist| grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}"`;
     }
     
     foreach my $i (uniq (split ("\n", $IP))){
         push @IP, { ip => $i};
     }
-
-    # retrieve the all enabled jail by a bash command
-    # we want to know if fail2ban is running
-    my $jailStatus=`echo "\$(fail2ban-client status| grep "Jail list:"|sed 's/\`- Jail list:\t//g')"`;
-    $jailStatus=~ s/\s//g;
-    my @jailStatus = split(',',$jailStatus);
 
     print encode_json ({"IPList"=> [@IP],"JailStatus" => [@jailStatus]});
     exit(0);
