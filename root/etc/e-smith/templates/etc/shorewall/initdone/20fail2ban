@@ -1,9 +1,18 @@
 {
     # create the ipset jail in iptables
     use NethServer::Fail2Ban;
+    my $bantime= $fail2ban{'BanTime'} || '1800';
+    my $perpetual = $fail2ban{'Recidive_Perpetual'} || 'disabled';
     foreach (NethServer::Fail2Ban::listAllJails()) {
-        $OUT .= "system(\"/usr/sbin/ipset -quiet -exist create f2b-$_ hash:ip timeout 600 \");\n";
+    
+        if (($_ eq 'recidive') && ($perpetual eq 'enabled')) {
+            $OUT .= "system(\"/usr/sbin/ipset -quiet -exist create f2b-recidive hash:ip timeout 0 \");\n";
+        } elsif ($_ eq 'recidive') {
+            # max ban time for ipset is 2147483 seconds
+            $OUT .= "system(\"/usr/sbin/ipset -quiet -exist create f2b-recidive hash:ip timeout 1209600 \");\n";
+        } else {
+            $OUT .= "system(\"/usr/sbin/ipset -quiet -exist create f2b-$_ hash:ip timeout $bantime \");\n";
+        }
     }
-
     $OUT .= '1;';
 }
