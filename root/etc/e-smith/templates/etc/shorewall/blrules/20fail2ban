@@ -1,6 +1,8 @@
 {
     # DROP the ipset jail in iptables
+    # No rules if status disabled
     use NethServer::Fail2Ban;
+    return "" if ($fail2ban{'status'} ne 'enabled');
     my $banLocal = $fail2ban{'BanLocalNetwork'} || 'disabled';
     foreach (NethServer::Fail2Ban::listAllJails()) {
         $OUT .= "DROP\tnet:+f2b-$_\tall\n";

@@ -1,6 +1,8 @@
 {
     # create the ipset jail in iptables
+    # no rules if status disabled
     use NethServer::Fail2Ban;
+    return "" if ($fail2ban{'status'} ne 'enabled');
     my $bantime= $fail2ban{'BanTime'} || '1800';
     my $perpetual = $fail2ban{'Recidive_Perpetual'} || 'disabled';
     foreach (NethServer::Fail2Ban::listAllJails()) {
