@@ -1,0 +1,6 @@
+
+#
+# Fail2ban destroy all ipset when shorewall stop
+#
+
+/usr/libexec/nethserver/fail2ban-ipset-destroy

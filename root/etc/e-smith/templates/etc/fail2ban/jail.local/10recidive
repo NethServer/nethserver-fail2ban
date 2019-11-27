@@ -1,9 +1,9 @@
 {
     use NethServer::Fail2Ban;
-    my $bantime  = $fail2ban{BanTime}*336 || '604800';
-    my $perpetual  = $fail2ban{Recidive_Perpetual} || 'disabled';
-    $bantime  = '0' if ($perpetual eq 'enabled');
     my $findtime = '86400';
+    my $bantime  = '1209600';
+    my $perpetual  = $fail2ban{Recidive_Perpetual} || 'disabled';
+    $bantime  = '-1' if ($perpetual eq 'enabled');
     my $maxretry = $fail2ban{Recidive_MaxRetry} || $fail2ban{MaxRetry}*2 || '6';
     return ("\n#recidive not used on this server\n") if (! NethServer::Fail2Ban::listRecidiveJails());
 
@@ -12,7 +12,7 @@
         $OUT .= "enabled = true\n";
         $OUT .= "logpath = /var/log/fail2ban.log\n";
         $OUT .= "banaction = shorewall-ipset-proto6\n";
-        $OUT .= "bantime   = $bantime\n";
+        $OUT .= "bantime  = $bantime\n";
         $OUT .= "findtime  = $findtime\n";
         $OUT .= "maxretry = $maxretry\n\n";
     }
