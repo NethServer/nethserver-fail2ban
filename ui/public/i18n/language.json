@@ -13,7 +13,9 @@
         "unBanIP": "Unban",
         "Fail2ban_is_probably_down": "Fail2ban is probably stopped, please check the logs",
         "ip_unlocked_error": "The IP has not been unbanned",
-        "ip_unlocked_ok": "The IP has been unbanned"
+        "ip_unlocked_ok": "The IP has been unbanned",
+        "No_banned_IP": "You have no banned IP",
+        "no_IP_desc": "Here are listed the blocked IP in the firewall"
     },
     "settings": {
         "title": "Settings",
