@@ -29,6 +29,7 @@ templates2events('/etc/shorewall/initdone', $event);
 templates2events('/etc/shorewall/blrules', $event);
 templates2events('/etc/shorewall/stopped', $event);
 event_services($event,'shorewall'=> 'restart');
+event_services($event,'fail2ban'=> 'restart');
 
 # Fail2ban services restart
 foreach my $event (qw ( nethserver-firewall-base-save )) {
