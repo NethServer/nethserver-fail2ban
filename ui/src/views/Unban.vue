@@ -4,41 +4,53 @@
         <div v-if="!view.isLoaded" class="spinner spinner-lg"></div>
         <div v-if="view.isLoaded">
             <div v-if="JailStatus.length > 0">
-              <h3>{{$t('list')}}</h3>
-                <vue-good-table
-                v-if="view.isLoaded"
-                :customRowsPerPageDropdown="[25,50,100]"
-                :perPage="25"
-                :columns="columns"
-                :rows="rows"
-                :lineNumbers="false"
-                :defaultSortBy="{field: 'ip', type: 'asc'}"
-                :globalSearch="true"
-                :paginate="true"
-                styleClass="table"
-                :nextText="tableLangsTexts.nextText"
-                :prevText="tableLangsTexts.prevText"
-                :rowsPerPageText="tableLangsTexts.rowsPerPageText"
-                :globalSearchPlaceholder="tableLangsTexts.globalSearchPlaceholder"
-                :ofText="tableLangsTexts.ofText"
-                >
-                <template slot="table-row" slot-scope="props">
-                    <td class="fancy">
-                        <strong>{{ props.row.ip }}</strong>
-                    </td>
-                    <td>
-                        <button
-                        @click="unban( props.row.ip )"
-                        class="btn btn-default button-minimum"
-                        >
-                        <span
-                        :class="['fa', 'fa-unlock', 'span-right-margin']"
-                        ></span>
-                        {{$t('unban.unBanIP') }}
-                    </button>
-                    </td>
-                </template>
-                </vue-good-table>
+                <div v-if="rows.length === 0" >
+                    <div class="blank-slate-pf">
+                      <div class="blank-slate-pf-icon">
+                          <span class="fa fa-lock"></span>
+                      </div>
+                      <h1>{{$t('unban.No_banned_IP')}}</h1>
+                      <p>{{$t('unban.no_IP_desc')}}.</p>
+                    </div>
+                </div>
+              </div>
+              <div v-else>
+                <h3>{{$t('list')}}</h3>
+                  <vue-good-table
+                  v-if="view.isLoaded"
+                  :customRowsPerPageDropdown="[25,50,100]"
+                  :perPage="25"
+                  :columns="columns"
+                  :rows="rows"
+                  :lineNumbers="false"
+                  :defaultSortBy="{field: 'ip', type: 'asc'}"
+                  :globalSearch="true"
+                  :paginate="true"
+                  styleClass="table"
+                  :nextText="tableLangsTexts.nextText"
+                  :prevText="tableLangsTexts.prevText"
+                  :rowsPerPageText="tableLangsTexts.rowsPerPageText"
+                  :globalSearchPlaceholder="tableLangsTexts.globalSearchPlaceholder"
+                  :ofText="tableLangsTexts.ofText"
+                  >
+                  <template slot="table-row" slot-scope="props">
+                      <td class="fancy">
+                          <strong>{{ props.row.ip }}</strong>
+                      </td>
+                      <td>
+                          <button
+                          @click="unban( props.row.ip )"
+                          class="btn btn-default button-minimum"
+                          >
+                          <span
+                          :class="['fa', 'fa-unlock', 'span-right-margin']"
+                          ></span>
+                          {{$t('unban.unBanIP') }}
+                      </button>
+                      </td>
+                  </template>
+                  </vue-good-table>
+              </div>
             </div>
             <div v-else>
                 <h3>{{$t('unban.Fail2ban_is_probably_down')}}</h3>
