@@ -13,30 +13,8 @@
         ></doc-info>
       <h3>{{$t('settings.configuration')}}</h3>
       <form class="form-horizontal" v-on:submit.prevent="saveSettings('status')">
-        <div :class="['form-group', errors.status.hasError ? 'has-error' : '']">
-          <label
-            class="col-sm-2 control-label"
-            for="textInput-modal-markup"
-          >{{$t('settings.status')}}</label>
-          <div class="col-sm-5">
-            <toggle-button
-              class="min-toggle"
-              :width="40"
-              :height="20"
-              :color="{checked: '#0088ce', unchecked: '#bbbbbb'}"
-              :value="configuration.status"
-              :sync="true"
-              @change="toggleStatus()"
-            />
-            <span
-              v-if="errors.status.hasError"
-              class="help-block"
-            >{{errors.status.message}}</span>
-          </div>
-        </div>
         <!-- IgnoreIP -->
         <div
-        v-if="configuration.status"
         :class="['form-group', errors.IgnoreIP.hasError ? 'has-error' : '']"
         >
         <label
@@ -60,7 +38,6 @@
         </div>    
         <!-- mail -->
         <div
-          v-if="configuration.status"
           :class="['form-group', errors.mail.hasError ? 'has-error' : '']"
         >
           <label
@@ -77,7 +54,7 @@
         </div>
 
         <div
-            v-if="configuration.mail && configuration.status"
+            v-if="configuration.mail"
            v-for="(a, i) in configuration.CustomDestemail"
            v-bind:key="i"
            :class="['form-group', errors.CustomDestemail.hasError ? 'has-error' : '']"
@@ -86,7 +63,7 @@
              {{i == 0 ?
              $t('settings.notify_to') : ''}}
            </label>
-           <div v-if="configuration.mail && configuration.status"
+           <div v-if="configuration.mail"
                 class="col-sm-5">
              <input  required type="email" v-model="a.email" class="form-control">
              <span v-if="errors.CustomDestemail.hasError" class="help-block">
@@ -101,7 +78,7 @@
            </div>
         </div>
 
-         <div   v-if="configuration.mail && configuration.status"
+         <div   v-if="configuration.mail"
                 class="form-group">
            <div class="col-sm-2 control-label"></div>
            <div class="col-sm-5">
@@ -113,7 +90,7 @@
         </div>
 
         <div
-          v-if="configuration.status && configuration.mail"
+          v-if="configuration.mail"
           :class="['form-group', errors.MailJailState.hasError ? 'has-error' : '']"
         >
           <label
@@ -138,7 +115,7 @@
 
         <!-- advanced -->
 
-        <legend v-if="configuration.status" class="fields-section-header-pf" aria-expanded="true">
+        <legend class="fields-section-header-pf" aria-expanded="true">
             <span
             :class="['fa fa-angle-right field-section-toggle-pf', configuration.advanced ? 'fa-angle-down' : '']"
             ></span>
@@ -149,7 +126,7 @@
         </legend>
 
         <div
-          v-if="configuration.status && configuration.advanced"
+          v-if="configuration.advanced"
           :class="['form-group', errors.Recidive_Perpetual.hasError ? 'has-error' : '']"
         >
           <label
@@ -166,7 +143,7 @@
         </div>
 
         <div
-          v-if="configuration.status && configuration.advanced"
+          v-if="configuration.advanced"
           :class="['form-group', errors.BanLocalNetwork.hasError ? 'has-error' : '']"
         >
           <label
@@ -183,7 +160,7 @@
         </div>
 
         <div 
-          v-if="configuration.status && configuration.advanced"
+          v-if="configuration.advanced"
           :class="['form-group', errors.LogLevel.hasError ? 'has-error' : '']">
           <label
             class="col-sm-2 control-label"
@@ -217,7 +194,7 @@
           </div>
         </div>
         <!-- slider -->
-        <div v-if="configuration.status && configuration.advanced" :class="['form-group', errors.MaxRetry.hasError ? 'has-error' : '']">
+        <div v-if="configuration.advanced" :class="['form-group', errors.MaxRetry.hasError ? 'has-error' : '']">
             <label class="col-sm-2 control-label" for="filter">{{$t('settings.MaxRetry')}}</label>
             <div class="col-sm-5">
                 <div>{{configuration.MaxRetry}}</div>
@@ -225,7 +202,7 @@
                 <span v-if="errors.MaxRetry.hasError" class="help-block">{{$t('settings.Not_valid_MaxRetry')}}</span>
             </div>
         </div>
-        <div v-if="configuration.status && configuration.advanced" :class="['form-group', errors.FindTime.hasError ? 'has-error' : '']">
+        <div v-if="configuration.advanced" :class="['form-group', errors.FindTime.hasError ? 'has-error' : '']">
             <label class="col-sm-2 control-label" for="filter">{{$t('settings.FindTime')}}
                 <doc-info
                   :placement="'top'"
@@ -240,7 +217,7 @@
                 <span v-if="errors.FindTime.hasError" class="help-block">{{$t('settings.Not_valid_FindTime')}}</span>
             </div>
         </div>
-        <div v-if="configuration.status && configuration.advanced" :class="['form-group', errors.BanTime.hasError ? 'has-error' : '']">
+        <div v-if="configuration.advanced" :class="['form-group', errors.BanTime.hasError ? 'has-error' : '']">
             <label class="col-sm-2 control-label" >{{$t('settings.BanTime')}}</label>
             <div class="col-sm-5">
                 <div>{{ $t('settings.BanTime_'+configuration.BanTime) }}</div>
@@ -285,7 +262,6 @@ export default {
         isRoot: false
       },
       configuration: {
-              status: true,
               mail: true,
               CustomDestemail: [],
               IgnoreIP: [],
@@ -304,10 +280,6 @@ export default {
   methods: {
     initErrors() {
       return {
-      status: {
-        hasError: false,
-        message: ""
-      },
       mail: {
         hasError: false,
         message: ""
@@ -378,7 +350,6 @@ export default {
           } catch (e) {
             console.error(e);
           }
-          context.configuration.status = success.configuration.props.status == "enabled";
           context.configuration.mail = success.configuration.props.Mail == "enabled";
           context.configuration.MailJailState = success.configuration.props.MailJailState == "enabled";
           context.configuration.BanLocalNetwork = success.configuration.props.BanLocalNetwork == "enabled";
@@ -404,16 +375,10 @@ export default {
         true //sudo
       );
     },
-    toggleStatus() {
-      this.configuration.status = !this.configuration.status;
-    },
     saveSettings(type) {
       var context = this;
       var settingsObj = {
         action: "configuration",
-        status: context.configuration.status
-          ? "enabled"
-          : "disabled",
           Mail: context.configuration.mail
             ? "enabled"
             : "disabled",
