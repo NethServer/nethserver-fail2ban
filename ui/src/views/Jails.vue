@@ -6,30 +6,9 @@
 
       <h3>{{$t('jails.configuration')}}</h3>
       <form class="form-horizontal" v-on:submit.prevent="saveSettings('status')">
-        <div :class="['form-group', errors.status.hasError ? 'has-error' : '']">
-          <label
-            class="col-sm-2 control-label"
-            for="textInput-modal-markup"
-          >{{$t('jails.status')}}</label>
-          <div class="col-sm-5">
-            <toggle-button
-              class="min-toggle"
-              :width="40"
-              :height="20"
-              :color="{checked: '#0088ce', unchecked: '#bbbbbb'}"
-              :value="configuration.status"
-              :sync="true"
-              @change="toggleFail2banStatus()"
-            />
-            <span
-              v-if="errors.status.hasError"
-              class="help-block"
-            >{{errors.status.message}}</span>
-          </div>
-        </div>
         <!-- apache jails -->
 
-        <legend v-if="configuration.status" class="fields-section-header-pf" aria-expanded="true">
+        <legend class="fields-section-header-pf" aria-expanded="true">
             <span
             :class="['fa fa-angle-right field-section-toggle-pf', view.apache ? 'fa-angle-down' : '']"
             ></span>
@@ -40,7 +19,7 @@
         </legend>
 
         <div
-          v-if="configuration.status && view.apache"
+          v-if="view.apache"
           :class="['form-group', errors.ApacheAuth_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -57,7 +36,7 @@
         </div>
 
         <div
-          v-if="configuration.status && view.apache"
+          v-if="view.apache"
           :class="['form-group', errors.ApacheBadbots_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -74,7 +53,7 @@
         </div>
 
         <div
-          v-if="configuration.status && view.apache"
+          v-if="view.apache"
           :class="['form-group', errors.ApacheBotsearch_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -91,7 +70,7 @@
         </div>
 
         <div
-          v-if="configuration.status && view.apache"
+          v-if="view.apache"
           :class="['form-group', errors.ApacheFakegooglebot_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -108,7 +87,7 @@
         </div>
 
         <div
-          v-if="configuration.status && view.apache"
+          v-if="view.apache"
           :class="['form-group', errors.ApacheModsecurity_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -125,7 +104,7 @@
         </div>
 
         <div
-          v-if="configuration.status && view.apache"
+          v-if="view.apache"
           :class="['form-group', errors.ApacheNohome_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -142,7 +121,7 @@
         </div>
 
         <div
-          v-if="configuration.status && view.apache"
+          v-if="view.apache"
           :class="['form-group', errors.ApacheNoscript_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -159,7 +138,7 @@
         </div>
 
         <div
-          v-if="configuration.status && view.apache"
+          v-if="view.apache"
           :class="['form-group', errors.ApacheOverflows_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -176,7 +155,7 @@
         </div>
 
         <div
-          v-if="configuration.status && view.apache"
+          v-if="view.apache"
           :class="['form-group', errors.ApacheScan_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -193,7 +172,7 @@
         </div>
 
         <div
-          v-if="configuration.status && view.apache"
+          v-if="view.apache"
           :class="['form-group', errors.ApacheShellshock_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -209,7 +188,7 @@
           </div>
         </div>
         <!-- communication_jails -->
-        <legend v-if="configuration.status" class="fields-section-header-pf" aria-expanded="true">
+        <legend  class="fields-section-header-pf" aria-expanded="true">
             <span
             :class="['fa fa-angle-right field-section-toggle-pf', view.communication ? 'fa-angle-down' : '']"
             ></span>
@@ -220,7 +199,7 @@
         </legend>
 
         <div
-          v-if="configuration.status && view.communication"
+          v-if="view.communication"
           :class="['form-group', errors.AsteriskAuth_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -237,7 +216,7 @@
         </div>
 
         <div
-          v-if="configuration.status && view.communication"
+          v-if="view.communication"
           :class="['form-group', errors.EjabberAuth_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -254,7 +233,7 @@
         </div>
 
         <!-- database_jails -->
-        <legend v-if="configuration.status" class="fields-section-header-pf" aria-expanded="true">
+        <legend  class="fields-section-header-pf" aria-expanded="true">
             <span
             :class="['fa fa-angle-right field-section-toggle-pf', view.database ? 'fa-angle-down' : '']"
             ></span>
@@ -265,7 +244,7 @@
         </legend>
 
         <div
-          v-if="configuration.status && view.database"
+          v-if="view.database"
           :class="['form-group', errors.MysqldAuth_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -282,7 +261,7 @@
         </div>
 
         <!-- email_jails -->
-        <legend v-if="configuration.status" class="fields-section-header-pf" aria-expanded="true">
+        <legend  class="fields-section-header-pf" aria-expanded="true">
             <span
             :class="['fa fa-angle-right field-section-toggle-pf', view.email ? 'fa-angle-down' : '']"
             ></span>
@@ -293,7 +272,7 @@
         </legend>
 
         <div
-          v-if="configuration.status && view.email"
+          v-if="view.email"
           :class="['form-group', errors.Dovecot_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -310,7 +289,7 @@
         </div>
 
         <div
-          v-if="configuration.status && view.email"
+          v-if="view.email"
           :class="['form-group', errors.PostfixRbl_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -327,7 +306,7 @@
         </div>
 
         <div
-          v-if="configuration.status && view.email"
+          v-if="view.email"
           :class="['form-group', errors.Postfix_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -344,7 +323,7 @@
         </div>
 
         <div
-          v-if="configuration.status && view.email"
+          v-if="view.email"
           :class="['form-group', errors.PostfixSaslAbuse_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -361,7 +340,7 @@
         </div>
 
         <div
-          v-if="configuration.status && view.email"
+          v-if="view.email"
           :class="['form-group', errors.Sieve_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -378,7 +357,7 @@
         </div>
 
         <!-- ftp_jails -->
-        <legend v-if="configuration.status" class="fields-section-header-pf" aria-expanded="true">
+        <legend  class="fields-section-header-pf" aria-expanded="true">
             <span
             :class="['fa fa-angle-right field-section-toggle-pf', view.ftp ? 'fa-angle-down' : '']"
             ></span>
@@ -389,7 +368,7 @@
         </legend>
 
         <div
-          v-if="configuration.status && view.ftp"
+          v-if="view.ftp"
           :class="['form-group', errors.Sieve_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -406,7 +385,7 @@
         </div>
 
         <!-- nginx_jails -->
-        <legend v-if="configuration.status" class="fields-section-header-pf" aria-expanded="true">
+        <legend  class="fields-section-header-pf" aria-expanded="true">
             <span
             :class="['fa fa-angle-right field-section-toggle-pf', view.nginx ? 'fa-angle-down' : '']"
             ></span>
@@ -417,7 +396,7 @@
         </legend>
 
         <div
-          v-if="configuration.status && view.nginx"
+          v-if="view.nginx"
           :class="['form-group', errors.NginxHttpAuth_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -434,7 +413,7 @@
         </div>
 
         <div
-          v-if="configuration.status && view.nginx"
+          v-if="view.nginx"
           :class="['form-group', errors.NginxBotSearch_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -451,7 +430,7 @@
         </div>
 
         <!-- security_jails -->
-        <legend v-if="configuration.status" class="fields-section-header-pf" aria-expanded="true">
+        <legend  class="fields-section-header-pf" aria-expanded="true">
             <span
             :class="['fa fa-angle-right field-section-toggle-pf', view.security ? 'fa-angle-down' : '']"
             ></span>
@@ -462,7 +441,7 @@
         </legend>
 
         <div
-          v-if="configuration.status && view.security"
+          v-if="view.security"
           :class="['form-group', errors.HttpdAdmin_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -479,7 +458,7 @@
         </div>
 
         <div
-          v-if="configuration.status && view.security"
+          v-if="view.security"
           :class="['form-group', errors.PamGeneric_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -496,7 +475,7 @@
         </div>
 
         <div
-          v-if="configuration.status && view.security"
+          v-if="view.security"
           :class="['form-group', errors.Recidive_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -513,7 +492,7 @@
         </div>
 
         <!-- ssh_jails -->
-        <legend v-if="configuration.status" class="fields-section-header-pf" aria-expanded="true">
+        <legend  class="fields-section-header-pf" aria-expanded="true">
             <span
             :class="['fa fa-angle-right field-section-toggle-pf', view.ssh ? 'fa-angle-down' : '']"
             ></span>
@@ -524,7 +503,7 @@
         </legend>
 
         <div
-          v-if="configuration.status && view.ssh"
+          v-if="view.ssh"
           :class="['form-group', errors.Sshd_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -541,7 +520,7 @@
         </div>
 
         <div
-          v-if="configuration.status && view.ssh"
+          v-if="view.ssh"
           :class="['form-group', errors.SshdDdos_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -558,7 +537,7 @@
         </div>
 
         <!-- vpn_jails -->
-        <legend v-if="configuration.status" class="fields-section-header-pf" aria-expanded="true">
+        <legend  class="fields-section-header-pf" aria-expanded="true">
             <span
             :class="['fa fa-angle-right field-section-toggle-pf', view.vpn ? 'fa-angle-down' : '']"
             ></span>
@@ -569,7 +548,7 @@
         </legend>
 
         <div
-          v-if="configuration.status && view.vpn"
+          v-if="view.vpn"
           :class="['form-group', errors.OpenVpnAuth_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -586,7 +565,7 @@
         </div>
 
         <!-- webApps_jails -->
-        <legend v-if="configuration.status" class="fields-section-header-pf" aria-expanded="true">
+        <legend  class="fields-section-header-pf" aria-expanded="true">
             <span
             :class="['fa fa-angle-right field-section-toggle-pf', view.webApps ? 'fa-angle-down' : '']"
             ></span>
@@ -597,7 +576,7 @@
         </legend>
 
         <div
-          v-if="configuration.status && view.webApps"
+          v-if="view.webApps"
           :class="['form-group', errors.Nextcloud_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -614,7 +593,7 @@
         </div>
 
         <div
-          v-if="configuration.status && view.webApps"
+          v-if="view.webApps"
           :class="['form-group', errors.Owncloud_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -631,7 +610,7 @@
         </div>
 
         <div
-          v-if="configuration.status && view.webApps"
+          v-if="view.webApps"
           :class="['form-group', errors.ApachePhpMyAdmin_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -648,7 +627,7 @@
         </div>
 
         <div
-          v-if="configuration.status && view.webApps"
+          v-if="view.webApps"
           :class="['form-group', errors.Roundcube_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -665,7 +644,7 @@
         </div>
 
         <div
-          v-if="configuration.status && view.webApps"
+          v-if="view.webApps"
           :class="['form-group', errors.Rspamd_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -682,7 +661,7 @@
         </div>
 
         <div
-          v-if="configuration.status && view.webApps"
+          v-if="view.webApps"
           :class="['form-group', errors.SogoAuth_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -699,7 +678,7 @@
         </div>
 
         <div
-          v-if="configuration.status && view.webApps"
+          v-if="view.webApps"
           :class="['form-group', errors.Urbackup_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -716,7 +695,7 @@
         </div>
 
         <div
-          v-if="configuration.status && view.webApps"
+          v-if="view.webApps"
           :class="['form-group', errors.Webtop_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -769,7 +748,6 @@ export default {
         webApps: false
       },
       configuration: {
-              status: true,
               ApacheAuth_status: "true",
               ApacheBadbots_status: "true",
               ApacheBotsearch_status: "true",
@@ -813,10 +791,6 @@ export default {
   methods: {
     initErrors() {
       return {
-      status: {
-        hasError: false,
-        message: ""
-      },
       ApacheAuth_status: {
         hasError: false,
         message: ""
@@ -979,7 +953,6 @@ export default {
           } catch (e) {
             console.error(e);
           }
-          context.configuration.status = success.configuration.props.status == "enabled";
           context.configuration.ApacheAuth_status = success.configuration.props.ApacheAuth_status == "true";
           context.configuration.ApacheBadbots_status = success.configuration.props.ApacheBadbots_status == "true";
           context.configuration.ApacheBotsearch_status = success.configuration.props.ApacheBotsearch_status == "true";
@@ -1024,16 +997,10 @@ export default {
         true //sudo
       );
     },
-    toggleFail2banStatus() {
-      this.configuration.status = !this.configuration.status;
-    },
     saveSettings(type) {
       var context = this;
       var settingsObj = {
         action: "jails",
-        status: context.configuration.status
-          ? "enabled"
-          : "disabled",
           ApacheAuth_status: context.configuration.ApacheAuth_status
             ? "true"
             : "false",
