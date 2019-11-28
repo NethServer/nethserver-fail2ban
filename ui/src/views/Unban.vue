@@ -3,7 +3,7 @@
         <h2>{{$t('unban.title')}}</h2>
         <div v-if="!view.isLoaded" class="spinner spinner-lg"></div>
         <div v-if="view.isLoaded">
-            <div v-if="JailStatus.length > 0">
+
                 <div v-if="rows.length === 0" >
                     <div class="blank-slate-pf">
                       <div class="blank-slate-pf-icon">
@@ -12,7 +12,6 @@
                       <h1>{{$t('unban.No_banned_IP')}}</h1>
                       <p>{{$t('unban.no_IP_desc')}}.</p>
                     </div>
-                </div>
               </div>
               <div v-else>
                 <h3>{{$t('list')}}</h3>
@@ -72,7 +71,6 @@ export default {
         isLoaded: false,
       },
       IPList: [],
-      JailStatus: [],
       loaders: false,
       errors: this.initErrors(),
       tableLangsTexts: this.tableLangs(),
@@ -119,13 +117,6 @@ export default {
           }
           context.rows = success.IPList;
           
-        var jails = [{}];
-        jails = success.JailStatus.map(function(i) {
-            return {
-                email: i
-            };
-        });
-        context.JailStatus = jails.length == 0 ? [] : jails; 
         context.view.isLoaded = true;
         },
         function(error) {
