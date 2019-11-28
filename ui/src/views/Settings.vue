@@ -406,6 +406,7 @@ export default {
     },
     toggleStatus() {
       this.configuration.status = !this.configuration.status;
+      this.$forceUpdate();
     },
     saveSettings(type) {
       var context = this;
