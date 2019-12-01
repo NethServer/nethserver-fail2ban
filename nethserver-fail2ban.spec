@@ -47,6 +47,7 @@ chmod +x %{buildroot}/usr/libexec/nethserver/api/%{name}/*
 %{genfilelist} %{buildroot} \
   --file /usr/libexec/nethserver/fail2ban-status 'attr(0755,root,root)' \
   --file /usr/bin/fail2ban-listban 'attr(0750,root,root)' \
+  --file /usr/bin/fail2ban-unban 'attr(0750,root,root)' \
   --file /usr/libexec/nethserver/fail2ban-listban 'attr(0755,root,root)' \
   --file /usr/libexec/nethserver/fail2ban-listip 'attr(0755,root,root)' \
   --file /usr/libexec/nethserver/fail2ban-statistics 'attr(0750,root,root)' \
