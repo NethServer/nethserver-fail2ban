@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 Name: nethserver-fail2ban
-Version: 1.2.1
+Version: 1.3.0
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -64,6 +64,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/fail2ban/filter.d/urbackup-auth.conf
 
 %changelog
+* Mon Dec 02 2019 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.3.0-1
+- Fail2ban: Upgrade to fail2ban-0.10 - NethServer/dev#5943
+
 * Tue Nov 12 2019 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.2.1-1
 - Fail2ban: jail names are translated - Bug NethServer/dev#5900
 - Fail2ban: checkbox settings not saved with good values - Bug NethServer/dev#5905
