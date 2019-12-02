@@ -21,7 +21,8 @@
 
 # wrapper to unban in fail2ban
 
-if [[ $@ -eq '' ]];then
+if [[ -z $@ ]];then
+    echo 'usage: fail2ban-unban 1.2.3.4 4.5.6.7'
     exit 0
 fi
 
