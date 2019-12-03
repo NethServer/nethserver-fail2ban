@@ -32,9 +32,11 @@ import Jails from './views/Jails.vue'
 import Logs from './views/Logs.vue'
 import About from './views/About.vue'
 import Unban from './views/Unban.vue'
-
+import "./filters/filters";
 import UtilService from "./services/util"
 Vue.mixin(UtilService)
+
+window.moment = require("moment");
 
 Vue.config.productionTip = false
 Vue.use(VueToggleButton);
