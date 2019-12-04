@@ -54,8 +54,10 @@ if ($cmd eq 'statistic') {
        next if ($true ne 'true'); # if not true, then next one 
        push @count, $jail;
    }
+    # If the file to stat does not exist, `fail2ban-status` will create it on the fly
+    $data->{'date'} = (stat('/var/lib/nethserver/fail2ban/fail2ban.json'))[9];
 
-    print encode_json({"TotalBannedIP" => $data->{"TotalBannedIP"},"JailStatus" => [@jailStatus],"JailEnabled" => scalar @count });
+    print encode_json({"date" => $data->{"date"},"TotalBannedIP" => $data->{"TotalBannedIP"},"JailStatus" => [@jailStatus],"JailEnabled" => scalar @count });
     exit(0);
 }
 

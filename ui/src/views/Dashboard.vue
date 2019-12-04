@@ -4,6 +4,9 @@
         <div v-if="!view.isLoaded" class="spinner spinner-lg"></div>
         <div v-if="view.isLoaded">
             <h3 >{{$t('dashboard.number_total_of_bans')}}: {{configuration.totalBans}}</h3>
+            <span>{{$t('dashboard.time_of_the_last_stats')}}</span>
+            <span class="margin-left fa fa-clock-o panel-icon"></span>
+            <span class="margin-left-sm">{{configuration.date | dateFormat}}</span> 
             <div class="divider"></div>
             <h3 >{{$t('dashboard.number_bans_per_jail')}}</h3>
             <div v-if="Object.keys(configuration.TotalBannedIP).length == 0" class="empty-piechart">
@@ -77,7 +80,8 @@ export default {
         isLoaded: false,
       },
       configuration:{
-          IPList: ""
+          IPList: "",
+          date: 0
       },
       loaders: false,
       errors: this.initErrors()
@@ -111,6 +115,7 @@ export default {
           context.configuration.TotalBannedIP = success.TotalBannedIP;
           context.configuration.JailStatus = success.JailStatus;
           context.configuration.JailEnabled = success.JailEnabled;
+          context.configuration.date = success.date;
           
           var totalBans = 0;
           
@@ -143,6 +148,12 @@ export default {
 }
 .pficon-on-running {
     margin-right: 2px;
+}
+.margin-left-sm {
+    margin-left: 4px;
+}
+.margin-left {
+    margin-left: 10px;
 }
 .divider {
     border-top: 1px solid #d1d1d1;
