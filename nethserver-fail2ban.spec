@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 Name: nethserver-fail2ban
-Version: 1.3.1
+Version: 1.3.2
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -65,6 +65,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/fail2ban/filter.d/urbackup-auth.conf
 
 %changelog
+* Thu Dec 05 2019 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.3.2-1
+- Fail2ban: Display the date of the last statistic update - NethServer/dev#5978
+
 * Tue Dec 03 2019 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.3.1-1
 - fail2ban-unban is back - NethServer/dev#5973
 
