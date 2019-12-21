@@ -88,7 +88,8 @@
     "stop_follow": "Stop"
     },
     "dashboard":{
-        "title": "Dashboard",
+        "title": "Fail2ban dashboard",
+        "app": "Fail2ban",
         "list_active_jails": "List all active jails",
         "number_of_active_jail": "Active jails",
         "number_bans_per_jail": "Statistics of banned IP per jail",
