@@ -83,9 +83,12 @@
         "bug_tracker": "Bug tracker"
     },
     "logs": {
-    "title": "Logs",
-    "follow": "Follow",
-    "stop_follow": "Stop"
+        "title": "Logs",
+        "follow": "Follow",
+        "stop_follow": "Stop",
+        "start_follow_button": "Follow",
+        "stop_follow_button": "Stop following",
+        "filter_label": "Regexp filter"
     },
     "dashboard":{
         "title": "Fail2ban dashboard",
