@@ -19,17 +19,13 @@ templates2events('/etc/fail2ban/jail.local', $event);
 my $event = 'nethserver-fail2banUnBan-save';
 event_actions($event, 'fail2ban-unban' => '10');
 
-# nethserver-fail2ban-save -> we need to expand/restart shorewall
+# nethserver-fail2ban-save -> we need to expand/restart shorewall before Fail2ban
 my $event = 'nethserver-fail2ban-save';
 event_actions($event,
-    'nethserver-fail2ban-unban-whitelist' => '10');
+    'nethserver-fail2ban-unban-whitelist' => '10',
+    'firewall-adjust' => '95');
 templates2events('/etc/fail2ban/action.d/sendmail-common.local', $event);
-templates2events('/etc/fail2ban/jail.local', $event);
-templates2events('/etc/shorewall/initdone', $event);
-templates2events('/etc/shorewall/blrules', $event);
-templates2events('/etc/shorewall/stopped', $event);
-event_services($event,'shorewall'=> 'restart');
-event_services($event,'fail2ban'=> 'restart');
+
 
 # Fail2ban services restart
 foreach my $event (qw ( nethserver-firewall-base-save )) {
