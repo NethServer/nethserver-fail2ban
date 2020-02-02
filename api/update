@@ -93,7 +93,6 @@ elsif ($action eq 'jails') {
     Urbackup_status
     Vsftpd_status
     Webtop_status
-    status
     )) {
         $cdb->set_prop('fail2ban', $prop, $data->{$prop});
     }
