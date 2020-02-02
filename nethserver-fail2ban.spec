@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 Name: nethserver-fail2ban
-Version: 1.3.4
+Version: 1.3.5
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -65,6 +65,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/fail2ban/filter.d/urbackup-auth.conf
 
 %changelog
+* Sun Feb 02 2020 Stephane de Labrusse <stephdl@de-labrusse.fr> - 1.3.5-1
+- Fail2ban: The service is disabled when the jail is enabled/disabled - Bug NethServer/dev#6044
+
 * Thu Jan 30 2020 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.3.4-1
 - Fail2ban: shorewall must restart before Fail2ban - Bug NethServer/dev#6040
 
