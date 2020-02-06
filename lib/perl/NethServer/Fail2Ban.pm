@@ -174,16 +174,15 @@ sub listPostfixJails {
     my $postfix = $db->get_prop('postfix', 'status') || 'enabled';
 
     if (-f '/var/log/maillog') {
-        foreach (qw(Postfix PostfixRbl postfix-ddos postfix-sasl PostfixSaslAbuse)) {
+        foreach (qw(Postfix postfix-ddos PostfixSaslAbuse)) {
             my $status = $db->get_prop('fail2ban', $_.'_status') || 'true';
-            if (($_ eq 'postfix-ddos') || ($_ eq 'postfix-sasl')) {
+            if ($_ eq 'postfix-ddos') {
                 $status = $db->get_prop('fail2ban', 'Postfix_status') || 'true';
             }
             if (($status eq 'true') && ($postfix eq 'enabled')) {
                 # we need to change the name of jail
                 my $j = $_;
                 $j =~ s/PostfixSaslAbuse/postfix-sasl-abuse/;
-                $j =~ s/PostfixRbl/postfix-rbl/;
                 push(@jails, lc $j);
             }
         }
