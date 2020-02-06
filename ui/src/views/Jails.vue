@@ -290,23 +290,6 @@
 
         <div
           v-if="view.email"
-          :class="['form-group', errors.PostfixRbl_status.hasError ? 'has-error' : '']"
-          >
-          <label
-            class="col-sm-2 control-label"
-            for="textInput-modal-markup"
-          >Postfix-rbl</label>
-          <div class="col-sm-5">
-            <input type="checkbox" v-model="configuration.PostfixRbl_status" class="form-control">
-            <span
-              v-if="errors.PostfixRbl_status.hasError"
-              class="help-block"
-            >{{errors.PostfixRbl_status.message}}</span>
-          </div>
-        </div>
-
-        <div
-          v-if="view.email"
           :class="['form-group', errors.Postfix_status.hasError ? 'has-error' : '']"
           >
           <label
@@ -762,7 +745,6 @@ export default {
               EjabberAuth_status: "true",
               MysqldAuth_status: "true",
               Dovecot_status: "true",
-              PostfixRbl_status: "true",
               Postfix_status: "true",
               PostfixSaslAbuse_status: "true",
               Sieve_status: "true",
@@ -844,10 +826,6 @@ export default {
         message: ""
       },
       Dovecot_status: {
-        hasError: false,
-        message: ""
-      },
-      PostfixRbl_status: {
         hasError: false,
         message: ""
       },
@@ -967,7 +945,6 @@ export default {
           context.configuration.EjabberAuth_status = success.configuration.props.EjabberAuth_status == "true";
           context.configuration.MysqldAuth_status = success.configuration.props.MysqldAuth_status == "true";
           context.configuration.Dovecot_status = success.configuration.props.Dovecot_status == "true";
-          context.configuration.PostfixRbl_status = success.configuration.props.PostfixRbl_status == "true";
           context.configuration.Postfix_status = success.configuration.props.Postfix_status == "true";
           context.configuration.PostfixSaslAbuse_status = success.configuration.props.PostfixSaslAbuse_status == "true";
           context.configuration.Sieve_status = success.configuration.props.Sieve_status == "true";
@@ -1041,9 +1018,6 @@ export default {
             ? "true"
             : "false",
           Dovecot_status: context.configuration.Dovecot_status
-            ? "true"
-            : "false",
-          PostfixRbl_status: context.configuration.PostfixRbl_status
             ? "true"
             : "false",
           Postfix_status: context.configuration.Postfix_status
