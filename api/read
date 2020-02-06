@@ -123,7 +123,6 @@ elsif ($cmd eq 'configuration') {
             OpenVpnAuth_status => $db->get_prop('fail2ban','OpenVpnAuth_status'),
             Owncloud_status => $db->get_prop('fail2ban','Owncloud_status'),
             PamGeneric_status => $db->get_prop('fail2ban','PamGeneric_status'),
-            PostfixRbl_status => $db->get_prop('fail2ban','PostfixRbl_status'),
             PostfixSaslAbuse_status => $db->get_prop('fail2ban','PostfixSaslAbuse_status'),
             Postfix_status => $db->get_prop('fail2ban','Postfix_status'),
             Recidive_Perpetual => $db->get_prop('fail2ban','Recidive_Perpetual'),
