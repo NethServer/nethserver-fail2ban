@@ -1,8 +1,11 @@
 {
     # Delete BanAction we support only shorewall-nethserver
+    # delete unused properties
     use esmith::ConfigDB;
     my $db = esmith::ConfigDB->open;
 
     $db->get_prop_and_delete('fail2ban','BanAction');
+    $db->get_prop_and_delete('fail2ban','PostfixRbl_status');
+    
     '';
 }
