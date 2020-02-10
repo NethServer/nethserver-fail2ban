@@ -80,7 +80,6 @@ elsif ($action eq 'jails') {
     OpenVpnAuth_status
     Owncloud_status
     PamGeneric_status
-    PostfixRbl_status
     PostfixSaslAbuse_status
     Postfix_status
     Recidive_status

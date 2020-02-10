@@ -41,7 +41,6 @@ $L['MysqldAuth_status_label'] = 'MySQL Auth';
 $L['NginxBotSearch_status_label'] = 'Nginx Bot Search';
 $L['NginxHttpAuth_status_label'] = 'Nginx HTTP Auth';
 $L['PamGeneric_status_label'] = 'Pam Generic';
-$L['PostfixRbl_status_label'] = 'Postfix RBL';
 $L['PostfixSaslAbuse_status_label'] = 'Postfix sasl abuse';
 $L['Postfix_status_label'] = 'Postfix';
 $L['Recidive_status_label'] = 'Recidive';

@@ -75,7 +75,6 @@ switch ($data['action']) {
         $v->declareParameter('OpenVpnAuth_status', $v->createValidator()->memberOf('true','false'));
         $v->declareParameter('Owncloud_status', $v->createValidator()->memberOf('true','false'));
         $v->declareParameter('PamGeneric_status', $v->createValidator()->memberOf('true','false'));
-        $v->declareParameter('PostfixRbl_status', $v->createValidator()->memberOf('true','false'));
         $v->declareParameter('Postfix_status', $v->createValidator()->memberOf('true','false'));
         $v->declareParameter('Recidive_status', $v->createValidator()->memberOf('true','false'));
         $v->declareParameter('Roundcube_status', $v->createValidator()->memberOf('true','false'));

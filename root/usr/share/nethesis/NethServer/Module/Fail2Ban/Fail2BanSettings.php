@@ -46,7 +46,6 @@ class  Fail2BanSettings extends \Nethgui\Controller\AbstractController
     $this->declareParameter('OpenVpnAuth_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'OpenVpnAuth_status'));
     $this->declareParameter('Owncloud_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'Owncloud_status'));
     $this->declareParameter('PamGeneric_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'PamGeneric_status'));
-    $this->declareParameter('PostfixRbl_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'PostfixRbl_status'));
     $this->declareParameter('Postfix_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'Postfix_status'));
     $this->declareParameter('Recidive_status', $this->createValidator()->memberOf('true','false'), array('configuration', 'fail2ban', 'Recidive_status'));
     $this->declareParameter('Recidive_Perpetual', Validate::SERVICESTATUS, array('configuration', 'fail2ban', 'Recidive_Perpetual'));
