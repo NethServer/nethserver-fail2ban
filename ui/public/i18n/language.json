@@ -58,7 +58,9 @@
         "BanTime_604800": "1 week",
         "BanTime_1209600": "2 weeks",
         "settings_updated_error": "settings updated with errors",
-        "settings_updated_ok": "settings updated"
+        "settings_updated_ok": "settings updated",
+        "recidive_perpetual_label":"The perpetual recidive can consume the server ressources.",
+        "recidive_perpetual_info": "Too many IPs will slow down the restart of the service, you should consider to enable it only temporally."
     },
     "jails":{
         "title": "Jails",
