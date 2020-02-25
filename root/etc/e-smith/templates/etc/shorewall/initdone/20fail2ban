@@ -8,7 +8,7 @@
     foreach (NethServer::Fail2Ban::listAllJails()) {
     
         if (($_ eq 'recidive') && ($perpetual eq 'enabled')) {
-            $OUT .= "system(\"/usr/sbin/ipset -quiet -exist create f2b-recidive hash:ip timeout 0 \");\n";
+            $OUT .= "system(\"/usr/sbin/ipset -quiet -exist create f2b-recidive hash:ip hashsize 8192 timeout 0 \");\n";
         } elsif ($_ eq 'recidive') {
             # max ban time for ipset is 2147483 seconds
             $OUT .= "system(\"/usr/sbin/ipset -quiet -exist create f2b-recidive hash:ip timeout 1209600 \");\n";
