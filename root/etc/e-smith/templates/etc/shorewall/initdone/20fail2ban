@@ -11,7 +11,7 @@
             $OUT .= "system(\"/usr/sbin/ipset -quiet -exist create f2b-recidive hash:ip hashsize 8192 timeout 0 \");\n";
         } elsif ($_ eq 'recidive') {
             # max ban time for ipset is 2147483 seconds
-            $OUT .= "system(\"/usr/sbin/ipset -quiet -exist create f2b-recidive hash:ip timeout 1209600 \");\n";
+            $OUT .= "system(\"/usr/sbin/ipset -quiet -exist create f2b-recidive hash:ip hashsize 8192 timeout 1209600 \");\n";
         } else {
             $OUT .= "system(\"/usr/sbin/ipset -quiet -exist create f2b-$_ hash:ip timeout $bantime \");\n";
         }
