@@ -58,7 +58,9 @@
         "BanTime_604800": "1 week",
         "BanTime_1209600": "2 weeks",
         "settings_updated_error": "settings updated with errors",
-        "settings_updated_ok": "settings updated"
+        "settings_updated_ok": "settings updated",
+        "recidive_perpetual_label":"The perpetual recidive jail can consume many server resources.",
+        "recidive_perpetual_info": "When the jail is full of IPs, it can greatly slowdown fail2ban and firewall restart. Please use it carefully and for a limited period of time."
     },
     "jails":{
         "title": "Jails",

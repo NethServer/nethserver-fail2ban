@@ -148,6 +148,13 @@
             >{{$t('advanced_mode')}}</a>
         </legend>
 
+        <div v-if="configuration.status && configuration.advanced && configuration.Recidive_Perpetual" 
+          class="alert alert-info alert-dismissable">
+          <span class="pficon pficon-info"></span>
+          <strong>{{$t('settings.recidive_perpetual_label')}}</strong>&#32;
+          {{$t('settings.recidive_perpetual_info')}}
+        </div>
+
         <div
           v-if="configuration.status && configuration.advanced"
           :class="['form-group', errors.Recidive_Perpetual.hasError ? 'has-error' : '']"
