@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 Name: nethserver-fail2ban
-Version: 1.3.6
+Version: 1.3.7
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -65,6 +65,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/fail2ban/filter.d/urbackup-auth.conf
 
 %changelog
+* Tue Mar 10 2020 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.3.7-1
+- Fail2ban: 'Hash is full, cannot add more elements' - NethServer/dev#6071
+
 * Tue Feb 11 2020 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.3.6-1
 - Fail2ban: Jails postfix-sasl and postfix-rbl have been removed - Bug NethServer/dev#6053
 
