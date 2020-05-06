@@ -21,6 +21,7 @@ package NethServer::Fail2Ban;
 
 use strict;
 use esmith::ConfigDB;
+my $db = esmith::ConfigDB->open_ro();
 
 =head1 NAME
 NethServer::Fail2ban -- utility functions for fail2ban
@@ -65,8 +66,20 @@ sub listAllJails {
     push(@jails, listUrbackupJails());
     push(@jails, listVsftpdJails());
     push(@jails, listWebtopJails());
+    push(@jails, listMattermostJails());
     # ... other jails
 
+    return @jails;
+}
+
+sub listMattermostJails() {
+    my @jails;
+    my $status = $db->get_prop('fail2ban', 'Mattermost_status') || 'true';
+
+    if (( -f '/opt/mattermost/logs/mattermost.log') &&
+      ($status eq 'true')) {
+        push(@jails, 'mattermost');
+    }
     return @jails;
 }
 
@@ -84,7 +97,6 @@ sub listWebtopJails() {
 
 sub listVsftpdJails() {
     my @jails;
-    my $db = esmith::ConfigDB->open_ro();
     my $status = $db->get_prop('fail2ban', 'Vsftpd_status') || 'true';
     my $ftp = $db->get_prop('vsftpd','status') || 'disabled';
 
@@ -98,7 +110,6 @@ sub listVsftpdJails() {
 
 sub listUrbackupJails() {
     my @jails;
-    my $db = esmith::ConfigDB->open_ro();
     my $status = $db->get_prop('fail2ban', 'Urbackup_status') || 'true';
 
     if (( -f '/var/log/urbackup.log') &&
@@ -110,7 +121,6 @@ sub listUrbackupJails() {
 
 sub listSogoJails() {
     my @jails;
-    my $db = esmith::ConfigDB->open_ro();
     my $status = $db->get_prop('fail2ban', 'SogoAuth_status') || 'true';
 
     if (( -f '/var/log/sogo/sogo.log') &&
@@ -122,7 +132,6 @@ sub listSogoJails() {
 
 sub listSieveJails() {
     my @jails;
-    my $db = esmith::ConfigDB->open_ro();
     my $status = $db->get_prop('fail2ban', 'Sieve_status') || 'true';
 
     if (( -f '/var/log/imap') &&
@@ -134,7 +143,6 @@ sub listSieveJails() {
 
 sub listRspamdJails() {
     my @jails;
-    my $db = esmith::ConfigDB->open_ro();
     my $status = $db->get_prop('fail2ban', 'Rspamd_status') || 'true';
 
     if (( -f '/var/log/httpd-admin/access_log') &&
@@ -146,7 +154,6 @@ sub listRspamdJails() {
 
 sub listRoundcubeJails() {
     my @jails;
-    my $db = esmith::ConfigDB->open_ro();
     my $status = $db->get_prop('fail2ban', 'Roundcube_status') || 'true';
 
     if (( -f '/var/log/roundcubemail/errors.log') &&
@@ -158,7 +165,6 @@ sub listRoundcubeJails() {
 
 sub listRecidiveJails() {
     my @jails;
-    my $db = esmith::ConfigDB->open_ro();
     my $status = $db->get_prop('fail2ban','Recidive_status') || 'true';
 
     if (( -f '/var/log/fail2ban.log') &&
@@ -170,7 +176,6 @@ sub listRecidiveJails() {
 
 sub listPostfixJails {
     my @jails;
-    my $db = esmith::ConfigDB->open_ro();
     my $postfix = $db->get_prop('postfix', 'status') || 'enabled';
 
     if (-f '/var/log/maillog') {
@@ -192,7 +197,6 @@ sub listPostfixJails {
 
 sub listPamGenericJails {
     my @jails;
-    my $db = esmith::ConfigDB->open_ro();
     my $status = $db->get_prop('fail2ban', 'PamGeneric_status') || 'true';
 
     if ( -f '/var/log/secure') {
@@ -207,7 +211,6 @@ sub listPamGenericJails {
 
 sub listOpenVpnAuthJails() {
     my @jails;
-    my $db = esmith::ConfigDB->open_ro();
     my $status = $db->get_prop('fail2ban','OpenVpnAuth_status') || 'true';
 
     if (( -f '/var/log/openvpn/openvpn.log') &&
@@ -219,7 +222,6 @@ sub listOpenVpnAuthJails() {
 
 sub listNginxHttpAuthJails {
   my @jails;
-  my $db = esmith::ConfigDB->open_ro();
   my $nginx = $db->get_prop('nginx','status') || 'disabled';
 
   if (-f '/var/log/nginx/error.log') {
@@ -238,7 +240,6 @@ sub listNginxHttpAuthJails {
 
 sub listOwncloudAuthJails() {
     my @jails;
-    my $db = esmith::ConfigDB->open_ro();
     my $status = $db->get_prop('fail2ban', 'Owncloud_status') || 'true';
 
     if (( -f '/var/www/html/owncloud/data/owncloud.log') &&
@@ -250,7 +251,6 @@ sub listOwncloudAuthJails() {
 
 sub listNextcloudAuthJails() {
     my @jails;
-    my $db = esmith::ConfigDB->open_ro();
     my $status = $db->get_prop('fail2ban', 'Nextcloud_status') || 'true';
 
     if (( -f '/var/lib/nethserver/nextcloud/nextcloud.log') &&
@@ -262,7 +262,6 @@ sub listNextcloudAuthJails() {
 
 sub listMysqldAuthJails {
     my @jails;
-    my $db = esmith::ConfigDB->open_ro();
     my $mysqld = $db->get_prop('mysqld', 'status') || 'enabled';
     my $status = $db->get_prop('fail2ban', 'MysqldAuth_status') || 'true';
 
@@ -276,7 +275,6 @@ sub listMysqldAuthJails {
 
 sub listEjabberAuthJails {
     my @jails;
-    my $db = esmith::ConfigDB->open_ro();
     my $ejabberd = $db->get_prop('ejabberd', 'status') || 'enabled';
     my $status = $db->get_prop('fail2ban', 'EjabberAuth_status') || 'true';
 
@@ -290,7 +288,6 @@ sub listEjabberAuthJails {
 
 sub listHttpdAdminJails {
     my @jails;
-    my $db = esmith::ConfigDB->open_ro();
     my $httpd_admin = $db->get_prop('httpd-admin', 'status') || 'enabled';
     my $status = $db->get_prop('fail2ban', 'HttpdAdmin_status') || 'true';
 
@@ -304,7 +301,6 @@ sub listHttpdAdminJails {
 
 sub listDovecotJails {
     my @jails;
-    my $db = esmith::ConfigDB->open_ro();
     my $dovecot = $db->get_prop('dovecot', 'status') || 'enabled';
     my $status = $db->get_prop('fail2ban', 'Dovecot_status') || 'true';
 
@@ -320,7 +316,6 @@ sub listDovecotJails {
 
 sub listAsteriskJails {
     my @jails;
-    my $db = esmith::ConfigDB->open_ro();
     my $asterisk = $db->get_prop('asterisk', 'status') || 'enabled';
     my $status = $db->get_prop('fail2ban', 'AsteriskAuth_status') || 'true';
 
@@ -336,7 +331,6 @@ sub listAsteriskJails {
 
 sub listSSHJails {
     my @jails;
-    my $db = esmith::ConfigDB->open_ro();
     my $sshd = $db->get_prop('sshd', 'status') || 'enabled';
     my $status = $db->get_prop('fail2ban', 'Sshd_status') || 'true';
 
@@ -350,7 +344,6 @@ sub listSSHJails {
 
 sub listApacheErrorJails {
     my @jails;
-    my $db = esmith::ConfigDB->open_ro();
     my $httpd = $db->get_prop('httpd', 'status') || 'enabled';
 
     if ( -f '/var/log/httpd/error_log') {
@@ -366,7 +359,6 @@ sub listApacheErrorJails {
 
 sub listApacheAccessJails {
     my @jails;
-    my $db = esmith::ConfigDB->open_ro();
     my $httpd = $db->get_prop('httpd', 'status') || 'enabled';
 
     if (-f '/var/log/httpd/access_log') {

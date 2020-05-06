@@ -63,6 +63,19 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 %dir %{_nseventsdir}/%{name}-update
 %config(noreplace) /etc/fail2ban/filter.d/urbackup-auth.conf
+%config(noreplace) /etc/fail2ban/filter.d/mattermost.conf
+%config(noreplace) /etc/fail2ban/filter.d/apache-scan.conf
+%config(noreplace) /etc/fail2ban/filter.d/asterisk_nethserver.conf
+%config(noreplace) /etc/fail2ban/filter.d/dovecot-nethserver.conf
+%config(noreplace) /etc/fail2ban/filter.d/httpd-admin.conf
+%config(noreplace) /etc/fail2ban/filter.d/nextcloud-auth.conf
+%config(noreplace) /etc/fail2ban/filter.d/openvpn.conf
+%config(noreplace) /etc/fail2ban/filter.d/owncloud-auth.conf
+%config(noreplace) /etc/fail2ban/filter.d/pam-generic-nethserver.conf
+%config(noreplace) /etc/fail2ban/filter.d/phpmyadmin.conf
+%config(noreplace) /etc/fail2ban/filter.d/postfix-ddos.conf
+%config(noreplace) /etc/fail2ban/filter.d/postfix-sasl-abuse.conf
+%config(noreplace) /etc/fail2ban/filter.d/rspamd.conf
 
 %changelog
 * Tue Mar 10 2020 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.3.7-1

@@ -1,0 +1,15 @@
+{
+    use NethServer::Fail2Ban;
+    my $port = $httpd{TCPPorts} || '80,443';
+    my $maxretry = $fail2ban{Mattermost_MaxRetry} || $fail2ban{MaxRetry} || '3';
+    return ("\n#Mattermost not used on this server\n") if (! NethServer::Fail2Ban::listMattermostJails());
+
+    foreach (NethServer::Fail2Ban::listMattermostJails()) {
+        $OUT .= "\n[$_]\n";
+        $OUT .= "enabled = true\n";
+        $OUT .= "port = $port\n";
+        $OUT .= "logpath = /opt/mattermost/logs/mattermost.log\n";
+        $OUT .= "maxretry = $maxretry\n";
+        $OUT .= 'datepattern = "ts":{Epoch}'."\n\n";
+    }
+}
