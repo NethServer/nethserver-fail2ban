@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 Name: nethserver-fail2ban
-Version: 1.3.7
+Version: 1.4.0
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -78,6 +78,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/fail2ban/filter.d/rspamd.conf
 
 %changelog
+* Thu May 07 2020 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.4.0-1
+- Fail2ban:  Protect mattermost with a Jail - NethServer/dev#6150
+
 * Tue Mar 10 2020 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.3.7-1
 - Fail2ban: 'Hash is full, cannot add more elements' - NethServer/dev#6071
 
