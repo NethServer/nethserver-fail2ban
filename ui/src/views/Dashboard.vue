@@ -3,7 +3,11 @@
         <h2>{{$t('dashboard.title')}}</h2>
         <div v-if="!view.isLoaded" class="spinner spinner-lg"></div>
         <div v-if="view.isLoaded">
-            <h3 >{{$t('dashboard.number_total_of_bans')}}: {{configuration.totalBans}}</h3>
+            <h3 >{{$t('dashboard.number_total_of_bans')}}:
+              <span :title="configuration.totalBans">
+                {{configuration.totalBans | humanFormat}}
+              </span>
+            </h3>
             <span>{{$t('dashboard.time_of_the_last_stats')}}</span>
             <span class="margin-left fa fa-clock-o panel-icon"></span>
             <span class="margin-left-sm">{{configuration.date | dateFormat}}</span> 
@@ -17,8 +21,18 @@
             <div class="divider"></div>
             <div class="container-fluid">
                 <div class="row ">
-                    <h3 class="col-xs-6 col-sm-4 col-md-3 col-lg-2">{{$t('dashboard.number_of_active_jail')}}: {{configuration.JailStatus.length}}</h3>
-                    <h3 class="col-xs-6 col-sm-4 col-md-3 col-lg-2" >{{$t('dashboard.number_of_enabled_jails')}}: {{configuration.JailEnabled}}</h3>
+                    <h3 class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                      {{$t('dashboard.number_of_active_jail')}}:
+                      <span :title="configuration.JailStatus.length">
+                        {{configuration.JailStatus.length | humanFormat}}
+                      </span>
+                    </h3>
+                    <h3 class="col-xs-6 col-sm-4 col-md-3 col-lg-2" >
+                      {{$t('dashboard.number_of_enabled_jails')}}:
+                      <span :title="configuration.JailEnabled">
+                        {{configuration.JailEnabled | humanFormat}}
+                      </span>
+                    </h3>
                 </div>
                 <div class="row row-dashboar">
                     <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4 resources-panel">
