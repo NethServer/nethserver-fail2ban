@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 Name: nethserver-fail2ban
-Version: 1.4.0
+Version: 1.4.1
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -78,6 +78,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/fail2ban/filter.d/rspamd.conf
 
 %changelog
+* Thu Jul 02 2020 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.4.1-1
+- Human readable numbers in Cockpit dashboards - NethServer/dev#6206
+
 * Thu May 07 2020 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.4.0-1
 - Fail2ban:  Protect mattermost with a Jail - NethServer/dev#6150
 
