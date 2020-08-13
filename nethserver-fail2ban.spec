@@ -10,6 +10,7 @@ URL: http://dev.nethserver.org/projects/nethforge/wiki/%{name}
 BuildRequires: nethserver-devtools
 Requires: fail2ban >= 0.10.4
 Requires: fail2ban-shorewall perl-Email-Valid
+Requires: perl-DBD-SQLite
 #AutoReq: no
 
 %description
