@@ -24,9 +24,17 @@
 
 use utf8;
 use JSON;
+use DBI;
 binmode STDOUT, ":utf8";
 
 my $jsonFile = '/var/lib/nethserver/fail2ban/fail2ban.json';
+
+my $driver   = "SQLite";
+my $database = "/var/lib/fail2ban/fail2ban.sqlite3";
+my $dsn = "DBI:$driver:dbname=$database";
+my $userid = "";
+my $password = "";
+my $dbh = DBI->connect($dsn, $userid, $password, { RaiseError => 1, PrintError=>0 });
 
 #encode Json file
 sub encodeJSON {
@@ -59,14 +67,23 @@ if ( -f $jsonFile ) {
 }
 
 # retrieve the number of ban of the day (a cronjob runs it)
-open(FH, "/usr/bin/sqlite3 -list  /var/lib/fail2ban/fail2ban.sqlite3 \"select jail, count(*) as count from bans  WHERE date(datetime(timeofban , 'unixepoch')) = date('now') group by jail;\"|");
-my %jails =();
-while (<FH>) {
-    chomp;
-    my ($jail,$ban) = split('\|');
-    $jails{$jail} = $ban;
+my $stmt = qq(select jail, count(*) as count from bans  WHERE date(datetime(timeofban , 'unixepoch')) = date('now') group by jail;);
+my $sth = $dbh->prepare( $stmt );
+my $rv = $sth->execute();
+
+# If we cannot connect reload fail2ban, try again or die
+if($?) {
+   system("/usr/bin/systemctl","reload","fail2ban");
+   my $rv = $sth->execute() or die $DBI::errstr;
 }
-close(FH);
+
+my %jails =();
+while (my @row = $sth->fetchrow_array()) {
+    $jails{$row[0]} = $row[1];
+}
+# disconnect the database
+$dbh->disconnect();
+
 
 foreach $key (keys %jails) {
     my $counterStat = $data->{'TotalBannedIP'}{$key} || 0;
