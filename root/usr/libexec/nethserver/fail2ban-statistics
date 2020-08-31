@@ -59,7 +59,7 @@ if ( -f $jsonFile ) {
 }
 
 # retrieve the number of ban of the day (a cronjob runs it)
-open(FH, "/usr/bin/sqlite3 -list  /var/lib/fail2ban/fail2ban.sqlite3 \"select jail, count(*) as count from bans  WHERE date(datetime(timeofban , 'unixepoch')) = date('now') group by jail;\"|");
+open(FH, "/usr/bin/sqlite3 -list  /var/lib/fail2ban/fail2ban.sqlite3 -cmd \".timeout 1000\" \"select jail, count(*) as count from bans  WHERE date(datetime(timeofban , 'unixepoch')) = date('now') group by jail;\"|");
 my %jails =();
 while (<FH>) {
     chomp;
