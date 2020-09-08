@@ -26,7 +26,6 @@
         "notify_to": "Notify to",
         "add_email": "Add an email",
         "MailJailState": "Notify on jail start/stop events",
-        "Recidive_Perpetual": "Recidive jail is perpetual",
         "BanLocalNetwork": "Allow bans on the LAN",
         "LogLevel": "Logging Level",
         "LogLevel_INFO": "INFO",
@@ -58,9 +57,7 @@
         "BanTime_604800": "1 week",
         "BanTime_1209600": "2 weeks",
         "settings_updated_error": "settings updated with errors",
-        "settings_updated_ok": "settings updated",
-        "recidive_perpetual_label":"The perpetual recidive jail can consume many server resources.",
-        "recidive_perpetual_info": "When the jail is full of IPs (maximum is 65536 IPs), it can greatly slowdown fail2ban and firewall restart. Please use it carefully and for a limited period of time."
+        "settings_updated_ok": "settings updated"
     },
     "jails":{
         "title": "Jails",
