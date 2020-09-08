@@ -44,7 +44,6 @@ $L['PamGeneric_status_label'] = 'Pam Generic';
 $L['PostfixSaslAbuse_status_label'] = 'Postfix sasl abuse';
 $L['Postfix_status_label'] = 'Postfix';
 $L['Recidive_status_label'] = 'Recidive';
-$L['Recidive_Perpetual_label'] = 'Recidive jail is perpetual';
 $L['Roundcube_status_label'] = 'Roundcubemail Auth';
 $L['Sieve_status_label'] = 'Sieve Auth';
 $L['SogoAuth_status_label'] = 'SOGo Auth';

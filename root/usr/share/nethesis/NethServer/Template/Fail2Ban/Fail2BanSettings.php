@@ -5,7 +5,6 @@ echo $view->header()->setAttribute('template', $T('Fail2Ban_header'));
 $advanced = $view->fieldset(NULL, $view::FIELDSET_EXPANDABLE)->setAttribute('template', $T('Advanced_label'))
 ->insert($view->columns()
     ->insert($view->slider('MaxRetry', $view::SLIDER_ENUMERATIVE | $view::LABEL_ABOVE)->setAttribute('label', $T('Retry_number_label')))
-    ->insert($view->checkBox('Recidive_Perpetual', 'enabled')->setAttribute('uncheckedValue', 'disabled'))
 )
 
 ->insert($view->columns()
