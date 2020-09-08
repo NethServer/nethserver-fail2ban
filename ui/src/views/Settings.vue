@@ -150,6 +150,30 @@
 
         <div
           v-if="configuration.status && configuration.advanced"
+          :class="['form-group', errors.BanTime_Incremental.hasError ? 'has-error' : '']"
+        >
+          <label
+            class="col-sm-2 control-label"
+            for="textInput-modal-markup"
+          >{{$t('settings.BanTime_Incremental')}}
+          <doc-info
+            :placement="'top'"
+            :title="$t('settings.BanTime_Incremental')"
+            :chapter="'BanTime_Incremental'"
+            :inline="true"
+          ></doc-info>
+          </label>
+          <div class="col-sm-5">
+            <input type="checkbox" v-model="configuration.BanTime_Incremental" class="form-control">
+            <span
+              v-if="errors.BanTime_Incremental.hasError"
+              class="help-block"
+            >{{errors.BanTime_Incremental.message}}</span>
+          </div>
+        </div>
+
+        <div
+          v-if="configuration.status && configuration.advanced"
           :class="['form-group', errors.BanLocalNetwork.hasError ? 'has-error' : '']"
         >
           <label
@@ -277,7 +301,8 @@ export default {
               LogLevel: "INFO",
               MaxRetry: '3',
               FindTime: '900',
-              BanTime: '600'
+              BanTime: '600',
+              BanTime_Incremental: false
       },
       loaders: false,
       errors: this.initErrors()
@@ -325,6 +350,10 @@ export default {
       BanTime: {
           haserror: false,
           message:""
+      },
+      BanTime_Incremental: {
+          haserror: false,
+          message:""
       }
       };
     },
@@ -360,6 +389,7 @@ export default {
           context.configuration.mail = success.configuration.props.Mail == "enabled";
           context.configuration.MailJailState = success.configuration.props.MailJailState == "enabled";
           context.configuration.BanLocalNetwork = success.configuration.props.BanLocalNetwork == "enabled";
+          context.configuration.BanTime_Incremental = success.configuration.props.BanTime_Incremental == "true";
             var emails = [{}];
             emails = success.configuration.props.CustomDestemail.map(function(i) {
                   return {
@@ -401,6 +431,9 @@ export default {
           BanLocalNetwork: context.configuration.BanLocalNetwork
             ? "enabled"
             : "disabled",
+          BanTime_Incremental: context.configuration.BanTime_Incremental
+            ? "true"
+            : "false",
           CustomDestemail:  context.configuration.CustomDestemail.map(function(e) {
               return e.email;
           }),

@@ -37,6 +37,7 @@
         "MaxRetry": "Number of attempts",
         "FindTime": "Time span",
         "BanTime": "Ban time",
+        "BanTime_Incremental": "Incremental ban time",
         "slider_value": "Value",
         "FindTime_600": "10 minutes",
         "FindTime_900": "15 minutes",
@@ -126,6 +127,7 @@
         "IgnoreIP": "All IP in this list will never be banned by Fail2ban (One IP per line)",
         "MailJailState": "All relative events to the jail (start or stop), will be notified to root and other recipients",
         "FindTime": "When fail2ban starts, the service looks for attackers in the logs for this time interval",
-        "LogLevel": "The DEBUG level could generate huge log size and fill your disk space"
+        "LogLevel": "The DEBUG level could generate huge log size and fill your disk space",
+        "BanTime_Incremental": "The incremental ban time allows to increase the time of ban by a multiplier (2,3,4,6,8,10,20,30,....) after each faillure found in log. It allows you to set a short ban time (60 seconds for example), a valid user can be banned for a short time but a brute force bot will be banned for a long time quickly. The recidive jail is disabled by the Incremental BanTime"
     }
 }

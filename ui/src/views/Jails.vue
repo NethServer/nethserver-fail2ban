@@ -483,7 +483,7 @@
             for="textInput-modal-markup"
           >Recidive</label>
           <div class="col-sm-5">
-            <input type="checkbox" v-model="configuration.Recidive_status" class="form-control">
+            <input :disabled="configuration.BanTime_Incremental === 'true'" type="checkbox" v-model="configuration.Recidive_status" class="form-control">
             <span
               v-if="errors.Recidive_status.hasError"
               class="help-block"
@@ -782,7 +782,8 @@ export default {
               Rspamd_status: "true",
               SogoAuth_status: "true",
               Urbackup_status: "true",
-              Webtop_status: "true"
+              Webtop_status: "true",
+              BanTime_Incremental: "false"
       },
       loaders: false,
       errors: this.initErrors()
@@ -988,7 +989,7 @@ export default {
           context.configuration.SogoAuth_status = success.configuration.props.SogoAuth_status == "true";
           context.configuration.Urbackup_status = success.configuration.props.Urbackup_status == "true";
           context.configuration.Webtop_status = success.configuration.props.Webtop_status == "true";
-          
+          context.configuration.BanTime_Incremental = success.configuration.props.BanTime_Incremental;
           context.view.isLoaded = true;
         },
         function(error) {
