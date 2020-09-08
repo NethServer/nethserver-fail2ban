@@ -36,7 +36,7 @@ switch ($data['action']) {
         $v->declareParameter('MailJailState', Validate::SERVICESTATUS);
         $v->declareParameter('MaxRetry', Validate::POSITIVE_INTEGER);
         $v->declareParameter('status', Validate::SERVICESTATUS);
-        $v->declareParameter('Recidive_Perpetual', Validate::SERVICESTATUS);
+        $v->declareParameter('BanTime_Incremental', $v->createValidator()->memberOf('true','false'));
 
         $ipValidator = $v->createValidator()->ipV4Address();
         foreach ( $data['IgnoreIP'] as $el) {

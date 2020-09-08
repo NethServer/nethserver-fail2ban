@@ -111,7 +111,7 @@ All available props to store in the fail2ban key of the esmith API
       "ApachePhpMyAdmin_status": "true",
       "HttpdAdmin_status": "true",
       "ApacheNohome_status": "true",
-      "Recidive_Perpetual": "disabled",
+      "BanTime_Incremental": "false",
       "Postfix_status": "true",
       "Vsftpd_status": "true",
       "status": "enabled",
@@ -197,7 +197,7 @@ echo '{"action":"jails","status":"enabled","ApacheAuth_status":"true","ApacheBad
 - `configuration`
 
 ```bash
-echo '{"action":"configuration","status":"enabled","Mail":"enabled","MailJailState":"disabled","BanLocalNetwork":"disabled","Recidive_Perpetual":"disabled","CustomDestemail":[],"IgnoreIP":[],"LogLevel":"INFO","MaxRetry":"3","FindTime":"3600","BanTime":"1800"}' | /usr/bin/sudo /usr/libexec/nethserver/api/nethserver-fail2ban/validate | jq
+echo '{"action":"configuration","status":"enabled","Mail":"enabled","MailJailState":"disabled","BanLocalNetwork":"disabled","BanTime_Incremental":"false","CustomDestemail":[],"IgnoreIP":[],"LogLevel":"INFO","MaxRetry":"3","FindTime":"3600","BanTime":"1800"}' | /usr/bin/sudo /usr/libexec/nethserver/api/nethserver-fail2ban/validate | jq
 ```
 
 - `unban`
@@ -211,6 +211,3 @@ Unban the specified IP
 ## update
 
 See the `validate` input example: the format is the same.
-
-
-

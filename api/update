@@ -39,7 +39,7 @@ if ($action eq 'configuration') {
     Mail
     MailJailState
     MaxRetry
-    Recidive_Perpetual
+    BanTime_Incremental
     status
     )) {
         $cdb->set_prop('fail2ban', $prop, $data->{$prop});
