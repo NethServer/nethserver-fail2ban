@@ -474,23 +474,6 @@
           </div>
         </div>
 
-        <div
-          v-if="view.security"
-          :class="['form-group', errors.Recidive_status.hasError ? 'has-error' : '']"
-          >
-          <label
-            class="col-sm-2 control-label"
-            for="textInput-modal-markup"
-          >Recidive</label>
-          <div class="col-sm-5">
-            <input :disabled="configuration.BanTime_Incremental === 'true'" type="checkbox" v-model="configuration.Recidive_status" class="form-control">
-            <span
-              v-if="errors.Recidive_status.hasError"
-              class="help-block"
-            >{{errors.Recidive_status.message}}</span>
-          </div>
-        </div>
-
         <!-- ssh_jails -->
         <legend  class="fields-section-header-pf" aria-expanded="true">
             <span
@@ -771,7 +754,6 @@ export default {
               NginxBotSearch_status: "true",
               HttpdAdmin_status: "true",
               PamGeneric_status:"true",
-              Recidive_status: "true",
               Sshd_status:"true",
               SshdDdos_status:"true",
               OpenVpnAuth_status:"true",
@@ -884,10 +866,6 @@ export default {
         hasError: false,
         message: ""
       },
-      Recidive_status: {
-        hasError: false,
-        message: ""
-      },
       Sshd_status: {
         hasError: false,
         message: ""
@@ -977,7 +955,6 @@ export default {
           context.configuration.NginxBotSearch_status = success.configuration.props.NginxBotSearch_status == "true";
           context.configuration.HttpdAdmin_status = success.configuration.props.HttpdAdmin_status == "true";
           context.configuration.PamGeneric_status = success.configuration.props.PamGeneric_status == "true";
-          context.configuration.Recidive_status = success.configuration.props.Recidive_status == "true";
           context.configuration.Sshd_status = success.configuration.props.Sshd_status == "true";
           context.configuration.SshdDdos_status = success.configuration.props.SshdDdos_status == "true";
           context.configuration.OpenVpnAuth_status = success.configuration.props.OpenVpnAuth_status == "true";
@@ -1069,9 +1046,6 @@ export default {
             ? "true"
             : "false",
           PamGeneric_status: context.configuration.PamGeneric_status
-            ? "true"
-            : "false",
-          Recidive_status: context.configuration.Recidive_status
             ? "true"
             : "false",
           Sshd_status: context.configuration.Sshd_status

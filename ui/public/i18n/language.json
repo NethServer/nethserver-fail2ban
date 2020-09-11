@@ -38,6 +38,8 @@
         "FindTime": "Time span",
         "BanTime": "Ban time",
         "BanTime_Incremental": "Incremental ban time",
+        "Recidive_BanTime": "Static ban time",
+        "Recidive": "Ban the recidive",
         "slider_value": "Value",
         "FindTime_600": "10 minutes",
         "FindTime_900": "15 minutes",
@@ -128,6 +130,8 @@
         "MailJailState": "All relative events to the jail (start or stop), will be notified to root and other recipients",
         "FindTime": "When fail2ban starts, the service looks for attackers in the logs for this time interval",
         "LogLevel": "The DEBUG level could generate huge log size and fill your disk space",
-        "BanTime_Incremental": "The incremental ban time allows to increase the time of ban after each failure found in log. It allows you to set a shorter ban time, a valid user can be banned for a short time but a brute force attacker will be banned for a long time. The recidive jail is disabled by the Incremental BanTime"
+        "Incremental_BanTime": "The incremental ban time allows to increase the time of ban after each failure found in log. It allows you to set a shorter ban time, a valid user can be banned for a short time but a brute force attacker will be banned for a long time.",
+        "Recidive": "Ban the brute force attack bots",
+        "Recidive_BanTime": "The static ban time allows you to block an IP with the recidive jail for two weeks when the IP has been banned in the fail2ban log at least X times."
     }
 }

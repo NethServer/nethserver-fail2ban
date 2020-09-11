@@ -155,20 +155,41 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('settings.BanTime_Incremental')}}
+          >{{$t('settings.Recidive')}}
           <doc-info
             :placement="'top'"
-            :title="$t('settings.BanTime_Incremental')"
-            :chapter="'BanTime_Incremental'"
+            :title="$t('settings.Recidive')"
+            :chapter="'Recidive'"
             :inline="true"
           ></doc-info>
           </label>
           <div class="col-sm-5">
-            <input type="checkbox" v-model="configuration.BanTime_Incremental" class="form-control">
+              <input type="radio" id="IncrementalBanTime" value="true"
+                v-model="configuration.BanTime_Incremental" class="form-control" >
+              <label for="IncrementalBanTime">{{$t('settings.BanTime_Incremental')}}
+                <doc-info
+                :placement="'top'"
+                :title="$t('settings.BanTime_Incremental')"
+                :chapter="'Incremental_BanTime'"
+                :inline="true"
+                ></doc-info>
+              </label>
+              <br />
+              <input type="radio" id="RecidiveBanTime" value="false"
+                v-model="configuration.BanTime_Incremental" class="form-control" >
+              <label for="RecidiveBanTime">{{$t('settings.Recidive_BanTime')}}
+                <doc-info
+                :placement="'top'"
+                :title="$t('settings.Recidive_BanTime')"
+                :chapter="'Recidive_BanTime'"
+                :inline="true"
+                ></doc-info>
+              </label>
             <span
               v-if="errors.BanTime_Incremental.hasError"
               class="help-block"
-            >{{errors.BanTime_Incremental.message}}</span>
+            >{{errors.BanTime_Incremental.message}}
+            </span>
           </div>
         </div>
 
@@ -389,7 +410,7 @@ export default {
           context.configuration.mail = success.configuration.props.Mail == "enabled";
           context.configuration.MailJailState = success.configuration.props.MailJailState == "enabled";
           context.configuration.BanLocalNetwork = success.configuration.props.BanLocalNetwork == "enabled";
-          context.configuration.BanTime_Incremental = success.configuration.props.BanTime_Incremental == "true";
+          context.configuration.BanTime_Incremental = success.configuration.props.BanTime_Incremental;
             var emails = [{}];
             emails = success.configuration.props.CustomDestemail.map(function(i) {
                   return {
@@ -431,9 +452,7 @@ export default {
           BanLocalNetwork: context.configuration.BanLocalNetwork
             ? "enabled"
             : "disabled",
-          BanTime_Incremental: context.configuration.BanTime_Incremental
-            ? "true"
-            : "false",
+          BanTime_Incremental: context.configuration.BanTime_Incremental,
           CustomDestemail:  context.configuration.CustomDestemail.map(function(e) {
               return e.email;
           }),
@@ -502,4 +521,11 @@ export default {
 </script>
 
 <style>
+input[type=radio].form-control {
+    width: 20px !important;
+    height: 20px !important;
+    display: inline-block;
+    vertical-align: -25%;
+    margin-right: 1em;
+}
 </style>
