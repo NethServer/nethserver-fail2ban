@@ -51,7 +51,7 @@ if ($action eq 'configuration') {
     #either recidive or incremental bantime
     if ($data->{'BanTime_Incremental'} eq 'true') {
         $cdb->set_prop('fail2ban', 'Recidive_status','false');
-    } elsif (($data->{'BanTime_Incremental'} eq 'false') && ($cdb->get_prop('fail2ban','Recidive_status') eq 'false')) {
+    } elsif ($data->{'BanTime_Incremental'} eq 'false') {
         $cdb->set_prop('fail2ban', 'Recidive_status','true');
     }
 
@@ -90,7 +90,6 @@ elsif ($action eq 'jails') {
     PamGeneric_status
     PostfixSaslAbuse_status
     Postfix_status
-    Recidive_status
     Roundcube_status
     Rspamd_status
     Sieve_status

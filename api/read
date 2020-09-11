@@ -127,7 +127,6 @@ elsif ($cmd eq 'configuration') {
             PostfixSaslAbuse_status => $db->get_prop('fail2ban','PostfixSaslAbuse_status'),
             Postfix_status => $db->get_prop('fail2ban','Postfix_status'),
             BanTime_Incremental => $db->get_prop('fail2ban','BanTime_Incremental'),
-            Recidive_status => $db->get_prop('fail2ban','Recidive_status'),
             Roundcube_status => $db->get_prop('fail2ban','Roundcube_status'),
             Rspamd_status => $db->get_prop('fail2ban','Rspamd_status'),
             Sieve_status => $db->get_prop('fail2ban','Sieve_status'),
