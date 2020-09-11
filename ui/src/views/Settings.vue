@@ -520,10 +520,10 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 input[type=radio].form-control {
-    width: 20px !important;
-    height: 20px !important;
+    width: 12px !important;
+    height: 12px !important;
     display: inline-block;
     vertical-align: -25%;
     margin-right: 1em;
