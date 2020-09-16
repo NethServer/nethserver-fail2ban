@@ -24,8 +24,10 @@
 # This could be removed in the future version. if `IPList` is still in the json file
 # then fail2ban-statistics has not be triggered at least one time
 
-OUTPUT=$(/usr/bin/cat /var/lib/nethserver/fail2ban/fail2ban.json)
-if [[ $OUTPUT =~ 'IPList' ]]; then
-    /usr/sbin/iptables -F dynamic
-    /usr/sbin/shorewall save
+if [[ -f '/var/lib/nethserver/fail2ban/fail2ban.json' ]]; then
+    OUTPUT=$(/usr/bin/cat /var/lib/nethserver/fail2ban/fail2ban.json)
+    if [[ $OUTPUT =~ 'IPList' ]]; then
+        /usr/sbin/iptables -F dynamic
+        /usr/sbin/shorewall save
+    fi
 fi

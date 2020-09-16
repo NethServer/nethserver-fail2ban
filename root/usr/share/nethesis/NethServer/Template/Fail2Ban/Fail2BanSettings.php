@@ -5,7 +5,6 @@ echo $view->header()->setAttribute('template', $T('Fail2Ban_header'));
 $advanced = $view->fieldset(NULL, $view::FIELDSET_EXPANDABLE)->setAttribute('template', $T('Advanced_label'))
 ->insert($view->columns()
     ->insert($view->slider('MaxRetry', $view::SLIDER_ENUMERATIVE | $view::LABEL_ABOVE)->setAttribute('label', $T('Retry_number_label')))
-    ->insert($view->checkBox('Recidive_Perpetual', 'enabled')->setAttribute('uncheckedValue', 'disabled'))
 )
 
 ->insert($view->columns()
@@ -16,6 +15,12 @@ $advanced = $view->fieldset(NULL, $view::FIELDSET_EXPANDABLE)->setAttribute('tem
 ->insert($view->columns()
     ->insert($view->slider('BanTime', $view::SLIDER_ENUMERATIVE | $view::LABEL_ABOVE)->setAttribute('label', $T('Ban_time_label')))
     ->insert($view->selector('LogLevel', $view::SELECTOR_DROPDOWN))
+)
+->insert($view->columns()
+    ->insert($view->fieldset('RecidiveBan')->setAttribute('template', $T('RecidiveBan_label'))
+            ->insert($view->radioButton('RecidiveBan', 'incremental'))
+            ->insert($view->radioButton('RecidiveBan', 'static'))
+            ->insert($view->radioButton('RecidiveBan', 'disabled')))
 );
 
 
@@ -100,7 +105,6 @@ echo $view->panel()
                 ->insert( $view->elementList()
                     ->insert($view->checkBox('HttpdAdmin_status', 'true')->setAttribute('uncheckedValue', 'false'))
                     ->insert($view->checkBox('PamGeneric_status', 'true')->setAttribute('uncheckedValue', 'false'))
-                    ->insert($view->checkBox('Recidive_status', 'true')->setAttribute('uncheckedValue', 'false'))
                 )
             )
 

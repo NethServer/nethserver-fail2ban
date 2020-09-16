@@ -165,10 +165,10 @@ sub listRoundcubeJails() {
 
 sub listRecidiveJails() {
     my @jails;
-    my $status = $db->get_prop('fail2ban','Recidive_status') || 'true';
+    my $status = $db->get_prop('fail2ban','RecidiveBan') || 'static';
 
     if (( -f '/var/log/fail2ban.log') &&
-      ($status eq 'true')) {
+      ($status eq 'static')) {
         push(@jails, 'recidive');
     }
     return @jails;

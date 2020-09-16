@@ -36,7 +36,7 @@ switch ($data['action']) {
         $v->declareParameter('MailJailState', Validate::SERVICESTATUS);
         $v->declareParameter('MaxRetry', Validate::POSITIVE_INTEGER);
         $v->declareParameter('status', Validate::SERVICESTATUS);
-        $v->declareParameter('Recidive_Perpetual', Validate::SERVICESTATUS);
+        $v->declareParameter('RecidiveBan', $v->createValidator()->memberOf('incremental','static','disabled'));
 
         $ipValidator = $v->createValidator()->ipV4Address();
         foreach ( $data['IgnoreIP'] as $el) {
@@ -77,7 +77,6 @@ switch ($data['action']) {
         $v->declareParameter('Owncloud_status', $v->createValidator()->memberOf('true','false'));
         $v->declareParameter('PamGeneric_status', $v->createValidator()->memberOf('true','false'));
         $v->declareParameter('Postfix_status', $v->createValidator()->memberOf('true','false'));
-        $v->declareParameter('Recidive_status', $v->createValidator()->memberOf('true','false'));
         $v->declareParameter('Roundcube_status', $v->createValidator()->memberOf('true','false'));
         $v->declareParameter('Sieve_status', $v->createValidator()->memberOf('true','false'));
         $v->declareParameter('SogoAuth_status', $v->createValidator()->memberOf('true','false'));

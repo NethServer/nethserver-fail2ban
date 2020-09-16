@@ -1,0 +1,9 @@
+{
+    # Delete Recidive_Perpetual we support only incremental ban or recidive
+    # delete unused properties
+    use esmith::ConfigDB;
+    my $db = esmith::ConfigDB->open;
+
+    $db->get_prop_and_delete('fail2ban','Recidive_Perpetual');
+    '';
+}

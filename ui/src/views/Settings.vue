@@ -148,27 +148,52 @@
             >{{$t('advanced_mode')}}</a>
         </legend>
 
-        <div v-if="configuration.status && configuration.advanced && configuration.Recidive_Perpetual" 
-          class="alert alert-info alert-dismissable">
-          <span class="pficon pficon-info"></span>
-          <strong>{{$t('settings.recidive_perpetual_label')}}</strong>&#32;
-          {{$t('settings.recidive_perpetual_info')}}
-        </div>
-
         <div
           v-if="configuration.status && configuration.advanced"
-          :class="['form-group', errors.Recidive_Perpetual.hasError ? 'has-error' : '']"
+          :class="['form-group', errors.RecidiveBan.hasError ? 'has-error' : '']"
         >
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >{{$t('settings.Recidive_Perpetual')}}</label>
+          >{{$t('settings.Recidive')}}
+          <doc-info
+            :placement="'top'"
+            :title="$t('settings.Recidive')"
+            :chapter="'Recidive'"
+            :inline="true"
+          ></doc-info>
+          </label>
           <div class="col-sm-5">
-            <input type="checkbox" v-model="configuration.Recidive_Perpetual" class="form-control">
+              <input type="radio" id="IncrementalBanTime" value="incremental"
+                v-model="configuration.RecidiveBan" class="form-control" >
+              <label for="IncrementalBanTime">{{$t('settings.Recidive_Incremental')}}
+                <doc-info
+                :placement="'top'"
+                :title="$t('settings.Recidive_Incremental')"
+                :chapter="'Incremental_BanTime'"
+                :inline="true"
+                ></doc-info>
+              </label>
+              <br />
+              <input type="radio" id="RecidiveBanTime" value="static"
+                v-model="configuration.RecidiveBan" class="form-control" >
+              <label for="RecidiveBanTime">{{$t('settings.Recidive_BanTime')}}
+                <doc-info
+                :placement="'top'"
+                :title="$t('settings.Recidive_BanTime')"
+                :chapter="'Recidive_BanTime'"
+                :inline="true"
+                ></doc-info>
+              </label>
+              <br />
+              <input type="radio" id="RecidiveBanDisabled" value="disabled"
+                v-model="configuration.RecidiveBan" class="form-control" >
+              <label for="RecidiveBanDisabled">{{$t('settings.Recidive_Disabled')}}
             <span
-              v-if="errors.Recidive_Perpetual.hasError"
+              v-if="errors.RecidiveBan.hasError"
               class="help-block"
-            >{{errors.Recidive_Perpetual.message}}</span>
+            >{{errors.RecidiveBan.message}}
+            </span>
           </div>
         </div>
 
@@ -286,7 +311,7 @@ export default {
   data() {
     return {
         FindTime: ['600','900','1800','3600','7200','86400','172800','604800','1209600'],
-        BanTime: ['600','900','1800','3600','7200','86400','172800','604800','1209600'],
+        BanTime: ['60','120','180','240','300','360','420','480','540','600','900','1800','3600','7200','86400','172800','604800','1209600'],
       view: {
         isLoaded: false,
         isRoot: false
@@ -298,11 +323,11 @@ export default {
               IgnoreIP: [],
               MailJailState: false,
               BanLocalNetwork: false,
-              Recidive_Perpetual: false,
               LogLevel: "INFO",
               MaxRetry: '3',
               FindTime: '900',
-              BanTime: '600'
+              BanTime: '600',
+              RecidiveBan: 'static'
       },
       loaders: false,
       errors: this.initErrors()
@@ -351,7 +376,7 @@ export default {
           haserror: false,
           message:""
       },
-      Recidive_Perpetual: {
+      RecidiveBan: {
           haserror: false,
           message:""
       }
@@ -389,7 +414,7 @@ export default {
           context.configuration.mail = success.configuration.props.Mail == "enabled";
           context.configuration.MailJailState = success.configuration.props.MailJailState == "enabled";
           context.configuration.BanLocalNetwork = success.configuration.props.BanLocalNetwork == "enabled";
-          context.configuration.Recidive_Perpetual = success.configuration.props.Recidive_Perpetual == "enabled";
+          context.configuration.RecidiveBan = success.configuration.props.RecidiveBan;
             var emails = [{}];
             emails = success.configuration.props.CustomDestemail.map(function(i) {
                   return {
@@ -431,9 +456,7 @@ export default {
           BanLocalNetwork: context.configuration.BanLocalNetwork
             ? "enabled"
             : "disabled",
-          Recidive_Perpetual: context.configuration.Recidive_Perpetual
-            ? "enabled"
-            : "disabled",
+          RecidiveBan: context.configuration.RecidiveBan,
           CustomDestemail:  context.configuration.CustomDestemail.map(function(e) {
               return e.email;
           }),
@@ -501,5 +524,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+input[type=radio].form-control {
+    width: 12px !important;
+    height: 12px !important;
+    display: inline-block;
+    vertical-align: -25%;
+    margin-right: 1em;
+}
 </style>

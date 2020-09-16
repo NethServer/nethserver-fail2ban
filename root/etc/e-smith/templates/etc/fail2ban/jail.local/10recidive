@@ -2,10 +2,7 @@
     use NethServer::Fail2Ban;
     my $findtime = '86400';
     my $bantime  = '1209600';
-    my $perpetual  = $fail2ban{Recidive_Perpetual} || 'disabled';
-    $bantime  = '-1' if ($perpetual eq 'enabled');
     my $maxretry = $fail2ban{Recidive_MaxRetry} || $fail2ban{MaxRetry}*2 || '6';
-    my $mail = $fail2ban{Mail} || 'enabled';
     return ("\n#recidive not used on this server\n") if (! NethServer::Fail2Ban::listRecidiveJails());
 
     foreach (NethServer::Fail2Ban::listRecidiveJails()) {
@@ -16,16 +13,6 @@
         $OUT .= "bantime  = $bantime\n";
         $OUT .= "findtime  = $findtime\n";
         $OUT .= "maxretry = $maxretry\n";
-
-        # if recidive is perpetual, ipset waits after a `O` bantime but fail2ban expects a `-1`
-        # This is an upstream bug it should be fixed but after 0.10.4 : fail2ban/fail2ban/issues/2487
-
-        if (($mail eq 'enabled') && ($perpetual eq 'enabled')) {
-            $OUT .= 'action_mw = %(banaction)s[name=%(__name__)s, bantime=0, port="%(port)s", protocol="%(protocol)s", chain="%(chain)s"]
-            %(mta)s-whois[name=%(__name__)s, sender="%(sender)s", dest="%(destemail)s", protocol="%(protocol)s", chain="%(chain)s"]'."\n";
-        } elsif (($mail eq 'disabled') && ($perpetual eq 'enabled')) {
-            $OUT .= 'action_ = %(banaction)s[name=%(__name__)s, bantime=0, port="%(port)s", protocol="%(protocol)s", chain="%(chain)s"]'."\n";
-        }
         $OUT .= "\n";
     }
 }

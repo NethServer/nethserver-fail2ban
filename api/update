@@ -39,7 +39,7 @@ if ($action eq 'configuration') {
     Mail
     MailJailState
     MaxRetry
-    Recidive_Perpetual
+    RecidiveBan
     status
     )) {
         $cdb->set_prop('fail2ban', $prop, $data->{$prop});
@@ -83,7 +83,6 @@ elsif ($action eq 'jails') {
     PamGeneric_status
     PostfixSaslAbuse_status
     Postfix_status
-    Recidive_status
     Roundcube_status
     Rspamd_status
     Sieve_status
