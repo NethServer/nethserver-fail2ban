@@ -45,17 +45,6 @@ If you delete the property you go back to the default MaxRetry value: ::
     config setprop fail2ban Recidive_MaxRetry ''
     signal-event nethserver-fail2ban-save
 
+To display all properties of fail2ban key
 
-Database for IP
-===============
-
-The IPs are stored in a sqlite database (upstream configuration) and a esmith database to give a real permanent ban for the recidive jail.
-you can see the ban database by ::
-
-    db fail2ban show
-
-A ban counter is made, an IP cannot be unbanned if the counter is not equal to zero (a jail is still active), when the last jail is unbanned, the esmith key is removed of the database. The date of the last ban/unban is stored in the database for debugging purpose.
-
-To find recursive informations on an IP, fail2ban actions, failed attempts, grep could be used: ::
-
-    grep -srni 'xxx\.xxx\.xxx\.xxx' /var/log
+    config show fail2ban
