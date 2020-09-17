@@ -492,7 +492,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >Sshd</label>
+          >OpenSSH</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.Sshd_status" class="form-control">
             <span
@@ -509,7 +509,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >Sshd-ddos</label>
+          >OpenSSH DDOS</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.SshdDdos_status" class="form-control">
             <span
@@ -537,7 +537,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >Openvpn</label>
+          >OpenVPN</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.OpenVpnAuth_status" class="form-control">
             <span
@@ -667,7 +667,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >Urbackup</label>
+          >UrBackup</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.Urbackup_status" class="form-control">
             <span
@@ -684,7 +684,7 @@
           <label
             class="col-sm-2 control-label"
             for="textInput-modal-markup"
-          >Webtop</label>
+          >WebTop</label>
           <div class="col-sm-5">
             <input type="checkbox" v-model="configuration.Webtop_status" class="form-control">
             <span
