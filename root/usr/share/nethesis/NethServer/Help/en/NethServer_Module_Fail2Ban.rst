@@ -35,3 +35,7 @@ Email administrators
 
 List of Jails
     By default all jails are made to start once the service is installed. Here you can deactivate each jail.
+
+Redicive Ban
+    Extend the ban of persistent abusers, like brute force attack bots. You can choose a static ban of two weeks or an incremental ban that increase the ban time after each failure found in log. 
+    When enabling, set a short ban time, a valid user can be banned for a a little while but a brute force attacker will be banned for a very long time.
