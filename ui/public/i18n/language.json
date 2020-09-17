@@ -7,6 +7,7 @@
     "rows_per_page": "Rows per page",
     "all": "All",
     "advanced_mode": "Advanced options",
+    "save": "Save",
     "unban": {
         "title": "Unban",
         "BannedIP": "Banned IP",
@@ -85,7 +86,7 @@
         "security_jails": "Security",
         "ssh_jails": "SSH",
         "vpn_jails": "VPN",
-        "webApps_jails": "web applications",
+        "webApps_jails": "Web Applications",
         "settings_updated_error": "settings updated with errors",
         "settings_updated_ok": "settings updated"
     },
