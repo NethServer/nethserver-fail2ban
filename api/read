@@ -107,7 +107,6 @@ elsif ($cmd eq 'configuration') {
             AsteriskAuth_status => $db->get_prop('fail2ban','AsteriskAuth_status'),
             BanLocalNetwork => $db->get_prop('fail2ban','BanLocalNetwork'),
             BanTime => $db->get_prop('fail2ban','BanTime'),
-            DbPurgeage => $db->get_prop('fail2ban','DbPurgeage'),
             Dovecot_status => $db->get_prop('fail2ban','Dovecot_status'),
             EjabberAuth_status => $db->get_prop('fail2ban','EjabberAuth_status'),
             Mattermost_status => $db->get_prop('fail2ban','Mattermost_status'),
