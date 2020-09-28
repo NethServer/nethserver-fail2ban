@@ -21,4 +21,4 @@
 
 # If we detect copies of the database, we can safely remove them
 
-/usr/bin/find /var/lib/fail2ban/ -type f -name fail2ban.sqlite3.????????\* -delete
+/usr/bin/find /var/lib/fail2ban/ -type f -name 'fail2ban.sqlite3.????????*' -delete
