@@ -127,7 +127,6 @@ All available props to store in the fail2ban key of the esmith API
       "SogoAuth_status": "true",
       "Recidive_status": "true",
       "AsteriskAuth_status": "true",
-      "DbPurgeage": null,
       "Mail": "enabled",
       "MaxRetry": "3",
       "CustomDestemail": [],
