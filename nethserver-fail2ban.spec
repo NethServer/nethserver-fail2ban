@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 Name: nethserver-fail2ban
-Version: 1.5.0
+Version: 1.5.1
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -78,6 +78,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/fail2ban/filter.d/rspamd.conf
 
 %changelog
+* Tue Sep 29 2020 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.5.1-1
+- Fail2ban: Clean the sqlite database - NethServer/dev#6285
+
 * Thu Sep 17 2020 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.5.0-1
 - Fail2ban: perpetual recidive jail is broken - Bug NethServer/dev#6265
 
