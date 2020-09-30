@@ -29,7 +29,7 @@ do
     COMMAND=$(/usr/bin/sqlite3 /var/lib/fail2ban/fail2ban.sqlite3 "BEGIN EXCLUSIVE;COMMIT;" > /dev/null 2>&1 )
     if [[ $? -eq 0 ]]; then
         /usr/bin/sqlite3 /var/lib/fail2ban/fail2ban.sqlite3 "VACUUM;"
-        exit 0
+        exit $?
     else
         sleep 5
     fi
