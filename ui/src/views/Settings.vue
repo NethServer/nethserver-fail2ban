@@ -54,7 +54,7 @@
             <textarea v-model="configuration.IgnoreIP" class="form-control"></textarea>
             <span v-if="errors.IgnoreIP.hasError" class="help-block">
                 {{$t('validation.validation_failed')}}:
-                {{$t('validation.'+errors.IgnoreIP.message)}}
+                {{$t('validation.'+errors.IgnoreIP.message)}}: '{{errors.IgnoreIP.value}}'
             </span>
         </div>
         </div>    
@@ -442,6 +442,10 @@ export default {
     },
     saveSettings(type) {
       var context = this;
+
+      // Remove empty lines and whitespace at begin and end of Allow
+      var  CleanIgnoreIP = ((context.configuration.IgnoreIP.split("\n")).filter(e => String(e).trim())).map(str => str.trim());
+
       var settingsObj = {
         action: "configuration",
         status: context.configuration.status
@@ -461,7 +465,7 @@ export default {
               return e.email;
           }),
           IgnoreIP: context.configuration.IgnoreIP.length > 0
-            ? context.configuration.IgnoreIP.split("\n")
+            ? CleanIgnoreIP
             : [],
           LogLevel: context.configuration.LogLevel,
           MaxRetry: context.configuration.MaxRetry,
@@ -512,6 +516,7 @@ export default {
               var attr = errorData.attributes[e];
               context.errors[attr.parameter].hasError = true;
               context.errors[attr.parameter].message = attr.error;
+              context.errors[attr.parameter].value = attr.value;
             }
           } catch (e) {
             console.error(e);
