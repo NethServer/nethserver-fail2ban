@@ -38,10 +38,17 @@ switch ($data['action']) {
         $v->declareParameter('status', Validate::SERVICESTATUS);
         $v->declareParameter('RecidiveBan', $v->createValidator()->memberOf('incremental','static','disabled'));
 
-        $ipValidator = $v->createValidator()->ipV4Address();
+        $ipCidrAllow = $v->createValidator()
+            ->orValidator(
+                $v->createValidator(Validate::IPv4),
+                $v->createValidator(Validate::CIDR_BLOCK)
+            );
+
         foreach ( $data['IgnoreIP'] as $el) {
-            if (!$ipValidator->evaluate($el) ) {
-                $v->addValidationError('IgnoreIP', 'not_ip_address');
+            if (!$ipCidrAllow->evaluate($el) ) {
+                $v->addValidationError('IgnoreIP', 'not_a_valid_IP_or_CIDR', $el);
+            } elseif ($el === '0.0.0.0/0'){
+                $v->addValidationError('IgnoreIP', '0_0_0_0_network_is_prohibited', $el);
             }
         }
 

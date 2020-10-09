@@ -118,17 +118,18 @@
     },
     "validation":{
         "validation_failed": "Validation failed",
-        "not_ip_address": "Invalid IPv4 address: it should be something like '10.0.0.1'",
+        "not_a_valid_IP_or_CIDR": "It must be a IPv4 address like '1.2.3.4' or a CIDR network like '192.168.1.0/24'",
         "not_valid_email_address": "Invalid mail address: it should be something like 'myname@domain.com'",
         "valid_memberOf_enabled, disabled": "Can be enabled or disabled",
         "valid_memberOf_true, false": "Can be true or false",
         "valid_integer": "Must be a positive integer",
-        "valid_memberOf_CRITICAL, ERROR, WARNING, NOTICE, INFO, DEBUG": "Must be a member of CRITICAL, ERROR, WARNING, NOTICE, INFO, DEBUG"
+        "valid_memberOf_CRITICAL, ERROR, WARNING, NOTICE, INFO, DEBUG": "Must be a member of CRITICAL, ERROR, WARNING, NOTICE, INFO, DEBUG",
+        "0_0_0_0_network_is_prohibited": "The network 0.0.0.0/0 cannot be whitelisted: it is too wide."
     },
     "docs":{
         "fail2ban": "Fail2ban",
         "more_info_about": "More Information about ",
-        "IgnoreIP": "All IP in this list will never be banned by Fail2ban (One IP per line)",
+        "IgnoreIP": "All IP (1.2.3.4) or CIDR network (192.168.1.0/24) in this list will never be banned by Fail2ban. Add one entry per line",
         "MailJailState": "All relative events to the jail (start or stop), will be notified to root and other recipients",
         "FindTime": "When fail2ban starts, the service looks for attackers in the logs for this time interval",
         "LogLevel": "The DEBUG level could generate huge log size and fill your disk space",
