@@ -48,7 +48,7 @@ switch ($data['action']) {
             if (!$ipCidrAllow->evaluate($el) ) {
                 $v->addValidationError('IgnoreIP', 'not_a_valid_IP_or_CIDR', $el);
             } elseif ($el === '0.0.0.0/0'){
-                $v->addValidationError('IgnoreIP', '0_0_0_0_network_is_prohibed', $el);
+                $v->addValidationError('IgnoreIP', '0_0_0_0_network_is_prohibited', $el);
             }
         }
 
