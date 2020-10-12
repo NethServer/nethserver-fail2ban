@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 Name: nethserver-fail2ban
-Version: 1.5.2
+Version: 1.5.3
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -79,6 +79,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/fail2ban/filter.d/rspamd.conf
 
 %changelog
+* Mon Oct 12 2020 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.5.3-1
+- Fail2ban: Whitelist network - NethServer/dev#6301
+
 * Thu Oct 01 2020 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.5.2-1
 - Fail2ban: Vacuum the sqlite database each month - NethServer/dev#6291
 
