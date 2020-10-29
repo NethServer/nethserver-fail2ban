@@ -24,13 +24,13 @@
               <div class="col-lg-4">
                   <div class="container-fluid">
                       <div class="row ">
-                          <h3 class="col-xs-6 col-sm-4 col-md-3 col-lg-4">
+                          <h3 class="col-xs-6 col-sm-4">
                             {{$t('dashboard.number_of_active_jail')}}:
                             <span :title="configuration.JailStatus.length">
                               {{configuration.JailStatus.length | humanFormat}}
                             </span>
                           </h3>
-                          <h3 class="col-xs-6 col-sm-4 col-md-3 col-lg-4" >
+                          <h3 class="col-xs-6 col-sm-4" >
                             {{$t('dashboard.number_of_enabled_jails')}}:
                             <span :title="configuration.JailEnabled">
                               {{configuration.JailEnabled | humanFormat}}
@@ -38,7 +38,7 @@
                           </h3>
                       </div>
                       <div class="row row-dashboard">
-                          <div class="col-xs-12 col-sm-8 col-md-6 col-lg-8 resources-panel">
+                          <div class="col-xs-12 col-sm-8 resources-panel">
                               <div class="panel panel-default">
                                   <div class="panel-heading">
                                       <h3 class="panel-title">
