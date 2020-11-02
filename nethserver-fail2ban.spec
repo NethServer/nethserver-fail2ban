@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 Name: nethserver-fail2ban
-Version: 1.5.3
+Version: 1.5.4
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -79,6 +79,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/fail2ban/filter.d/rspamd.conf
 
 %changelog
+* Mon Nov 02 2020 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.5.4-1
+- Fail2ban dashboard needs to be scrolled - NethServer/dev#6317
+
 * Mon Oct 12 2020 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.5.3-1
 - Fail2ban: Whitelist network - NethServer/dev#6301
 
