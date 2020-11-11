@@ -11,4 +11,12 @@
         $OUT .= "logpath = /var/log/httpd-admin/access_log\n";
         $OUT .= "maxretry = $maxretry\n\n";
     }
+
+    foreach (NethServer::Fail2Ban::listRspamdJails()) {
+        $OUT .= "\n[$_]\n";
+        $OUT .= "enabled = true\n";
+        $OUT .= "port = 443\n";
+        $OUT .= "logpath = /var/log/httpd/access_log\n";
+        $OUT .= "maxretry = $maxretry\n\n";
+    }
 }
