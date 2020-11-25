@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 Name: nethserver-fail2ban
-Version: 1.5.5
+Version: 1.5.6
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -79,6 +79,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/fail2ban/filter.d/rspamd.conf
 
 %changelog
+* Wed Nov 25 2020 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.5.6-1
+- Access web applications from port 980 - NethServer/dev#6344
+
 * Wed Nov 18 2020 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.5.5-1
 - New NethServer 7.9.2009 defaults - NethServer/dev#6320
 
