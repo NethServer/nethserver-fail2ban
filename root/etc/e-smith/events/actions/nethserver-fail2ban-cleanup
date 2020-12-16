@@ -22,3 +22,9 @@
 # If we detect copies of the database, we can safely remove them
 
 /usr/bin/find /var/lib/fail2ban/ -type f -name 'fail2ban.sqlite3.????????*' -delete
+
+# The old esmith fail2ban database is not used anymore,
+# just remove it to not send to subscription server with inventory
+if [[ -f /var/lib/nethserver/db/fail2ban ]]; then
+    /usr/bin/rm -f /var/lib/nethserver/db/fail2ban
+fi

@@ -6,8 +6,8 @@ use esmith::Build::CreateLinks qw(:all);
 my $event = 'nethserver-fail2ban-update';
 event_actions($event,
              'initialize-default-databases' => '00',
-             'nethserver-fail2ban-clean-sqlite-backup' => '01',
-             'nethserver-fail2ban-cleanShorewallDynamic' => '10');
+             'nethserver-fail2ban-cleanup' => '01',
+             'nethserver-fail2ban-clean-shorewall-dynamic' => '10');
 templates2events("/etc/fail2ban/fail2ban.local", $event);
 templates2events('/etc/fail2ban/action.d/sendmail-common.local', $event);
 templates2events('/etc/sudoers', $event);
