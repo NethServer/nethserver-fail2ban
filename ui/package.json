@@ -9,7 +9,7 @@
     "watch": "vue-cli-service build --watch"
   },
   "dependencies": {
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "c3": "^0.6.13",
     "moment": "^2.24.0",
     "vue": "^2.6.6",
