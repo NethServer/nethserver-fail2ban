@@ -14,6 +14,7 @@ templates2events('/etc/sudoers', $event);
 
 # nethserver-firewall-base-save
 my $event = 'nethserver-firewall-base-save';
+templates2events("/etc/fail2ban/fail2ban.local", $event);
 templates2events('/etc/fail2ban/jail.local', $event);
 
 #Action to unbanIP
