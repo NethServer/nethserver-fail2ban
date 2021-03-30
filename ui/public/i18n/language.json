@@ -30,7 +30,6 @@
         "BanLocalNetwork": "Allow bans on the LAN",
         "LogLevel": "Logging Level",
         "LogLevel_INFO": "INFO",
-        "LogLevel_DEBUG": "DEBUG",
         "LogLevel_NOTICE": "NOTICE",
         "LogLevel_WARNING": "WARNING",
         "LogLevel_ERROR": "ERROR",
@@ -123,7 +122,7 @@
         "valid_memberOf_enabled, disabled": "Can be enabled or disabled",
         "valid_memberOf_true, false": "Can be true or false",
         "valid_integer": "Must be a positive integer",
-        "valid_memberOf_CRITICAL, ERROR, WARNING, NOTICE, INFO, DEBUG": "Must be a member of CRITICAL, ERROR, WARNING, NOTICE, INFO, DEBUG",
+        "valid_memberOf_CRITICAL, ERROR, WARNING, NOTICE, INFO": "Must be a member of CRITICAL, ERROR, WARNING, NOTICE, INFO",
         "0_0_0_0_network_is_prohibited": "The network 0.0.0.0/0 cannot be whitelisted: it is too wide."
     },
     "docs":{

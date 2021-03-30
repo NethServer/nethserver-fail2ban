@@ -29,7 +29,7 @@ switch ($data['action']) {
 
     case "configuration":
         $v->declareParameter('BanLocalNetwork', Validate::SERVICESTATUS);
-        $v->declareParameter('LogLevel', $v->createValidator()->memberOf('CRITICAL','ERROR','WARNING','NOTICE','INFO','DEBUG'));
+        $v->declareParameter('LogLevel', $v->createValidator()->memberOf('CRITICAL','ERROR','WARNING','NOTICE','INFO'));
         $v->declareParameter('FindTime', Validate::POSITIVE_INTEGER);
         $v->declareParameter('BanTime', Validate::POSITIVE_INTEGER);
         $v->declareParameter('Mail', Validate::SERVICESTATUS);
