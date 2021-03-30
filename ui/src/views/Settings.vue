@@ -235,7 +235,6 @@
               v-model="configuration.LogLevel"
               class="combobox form-control"
             >
-              <option value="DEBUG">{{$t('settings.LogLevel_DEBUG')}}</option>
               <option value="INFO">{{$t('settings.LogLevel_INFO')}}</option>
               <option value="NOTICE">{{$t('settings.LogLevel_NOTICE')}}</option>
               <option value="WARNING">{{$t('settings.LogLevel_WARNING')}}</option>
