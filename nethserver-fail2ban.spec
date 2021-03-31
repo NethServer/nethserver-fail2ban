@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 Name: nethserver-fail2ban
-Version: 1.5.7
+Version: 1.5.8
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -79,6 +79,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/fail2ban/filter.d/rspamd.conf
 
 %changelog
+* Wed Mar 31 2021 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.5.8-1
+- Fail2ban: Loglevel is not set, debug is available in UI - Bug NethServer/dev#6470
+
 * Fri Dec 18 2020 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.5.7-1
 - Fail2ban: Clean obsolete fail2ban esmith database - NethServer/dev#6370
 
