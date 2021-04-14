@@ -8,7 +8,7 @@
         $OUT .= "\n[$_]\n";
         $OUT .= "enabled = true\n";
         $OUT .= "port = $port\n";
-        $OUT .= "logpath = //var/lib/tomcats/webtop/logs/localhost_access_log.txt\n";
+        $OUT .= "logpath = /var/log/webtop/webtop_auth.log\n";
         $OUT .= "maxretry = $maxretry\n\n";
     }
 }

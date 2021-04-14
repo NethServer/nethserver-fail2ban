@@ -88,7 +88,7 @@ sub listWebtopJails() {
     my $db = esmith::ConfigDB->open_ro();
     my $status = $db->get_prop('fail2ban', 'Webtop_status') || 'true';
 
-    if (( -f '/var/lib/tomcats/webtop/logs/localhost_access_log.txt') &&
+    if (( -f '/var/log/webtop/webtop_auth.log') &&
       ($status eq 'true')) {
         push(@jails, 'webtop');
     }
