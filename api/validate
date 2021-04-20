@@ -43,14 +43,20 @@ switch ($data['action']) {
                 $v->createValidator(Validate::IPv4),
                 $v->createValidator(Validate::CIDR_BLOCK)
             );
+        $FQDNAllow = $v->createValidator(Validate::HOSTNAME_FQDN);
 
         foreach ( $data['IgnoreIP'] as $el) {
-            if (!$ipCidrAllow->evaluate($el) ) {
-                $v->addValidationError('IgnoreIP', 'not_a_valid_IP_or_CIDR', $el);
-            } elseif ($el === '0.0.0.0/0'){
+            if ($el === '0.0.0.0/0'){
                 $v->addValidationError('IgnoreIP', '0_0_0_0_network_is_prohibited', $el);
+            } elseif ($ipCidrAllow->evaluate($el)) {
+                continue;
+            } elseif ($FQDNAllow->evaluate($el)){
+                continue;
+            } else {
+                $v->addValidationError('IgnoreIP', 'not_a_valid_IP_or_CIDR_or_FQDN', $el);
             }
         }
+
 
         $emailValidator = $v->createValidator()->orValidator($v->createValidator(Validate::EMAIL), $v->createValidator(Validate::EMPTYSTRING));;
         foreach ($data['CustomDestemail'] as $el) {
