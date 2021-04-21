@@ -57,7 +57,6 @@ switch ($data['action']) {
             }
         }
 
-
         $emailValidator = $v->createValidator()->orValidator($v->createValidator(Validate::EMAIL), $v->createValidator(Validate::EMPTYSTRING));;
         foreach ($data['CustomDestemail'] as $el) {
             if (!$emailValidator->evaluate($el)) {
