@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 Name: nethserver-fail2ban
-Version: 1.6.0
+Version: 1.7.0
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -79,6 +79,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/fail2ban/filter.d/rspamd.conf
 
 %changelog
+* Fri Apr 23 2021 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.7.0-1
+- Fail2ban: Whitelist hosts by FQDN or domain name - NethServer/dev#6491
+
 * Mon Apr 19 2021 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.6.0-1
 - Webtop: New jail from webtop_auth.log - NethServer/dev#6486
 
