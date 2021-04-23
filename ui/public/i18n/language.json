@@ -22,7 +22,7 @@
         "title": "Settings",
         "configuration": "Configuration",
         "status": "Enable the service",
-        "IgnoreIP": "IP Whitelist",
+        "IgnoreIP": "Whitelist",
         "mail": "Email notifications",
         "notify_to": "Notify to",
         "add_email": "Add an email",
