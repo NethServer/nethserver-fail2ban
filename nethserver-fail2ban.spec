@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 Name: nethserver-fail2ban
-Version: 1.7.0
+Version: 1.7.1
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -79,6 +79,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/fail2ban/filter.d/rspamd.conf
 
 %changelog
+* Tue Jun 22 2021 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.7.1-1
+- Cockpit applications: honor URLs inside manifest (2) - NethServer/dev#6530
+
 * Fri Apr 23 2021 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.7.0-1
 - Fail2ban: Whitelist hosts by FQDN or domain name - NethServer/dev#6491
 
