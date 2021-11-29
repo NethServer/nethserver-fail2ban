@@ -320,7 +320,7 @@ sub listAsteriskJails {
     my $status = $db->get_prop('fail2ban', 'AsteriskAuth_status') || 'true';
 
     if ( -f '/var/log/asterisk/full') {
-        foreach (qw( asterisk asterisk_nethserver )) {
+        foreach (qw( asterisk_nethserver )) {
             if (($status eq 'true') && ($asterisk eq 'enabled')){
                 push(@jails, $_);
             }
