@@ -1,6 +1,6 @@
 Summary: NethServer configuration for fail2ban
 Name: nethserver-fail2ban
-Version: 1.7.1
+Version: 1.7.2
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -79,6 +79,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/fail2ban/filter.d/rspamd.conf
 
 %changelog
+* Tue Nov 30 2021 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.7.2-1
+- Fail2Ban: Shorewall doesn't block IP banned by asterisk jail - Bug NethServer/dev#6605
+
 * Tue Jun 22 2021 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.7.1-1
 - Cockpit applications: honor URLs inside manifest (2) - NethServer/dev#6530
 
