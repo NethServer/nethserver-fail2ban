@@ -5,9 +5,18 @@
     return "" if ($fail2ban{'status'} ne 'enabled');
     my $banLocal = $fail2ban{'BanLocalNetwork'} || 'disabled';
     foreach (NethServer::Fail2Ban::listAllJails()) {
-        $OUT .= "DROP\tnet:+f2b-$_\tall\n";
-        if ($banLocal eq 'enabled') {
-            $OUT .= "DROP\tloc:+f2b-$_\tall\n";
-        }
+        if ( $_ eq 'asterisk' ) {
+                $OUT .= "DROP\tnet:+f2b-$_-tcp\tall\n";
+                $OUT .= "DROP\tnet:+f2b-$_-udp\tall\n";
+            if ($banLocal eq 'enabled') {
+                $OUT .= "DROP\tloc:+f2b-$_-tcp\tall\n";
+                $OUT .= "DROP\tloc:+f2b-$_-udp\tall\n";
+            }
+       } else {
+            $OUT .= "DROP\tnet:+f2b-$_\tall\n";
+            if ($banLocal eq 'enabled') {
+                $OUT .= "DROP\tloc:+f2b-$_\tall\n";
+            }
+       }
     }
 }
