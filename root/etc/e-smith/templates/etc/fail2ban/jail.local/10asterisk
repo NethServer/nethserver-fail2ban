@@ -9,7 +9,7 @@
         $OUT .= "\n[$_]\n";
         $OUT .= "enabled = true\n";
         $OUT .= "port = $port\n";
-        $OUT .= "logpath = /var/log/asterisk/full\n";
+        $OUT .= "logpath = /var/log/asterisk/full\n /var/log/asterisk/nethcti.log\n";
         $OUT .= "maxretry = $maxretry\n";
         $OUT .= "action = $action\n\n"
 
